@@ -29,21 +29,34 @@ using akr.Unity.Windows;
 using EVMC4U;
 using UnityMemoryMappedFile;
 
+/*
+・あきらさんのグリーンバック(色可変)を載せる
+・カメラアングルとかいじれるようにする
+・fovは抑えめにする
+・画面サイズ可変
+・ズーム
+・SEDSSクライアント・サーバー両方載せとく
+*/
+
 public class Controller : MonoBehaviour
 {
-    private MainThreadInvoker mainThreadInvoker;
+    public MainThreadInvoker mainThreadInvoker;
     public ExternalReceiver externalReceiver;
     public WindowManagerEx windowManagerEx;
+
+    public Transform cameraArm;
+    public Transform camera;
+
+    SEDSS_Server sedss_server;
     MemoryMappedFileServer server;
 
     void Start()
     {
-        windowManagerEx = GetComponent<WindowManagerEx>();
-        externalReceiver = GetComponent<ExternalReceiver>();
+        sedss_server = new SEDSS_Server();
 
         server = new MemoryMappedFileServer();
         server.ReceivedEvent += Server_Received;
-        server.Start("SamplePipeName");
+        server.Start("Oredayo_UI_Connection");
     }
 
     private void OnApplicationQuit()
@@ -54,14 +67,36 @@ public class Controller : MonoBehaviour
 
     private async void Server_Received(object sender, DataReceivedEventArgs e)
     {
-        if (e.CommandType == typeof(PipeCommands.SendMessage))
+        if (e.CommandType == typeof(PipeCommands.LoadVRM))
         {
-            var d = (PipeCommands.MoveObject)e.Data;
+            var d = (PipeCommands.LoadVRM)e.Data;
+            Debug.Log("LoadVRM: " + d.filepath);
+
+
             mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
             {
-
+                externalReceiver.LoadVRM(d.filepath);
             });
-            await server.SendCommandAsync(new PipeCommands.ReturnCurrentPosition { CurrentX = x }, e.RequestId);
+        }
+        if (e.CommandType == typeof(PipeCommands.BackgrounColor))
+        {
+            var d = (PipeCommands.BackgrounColor)e.Data;
+
+            mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
+            {
+                windowManagerEx.SetWindowBackgroundTransparent(false, new Color(d.r / 255f, d.g / 255f, d.b / 255f));
+            });
+        }
+        if (e.CommandType == typeof(PipeCommands.CameraPos))
+        {
+            var d = (PipeCommands.CameraPos)e.Data;
+
+            mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
+            {
+                cameraArm.localRotation = Quaternion.Euler(0, d.rotate-180f, 0);
+                camera.localPosition = new Vector3(0, 0, d.zoom);
+                cameraArm.localPosition = new Vector3(0, d.height, 0);
+            });
         }
     }
 

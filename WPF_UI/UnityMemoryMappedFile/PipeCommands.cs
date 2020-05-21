@@ -24,18 +24,22 @@ namespace UnityMemoryMappedFile
             public string Message { get; set; }
         }
 
-        public class MoveObject
+        public class BackgrounColor
         {
-            public float X { get; set; }
+            public float r { get; set; }
+            public float g { get; set; }
+            public float b { get; set; }
+        }
+        public class CameraPos
+        {
+            public float rotate { get; set; }
+            public float zoom { get; set; }
+            public float height { get; set; }
+        }
+        public class LoadVRM
+        {
+            public string filepath { get; set; }
         }
 
-        public class GetCurrentPosition
-        {
-        }
-
-        public class ReturnCurrentPosition
-        {
-            public float CurrentX { get; set; }
-        }
     }
 }
