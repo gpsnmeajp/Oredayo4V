@@ -1,0 +1,8 @@
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\bin\Debug\UnityMemoryMappedFile.dll
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\bin\Debug\UnityMemoryMappedFile.pdb
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\obj\Debug\UnityMemoryMappedFile.csprojAssemblyReference.cache
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\obj\Debug\UnityMemoryMappedFile.csproj.CoreCompileInputs.cache
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\obj\Debug\UnityMemoryMappedFile.dll
+D:\Projects\Unity\Oredayo\WPF_UI\UnityMemoryMappedFile\obj\Debug\UnityMemoryMappedFile.pdb
+D:\Projects\Unity\Oredayo\Assets\UnityMemoryMappedFile\UnityMemoryMappedFile.dll
+D:\Projects\Unity\Oredayo\Assets\UnityMemoryMappedFile\UnityMemoryMappedFile.pdb

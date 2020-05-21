@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1290998988569578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4726807146550092}
+  - component: {fileID: 114904964707932124}
+  - component: {fileID: 114650956063469164}
+  m_Layer: 0
+  m_Name: ExternalController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4726807146550092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290998988569578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114904964707932124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290998988569578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d36dd9fcae25042bbb815255411ff524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  address: 127.0.0.1
+  port: 39540
+--- !u!114 &114650956063469164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290998988569578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d5b8932be88184b83e2a8656ca3d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enable: 1
+  PeriodOfStatus: 1
+  PeriodOfRoot: 1
+  PeriodOfBone: 1
+  PeriodOfBlendShape: 1
+  PeriodOfCamera: 1
+  PeriodOfDevices: 1
+  PeriodEnable: 0
+  DeviceMode: 2
+  DeviceTransform: {fileID: 0}
+  DeviceSerial: VIRTUAL_DEVICE
+  DeviceEnable: 0
+  MidiKnob: 0
+  MidiValue: 0
+  MidiEnable: 0
+  CameraTransform: {fileID: 0}
+  CameraFOV: 30
+  CameraEnable: 0
+  BlendShapeName: 
+  BlendShapeValue: 0
+  BlendShapeEnable: 0
+  EyeTrackingTargetTransform: {fileID: 0}
+  EyeTrackingTargetUse: 0
+  EyeTrackingTargetEnable: 0
+  ResponseString: 
+  ResponseStringEnable: 0
+  CalibrationReady: 0
+  calibrationMode: 0
+  CalibrationExecute: 0
+  ConfigPath: 
+  ConfigLoad: 0
+  RequestInformation: 0
