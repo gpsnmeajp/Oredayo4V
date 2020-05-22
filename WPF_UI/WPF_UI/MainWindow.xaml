@@ -6,129 +6,297 @@
         xmlns:local="clr-namespace:WPF_UI"
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
         mc:Ignorable="d"
-        Title="Oredayo UI" Height="450" Width="800" Closed="Window_Closed" Loaded="Window_Loaded">
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<DockPanel>
-			<StackPanel  DockPanel.Dock="Left" Width="400">
-				<GroupBox Header="情報">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="110"/>
-							<ColumnDefinition Width="110"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition />
-							<RowDefinition />
-						</Grid.RowDefinitions>
-						<TextBlock Grid.Column="0" Grid.Row="0">EVMC4U ポート番号</TextBlock>
-						<TextBlock Grid.Column="1" Grid.Row="0">39009</TextBlock>
-						<TextBlock Grid.Column="0" Grid.Row="1">SEDSS ポート番号</TextBlock>
-						<TextBlock Grid.Column="1" Grid.Row="1">39008</TextBlock>
-					</Grid>
-				</GroupBox>
-				<GroupBox Header="VRM読み込み">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="30"/>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="60"/>
-							<ColumnDefinition Width="60"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition />
-							<RowDefinition />
-						</Grid.RowDefinitions>
-						<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
-						<TextBox Name="VRMPathTextBox" Text="c:\default.vrm" Grid.Column="1" Grid.Row="0" />
-						<Button Name="VRMLoadButton" Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読み込み" Click="VRMLoadButton_Click"></Button>
-						<Button IsEnabled="False" Name="VRMLoadFileSelectButton" Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="VRMLoadButton_Click"></Button>
-					</Grid>
-				</GroupBox>
-				<GroupBox Header="カメラ位置">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="30" />
-							<ColumnDefinition />
-							<ColumnDefinition Width="60"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition />
-							<RowDefinition />
-							<RowDefinition />
-						</Grid.RowDefinitions>
-						<TextBlock Grid.Column="0" Grid.Row="0">回転</TextBlock>
-						<Slider Name="CameraRotateSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
-						<Button Name="CameraRotateResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="CameraRotateResetButton_Click" />
-						<TextBlock Grid.Column="0" Grid.Row="1">ズーム</TextBlock>
-						<Slider Name="CameraZoomSlider" Grid.Column="1" Grid.Row="1"  Value="30" Maximum="100" Minimum="0"  ValueChanged="CameraSlider_ValueChanged" />
-						<Button Name="CameraZoomResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="CameraZoomResetButton_Click"/>
-						<TextBlock Grid.Column="0" Grid.Row="2">高さ</TextBlock>
-						<Slider Name="CameraHeightSlider" Grid.Column="1" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
-						<Button Name="CameraHeightResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="CameraHeightResetButton_Click"/>
-					</Grid>
-				</GroupBox>
-				<GroupBox Header="ライト位置">
-					<Button Content="リセット"></Button>
-				</GroupBox>
-				<GroupBox Header="EVMC4U">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="60"/>
-							<ColumnDefinition Width="100"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="20" />
-							<RowDefinition Height="20" />
-							<RowDefinition Height="20" />
-						</Grid.RowDefinitions>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="0" Grid.Row="0"  Content="Freeze"/>
-						<Button IsEnabled="false" Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="高解像度撮影"></Button>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="0" Grid.Row="1"  Content="Bone Filter Enable"/>
-						<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="false" Grid.Column="1" Grid.Row="1" Margin="0,0,2,0">フィルタ値:</TextBlock>
-						<TextBox Text="0.9" VerticalAlignment="Center" IsEnabled="false" Grid.Column="2" Grid.Row="1" />
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter Enable"/>
-						<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" IsEnabled="false" Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
-						<TextBox  Text="0.9" VerticalAlignment="Center" IsEnabled="false" Grid.Column="2" Grid.Row="2" />
-					</Grid>
-				</GroupBox>
-				<GroupBox Header="Window">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="0.3*"/>
-							<ColumnDefinition Width="0.3*"/>
-							<ColumnDefinition Width="0.3*"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="20" />
-						</Grid.RowDefinitions>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="0" Grid.Row="0"  Content="最前面"/>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="1" Grid.Row="0"  Content="透過"/>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="2" Grid.Row="0"   Content="マウスフォーカス"/>
-					</Grid>
-				</GroupBox>
-				<GroupBox Header="SEDSS">
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition Width="100"/>
-							<ColumnDefinition Width="100"/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="20" />
-						</Grid.RowDefinitions>
-						<CheckBox VerticalAlignment="Center" IsEnabled="false" Grid.Column="0" Grid.Row="0"  Content="送受信を許可する"/>
-						<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
-						<TextBox  Text="" VerticalAlignment="Center" IsEnabled="false" Grid.Column="2" Grid.Row="0" />
-					</Grid>
-				</GroupBox>
-			</StackPanel>
-			<GroupBox Header="背景色" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Top">
-				<Controls:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Green" />
-			</GroupBox>
-		</DockPanel>
-	</Grid>
+		Background="#333333"
+        Title="Oredayo UI" Height="500.5" Width="427" Closed="Window_Closed" Loaded="Window_Loaded">
+	<DockPanel LastChildFill="True">
+		<StatusBar DockPanel.Dock="Bottom" Height="20" VerticalAlignment="Bottom" Background="#222222">
+			<StatusBarItem>
+				<TextBlock  VerticalAlignment="Center" Foreground="#F0F0F0">Welcome to Oredayo!</TextBlock>
+			</StatusBarItem>
+		</StatusBar>
+		<TabControl DockPanel.Dock="Top">
+			<TabItem  Header="基本設定">
+				<StackPanel>
+					<GroupBox Header="VRM読み込み">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
+							<TextBox Name="VRMPathTextBox" Text="c:\default.vrm" Grid.Column="1" Grid.Row="0" />
+							<Button Name="VRMLoadButton" Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="VRMLoadButton_Click"></Button>
+							<Button  Name="VRMLoadFileSelectButton" Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="VRMLoadFileSelectButton_Click"></Button>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="背景読み込み">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
+							<TextBox Text="" Grid.Column="1" Grid.Row="0" />
+							<Button Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="VRMLoadButton_Click"></Button>
+							<Button  Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="VRMLoadButton_Click"></Button>
+							<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4">対応拡張子: png, jpg, vrm</TextBlock>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="カメラ位置">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
+							<Slider Name="CameraRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="CameraRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
+							<Slider Name="CameraRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="CameraRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
+							<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="CameraRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0">ズーム</TextBlock>
+							<Slider Name="CameraZoomSlider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraZoomResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="CameraZoomResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1">高さ</TextBlock>
+							<Slider Name="CameraHeightSlider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraHeightResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="CameraHeightResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2">FOV</TextBlock>
+							<Slider Name="CameraFOVSlider" Grid.Column="4" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraFOVResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="CameraFOVResetButton_Click"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="ライト位置">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
+							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="LightRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
+							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="LightRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
+							<Slider Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0">強さ</TextBlock>
+							<Slider Name="LightZoomSlider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightZoomResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="LightZoomResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1">高さ</TextBlock>
+							<Slider Name="LightHeightSlider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightHeightResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="LightHeightResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2">レンジ</TextBlock>
+							<Slider Name="LightFOVSlider" Grid.Column="4" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightFOVResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="LightFOVResetButton_Click"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="背景オブジェクト位置">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="30" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
+							<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="BackgroundRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
+							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="BackgroundRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
+							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="BackgroundRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0">X位置</TextBlock>
+							<Slider Name="BackgroundPositionXSlider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundPositionXResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="BackgroundZoomResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1">Y位置</TextBlock>
+							<Slider Name="BackgroundPositionYSlider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundPositionYResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="BackgroundHeightResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2">Z位置</TextBlock>
+							<Slider Name="BackgroundPositionZSlider" Grid.Column="4" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundPositionZResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="BackgroundFOVResetButton_Click"/>
+						</Grid>
+					</GroupBox>
+				</StackPanel>
+			</TabItem>
+			<TabItem  Header="詳細設定">
+				<StackPanel>
+					<GroupBox Header="EVMC4U">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="60"/>
+								<ColumnDefinition Width="100"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="Freeze"/>
+							<Button  Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="高解像度撮影"></Button>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter Enable"/>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0">フィルタ値:</TextBlock>
+							<TextBox Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" />
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter Enable"/>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
+							<TextBox  Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" />
+						</Grid>
+					</GroupBox>
+
+					<GroupBox Header="Window">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*"/>
+								<ColumnDefinition Width="0.3*"/>
+								<ColumnDefinition Width="0.3*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="最前面"/>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="透過"/>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="マウスフォーカス"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="Root位置">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*"/>
+								<ColumnDefinition Width="0.3*"/>
+								<ColumnDefinition Width="0.3*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="カメラロック"/>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="ライトロック"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="外部連携">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="OBS連動"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="SEDSSサーバー">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="100"/>
+								<ColumnDefinition Width="100"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="送受信を許可する"/>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
+							<TextBox  Text="" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0" />
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="SEDSSクライアント">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="50"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="50"/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
+							</Grid.RowDefinitions>
+							<Button Content="送信" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1"/>
+							<Button Content="受信" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" >IP:</TextBlock>
+							<TextBox  Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" >Port:</TextBlock>
+							<TextBox  Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0" >パスワード:</TextBlock>
+							<TextBox  Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,0,2,0" >ID:</TextBlock>
+							<TextBox  Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="2" />
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="情報">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="110"/>
+								<ColumnDefinition Width="110"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">EVMC4U ポート番号</TextBlock>
+							<TextBlock Grid.Column="1" Grid.Row="0">39009</TextBlock>
+							<TextBlock Grid.Column="0" Grid.Row="1">SEDSS ポート番号</TextBlock>
+							<TextBlock Grid.Column="1" Grid.Row="1">39008</TextBlock>
+						</Grid>
+					</GroupBox>
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="色設定">
+				<StackPanel>
+					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
+						<GroupBox Header="背景色" Width="200" Height="370">
+							<Controls:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Green" />
+						</GroupBox>
+						<GroupBox Header="ライト色" Width="200" Height="370">
+							<Controls:ColorPicker SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Green" />
+						</GroupBox>
+					</StackPanel>
+				</StackPanel>
+			</TabItem>
+		</TabControl>
+
+	</DockPanel>
 </Window>

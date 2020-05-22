@@ -110,18 +110,43 @@ namespace WPF_UI
             if (client != null) {
                 await client.SendCommandAsync(new PipeCommands.CameraPos
                 {
-                    rotate = (float)CameraRotateSlider.Value,
+                    rotate = (float)CameraRotateXSlider.Value,
                     zoom = (float)CameraZoomSlider.Value,
                     height = (float)CameraHeightSlider.Value,
                 });
             }
         }
 
-        private void CameraRotateResetButton_Click(object sender, RoutedEventArgs e)
+        
+
+
+        private void VRMLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraRotateSlider.Value = 180f;
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".vrm";
+            dlg.Filter = "VRM file|*.vrm|All file|*.*";
+
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                VRMPathTextBox.Text = dlg.FileName;
+            }
+        }
+        private void CameraRotateXResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            CameraRotateXSlider.Value = 180f;
         }
 
+        private void CameraRotateYResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            CameraRotateYSlider.Value = 180f;
+        }
+
+        private void CameraRotateZResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            CameraRotateZSlider.Value = 180f;
+        }
         private void CameraZoomResetButton_Click(object sender, RoutedEventArgs e)
         {
             CameraZoomSlider.Value = 30f;
@@ -130,6 +155,81 @@ namespace WPF_UI
         private void CameraHeightResetButton_Click(object sender, RoutedEventArgs e)
         {
             CameraHeightSlider.Value = 1.4f;
+        }
+
+        private void CameraFOVResetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LightRotateXResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightRotateXSlider.Value = 180f;
+        }
+
+        private void LightRotateYResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightRotateYSlider.Value = 180f;
+        }
+
+        private void LightRotateZResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightRotateZSlider.Value = 180f;
+        }
+
+        private void LightZoomResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightZoomSlider.Value = 0;
+        }
+
+        private void LightHeightResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightHeightSlider.Value = 0;
+        }
+
+        private void LightFOVResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            LightFOVSlider.Value = 0;
+        }
+
+        private void BackgroundRotateXResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundRotateXSlider.Value = 180f;
+        }
+
+        private void BackgroundRotateYResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundRotateYSlider.Value = 180f;
+        }
+
+        private void BackgroundRotateZResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundRotateZSlider.Value = 180f;
+        }
+
+        private void BackgroundZoomResetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackgroundHeightResetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BackgroundFOVResetButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LightSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+        private void BackgroundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
     }
 }
