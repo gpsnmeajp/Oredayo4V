@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -19,10 +20,125 @@ namespace UnityMemoryMappedFile
             return null;
         }
 
+        public enum LightType{ 
+            Directional,
+            Point,
+            Spot,
+        };
+        public enum SEDSS_RequestType
+        {
+            Upload,
+            Downdload,
+        };
+        public enum LogType
+        {
+            Error,
+            Warning,
+            Info,
+            Debug,
+        };
+
+        //Each
+        public class Hello{ }
+        public class Bye{ }
+
+        //To Unity
         public class SendMessage
         {
             public string Message { get; set; }
         }
+        //★基本設定画面
+        public class LoadVRM
+        {
+            public string filepath { get; set; }
+        }
+        public class LoadBackground
+        {
+            public string filepath { get; set; }
+        }
+        public class RemoveBackground
+        {
+        }
+
+        public class CameraControl
+        {
+            public float Rx { get; set; }
+            public float Ry { get; set; }
+            public float Rz { get; set; }
+            public float Zoom { get; set; }
+            public float Height { get; set; }
+            public float Fov { get; set; }
+        }
+
+        public class LightControl
+        {
+            public float Rx { get; set; }
+            public float Ry { get; set; }
+            public float Rz { get; set; }
+            public float Distance { get; set; }
+            public float Range { get; set; }
+            public float SpotAngle { get; set; }
+            public LightType Type { get; set; }
+        }
+        public class BackgroundObjectControl
+        {
+            public float Rx { get; set; }
+            public float Ry { get; set; }
+            public float Rz { get; set; }
+            public float Px { get; set; }
+            public float Py { get; set; }
+            public float Pz { get; set; }
+        }
+
+        //★詳細設定
+        public class EVMC4UControl
+        {
+            public bool Freeze { get; set; }
+            public bool BoneFilterEnable { get; set; }
+            public float BoneFilterValue { get; set; }
+            public bool BlendShapeFilterEnable { get; set; }
+            public float BlendShapeFilterValue { get; set; }
+        }
+
+        public class EVMC4UTakePhotoCommand
+        {
+            //Command
+        }
+
+        public class WindowControl
+        {
+            public bool ForceForeground { get; set; }
+            public bool Transparent { get; set; }
+            public bool Border { get; set; }
+        }
+
+        public class RootPositionControl
+        {
+            public bool CameraLock { get; set; }
+            public bool LightLock { get; set; }
+        }
+        public class ExternalControl
+        {
+            public bool OBS { get; set; }
+        }
+        public class SEDSSServerControl
+        {
+            public bool Enable { get; set; }
+            public string Password { get; set; }
+        }
+        public class SEDSSClientControl
+        {
+            public string Address { get; set; }
+            public string Port { get; set; }
+            public string ID { get; set; }
+            public string Password { get; set; }
+        }
+        public class SEDSSClientRequestCommand
+        {
+            public SEDSS_RequestType RequestType { get; set; }
+        }
+
+        //★色設定
 
         public class BackgrounColor
         {
@@ -30,16 +146,20 @@ namespace UnityMemoryMappedFile
             public float g { get; set; }
             public float b { get; set; }
         }
-        public class CameraPos
+        public class LightColor
         {
-            public float rotate { get; set; }
-            public float zoom { get; set; }
-            public float height { get; set; }
-        }
-        public class LoadVRM
-        {
-            public string filepath { get; set; }
+            public float r { get; set; }
+            public float g { get; set; }
+            public float b { get; set; }
         }
 
+        //From Unity
+        public class LogMessage
+        {
+            public LogType Type { get; set; }
+            public string Message { get; set; }
+            public string Detail { get; set; }
+
+        }
     }
 }

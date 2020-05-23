@@ -5,7 +5,7 @@ using System.Text;
 
 namespace akr.WPF.Primitives
 {
-    internal struct HsvColor
+    public struct HsvColor
     {
         public double H;
         public double S;

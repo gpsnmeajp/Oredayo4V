@@ -38,6 +38,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UnityMemoryMappedFile;
 using akr.WPF.Controls;
+using System.Windows.Threading;
 
 namespace WPF_UI
 {
@@ -47,17 +48,48 @@ namespace WPF_UI
     public partial class MainWindow : Window
     {
         private MemoryMappedFileClient client;
-
+        private DispatcherTimer dispatcherTimer;
+        private float gamingH = 0f;
 
         public MainWindow()
         {
             InitializeComponent();
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+
+        //-----------システム系----------------
+        private void Client_Received(object sender, DataReceivedEventArgs e)
+        {
+            if (e.CommandType == typeof(PipeCommands.Hello))
+            {
+                //Unity側起動時処理(値送信など)
+            }
+            else if (e.CommandType == typeof(PipeCommands.Bye))
+            {
+                //Unity側終了処理
+                this.Close();
+            }
+            else if (e.CommandType == typeof(PipeCommands.LogMessage))
+            {
+                //ログ受信時処理
+                var d = (PipeCommands.LogMessage)e.Data;
+                Dispatcher.Invoke(() => {
+                    StatusBarText.Text = "[" + d.Type.ToString() + "] " + d.Message;
+                });
+            }
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             client = new MemoryMappedFileClient();
             client.ReceivedEvent += Client_Received;
             client.Start("Oredayo_UI_Connection");
+
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 32);
+            dispatcherTimer.Tick += new EventHandler(GenericTimer);
+            dispatcherTimer.Start();
+
+            //起動したことを伝える
+            await client.SendCommandAsync(new PipeCommands.Hello { });
             /*
                         await client.SendCommandAsync(new PipeCommands.SendMessage { Message = "TestFromWPF" });
                         await client.SendCommandWaitAsync(new PipeCommands.GetCurrentPosition(), d =>
@@ -69,58 +101,41 @@ namespace WPF_UI
                         });
                         */
         }
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //終了を伝える
+            await client.SendCommandAsync(new PipeCommands.Bye { });
+        }
         private void Window_Closed(object sender, EventArgs e)
         {
+            dispatcherTimer.Stop();
             client.Stop();
         }
 
-
-        private void Client_Received(object sender, DataReceivedEventArgs e)
-        {
-            if (e.CommandType == typeof(PipeCommands.SendMessage))
+        private void GenericTimer(object sender, EventArgs e) {
+            if (GamingBackgroundCheckBox.IsChecked.HasValue && GamingBackgroundCheckBox.IsChecked.Value)
             {
-                var d = (PipeCommands.SendMessage)e.Data;
-                MessageBox.Show($"[Client]ReceiveFromServer:{d.Message}");
+                BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
             }
-        }
-        private async void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            if (client != null)
+            if (GamingLightCheckBox.IsChecked.HasValue && GamingLightCheckBox.IsChecked.Value)
             {
-                Color? d = ((ColorPicker)sender).SelectedColor;
-                if (d.HasValue)
-                {
-                    Color c = d.Value;
-                    await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
-                }
+                LightColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
+            }
+
+            gamingH += 10f;
+            if (gamingH > 360f) {
+                gamingH -= 360f;
             }
         }
 
+        //-----------基本設定----------------
+        //===========VRM読み込み===========
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (client != null)
-            {
-                Console.WriteLine("VRM Load");
-                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
-            }
+            await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
         }
 
-        private async void CameraSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (client != null) {
-                await client.SendCommandAsync(new PipeCommands.CameraPos
-                {
-                    rotate = (float)CameraRotateXSlider.Value,
-                    zoom = (float)CameraZoomSlider.Value,
-                    height = (float)CameraHeightSlider.Value,
-                });
-            }
-        }
-
-        
-
-
-        private void VRMLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
+        private async void VRMLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "";
@@ -131,6 +146,50 @@ namespace WPF_UI
             if (result == true)
             {
                 VRMPathTextBox.Text = dlg.FileName;
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
+            }
+        }
+
+        //===========背景読み込み===========
+        private async void BackgroundObjectLoadButton_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+        }
+
+        private async void BackgroundObjectLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".png";
+            dlg.Filter = "PNG file|*.png|JPEG file|*.jpg|VRM file|*.vrm|All file|*.*";
+
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                BackgroundObjectPathTextBox.Text = dlg.FileName;
+                await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+            }
+        }
+        private async void BackgroundObjectRemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.RemoveBackground { });
+        }
+
+        //===========カメラ位置===========
+        private async void CameraSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.CameraControl
+                {
+                    Rx = (float)CameraRotateXSlider.Value,
+                    Ry = (float)CameraRotateYSlider.Value,
+                    Rz = (float)CameraRotateZSlider.Value,
+
+                    Zoom = (float)CameraValue1Slider.Value,
+                    Height = (float)CameraValue2Slider.Value,
+                    Fov = (float)CameraValue3Slider.Value,
+                });
             }
         }
         private void CameraRotateXResetButton_Click(object sender, RoutedEventArgs e)
@@ -147,20 +206,40 @@ namespace WPF_UI
         {
             CameraRotateZSlider.Value = 180f;
         }
-        private void CameraZoomResetButton_Click(object sender, RoutedEventArgs e)
+        private void CameraValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraZoomSlider.Value = 30f;
+            CameraValue1Slider.Value = 30f;
         }
 
-        private void CameraHeightResetButton_Click(object sender, RoutedEventArgs e)
+        private void CameraValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraHeightSlider.Value = 1.4f;
+            CameraValue2Slider.Value = 1.4f;
         }
 
-        private void CameraFOVResetButton_Click(object sender, RoutedEventArgs e)
+        private void CameraValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-
+            CameraValue3Slider.Value = 1f;
         }
+
+
+        //===========ライト位置===========
+
+        //===========背景オブジェクト位置===========
+
+
+        private async void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (client != null)
+            {
+                Color? d = ((ColorPicker)sender).SelectedColor;
+                if (d.HasValue)
+                {
+                    Color c = d.Value;
+                    await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
+                }
+            }
+        }
+
 
         private void LightRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -177,19 +256,19 @@ namespace WPF_UI
             LightRotateZSlider.Value = 180f;
         }
 
-        private void LightZoomResetButton_Click(object sender, RoutedEventArgs e)
+        private void LightValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightZoomSlider.Value = 0;
+            LightValue1Slider.Value = 0;
         }
 
-        private void LightHeightResetButton_Click(object sender, RoutedEventArgs e)
+        private void LightValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightHeightSlider.Value = 0;
+            LightValue2Slider.Value = 0;
         }
 
-        private void LightFOVResetButton_Click(object sender, RoutedEventArgs e)
+        private void LightValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightFOVSlider.Value = 0;
+            LightValue3Slider.Value = 0;
         }
 
         private void BackgroundRotateXResetButton_Click(object sender, RoutedEventArgs e)
@@ -207,17 +286,17 @@ namespace WPF_UI
             BackgroundRotateZSlider.Value = 180f;
         }
 
-        private void BackgroundZoomResetButton_Click(object sender, RoutedEventArgs e)
+        private void BackgroundValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void BackgroundHeightResetButton_Click(object sender, RoutedEventArgs e)
+        private void BackgroundValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void BackgroundFOVResetButton_Click(object sender, RoutedEventArgs e)
+        private void BackgroundValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
@@ -231,5 +310,11 @@ namespace WPF_UI
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

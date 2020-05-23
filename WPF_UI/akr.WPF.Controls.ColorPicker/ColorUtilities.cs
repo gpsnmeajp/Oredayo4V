@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace akr.WPF.Utilities
 {
-    static class ColorUtilities
+    public static class ColorUtilities
     {
         public static HsvColor RgbToHsv(int r, int g, int b)
         {
