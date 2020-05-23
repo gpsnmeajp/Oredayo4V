@@ -47,7 +47,8 @@ public class Controller : MonoBehaviour
     public WindowManagerEx windowManagerEx;
 
     public Transform cameraArm;
-    public Transform camera;
+    public Camera camera;
+    public LookAtModel lookAtModel;
 
     SEDSS_Server sedss_server;
     MemoryMappedFileServer server;
@@ -116,19 +117,61 @@ public class Controller : MonoBehaviour
                     */
                 Debug.Log(">Bye");
             }
-
-            /*
+            //-----------基本設定----------------
+            //===========VRM読み込み===========
             if (e.CommandType == typeof(PipeCommands.LoadVRM))
             {
                 var d = (PipeCommands.LoadVRM)e.Data;
                 Debug.Log("LoadVRM: " + d.filepath);
-
-
-                mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
-                {
-                    externalReceiver.LoadVRM(d.filepath);
-                });
+                externalReceiver.LoadVRM(d.filepath);
             }
+
+            //===========背景読み込み===========
+            else if (e.CommandType == typeof(PipeCommands.LoadBackground))
+            {
+                var d = (PipeCommands.LoadBackground)e.Data;
+                Debug.Log("LoadBackground: " + d.filepath);
+
+                //TODO: 背景読み込み処理
+            }
+            else if (e.CommandType == typeof(PipeCommands.RemoveBackground))
+            {
+                //TODO: 背景消去処理
+            }
+
+
+            //===========カメラ位置===========
+            else if (e.CommandType == typeof(PipeCommands.CameraControl))
+            {
+                var d = (PipeCommands.CameraControl)e.Data;
+
+                lookAtModel.zaxis = d.Rz;
+                lookAtModel.height = d.Height;
+                cameraArm.localRotation = Quaternion.Euler(d.Rx, d.Ry, 0);
+
+                camera.transform.localPosition = new Vector3(0, 0, d.Zoom);
+                camera.fieldOfView = d.Fov;
+
+            }
+
+
+            //===========ライト位置===========
+            //===========背景オブジェクト位置===========
+            //-----------詳細設定----------------
+            //===========EVMC4U===========
+            //===========Window===========
+            //===========Root位置===========
+            //===========外部連携===========
+            //===========SEDSSサーバー===========
+            //===========SEDSSクライアント===========
+
+            //-----------色設定----------------
+            //===========背景色===========
+            //===========ライト色===========
+
+
+
+            /*
             if (e.CommandType == typeof(PipeCommands.BackgrounColor))
             {
                 var d = (PipeCommands.BackgrounColor)e.Data;

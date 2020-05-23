@@ -77,13 +77,13 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-							<Slider Name="CameraRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Slider Name="CameraRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="CameraRotateXResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-							<Slider Name="CameraRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Slider Name="CameraRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="CameraRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-							<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="CameraSlider_ValueChanged" />
+							<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="CameraRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">ズーム</TextBlock>
 							<Slider Name="CameraValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="CameraSlider_ValueChanged" />
@@ -113,13 +113,13 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="LightRotateXResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="LightRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-							<Slider Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">距離</TextBlock>
 							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
@@ -163,13 +163,13 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-							<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="BackgroundRotateXResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="BackgroundRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="BackgroundRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">X位置</TextBlock>
 							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />

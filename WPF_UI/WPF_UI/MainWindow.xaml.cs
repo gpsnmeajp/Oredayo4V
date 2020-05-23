@@ -267,17 +267,17 @@ namespace WPF_UI
         }
         private void CameraRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraRotateXSlider.Value = 180f;
+            CameraRotateXSlider.Value = 0f;
         }
 
         private void CameraRotateYResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraRotateYSlider.Value = 180f;
+            CameraRotateYSlider.Value = 0f;
         }
 
         private void CameraRotateZResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraRotateZSlider.Value = 180f;
+            CameraRotateZSlider.Value = 0f;
         }
         private void CameraValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -339,17 +339,17 @@ namespace WPF_UI
 
         private void LightRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightRotateXSlider.Value = 180f;
+            LightRotateXSlider.Value = 0f;
         }
 
         private void LightRotateYResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightRotateYSlider.Value = 180f;
+            LightRotateYSlider.Value = 0f;
         }
 
         private void LightRotateZResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightRotateZSlider.Value = 180f;
+            LightRotateZSlider.Value = 0f;
         }
 
         private void LightValue1ResetButton_Click(object sender, RoutedEventArgs e)
@@ -392,17 +392,17 @@ namespace WPF_UI
 
         private void BackgroundRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundRotateXSlider.Value = 180f;
+            BackgroundRotateXSlider.Value = 0f;
         }
 
         private void BackgroundRotateYResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundRotateYSlider.Value = 180f;
+            BackgroundRotateYSlider.Value = 0f;
         }
 
         private void BackgroundRotateZResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundRotateZSlider.Value = 180f;
+            BackgroundRotateZSlider.Value = 0f;
         }
 
         private void BackgroundValue1ResetButton_Click(object sender, RoutedEventArgs e)
