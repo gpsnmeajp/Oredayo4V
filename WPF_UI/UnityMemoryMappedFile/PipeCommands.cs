@@ -34,7 +34,6 @@ namespace UnityMemoryMappedFile
         {
             Error,
             Warning,
-            Info,
             Debug,
         };
 
@@ -43,10 +42,6 @@ namespace UnityMemoryMappedFile
         public class Bye{ }
 
         //To Unity
-        public class SendMessage
-        {
-            public string Message { get; set; }
-        }
         //★基本設定画面
         public class LoadVRM
         {
@@ -126,16 +121,13 @@ namespace UnityMemoryMappedFile
             public bool Enable { get; set; }
             public string Password { get; set; }
         }
-        public class SEDSSClientControl
+        public class SEDSSClientRequestCommand
         {
+            public SEDSS_RequestType RequestType { get; set; }
             public string Address { get; set; }
             public string Port { get; set; }
             public string ID { get; set; }
             public string Password { get; set; }
-        }
-        public class SEDSSClientRequestCommand
-        {
-            public SEDSS_RequestType RequestType { get; set; }
         }
 
         //★色設定
@@ -161,5 +153,18 @@ namespace UnityMemoryMappedFile
             public string Detail { get; set; }
 
         }
+        public class SendMessage
+        {
+            public string Message { get; set; }
+        }
+        public class CommunicationStatus
+        {
+            public bool EVMC4U { get; set; }
+        }
+        public class KeepAlive
+        {
+        }
+
+
     }
 }

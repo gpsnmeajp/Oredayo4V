@@ -51,6 +51,8 @@ namespace WPF_UI
         private DispatcherTimer dispatcherTimer;
         private float gamingH = 0f;
 
+        private int UI_KeepAlive = 0;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -68,7 +70,9 @@ namespace WPF_UI
             else if (e.CommandType == typeof(PipeCommands.Bye))
             {
                 //Unity側終了処理
-                this.Close();
+                Dispatcher.Invoke(() => {
+                    //this.Close();
+                });
                 Console.WriteLine(">Bye");
             }
             else if (e.CommandType == typeof(PipeCommands.LogMessage))
@@ -77,7 +81,50 @@ namespace WPF_UI
                 var d = (PipeCommands.LogMessage)e.Data;
                 Dispatcher.Invoke(() => {
                     StatusBarText.Text = "[" + d.Type.ToString() + "] " + d.Message;
+                    switch (d.Type)
+                    {
+                        case PipeCommands.LogType.Error:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 30, 30));
+                            break;
+                        case PipeCommands.LogType.Warning:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 30));
+                            break;
+                        default:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                            break;
+                    }
                 });
+            }
+            else if (e.CommandType == typeof(PipeCommands.SendMessage))
+            {
+                //エラーダイアログ処理
+                var d = (PipeCommands.SendMessage)e.Data;
+                Dispatcher.Invoke(() => {
+                    MessageBox.Show(d.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
+            }
+            else if (e.CommandType == typeof(PipeCommands.CommunicationStatus))
+            {
+                //KeepAlive処理
+                var d = (PipeCommands.CommunicationStatus)e.Data;
+                Dispatcher.Invoke(() => {
+                    if (!d.EVMC4U)
+                    {
+                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                        InfoEVMC4UStateTextBlock.Text = "NG";
+                    }
+                    else
+                    {
+                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                        InfoEVMC4UStateTextBlock.Text = "OK";
+                    }
+                });
+            }
+            else if (e.CommandType == typeof(PipeCommands.KeepAlive))
+            {
+                UI_KeepAlive = 0;
             }
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -128,6 +175,23 @@ namespace WPF_UI
             gamingH += 10f;
             if (gamingH > 360f) {
                 gamingH -= 360f;
+            }
+
+            //-------
+            UI_KeepAlive++;
+            if (UI_KeepAlive > 60)
+            {
+                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                InfoUIStateTextBlock.Text = "NG";
+                InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                InfoEVMC4UStateTextBlock.Text = "--";
+            }
+            else {
+                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
+                InfoUIStateTextBlock.Text = "OK";
             }
         }
 
@@ -399,11 +463,96 @@ namespace WPF_UI
         }
 
         //===========Window===========
-        //===========Root位置===========
-        //===========外部連携===========
-        //===========SEDSSサーバー===========
-        //===========SEDSSクライアント===========
+        private async void WindowOption_Checked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.WindowControl
+                {
+                    Border = WindowOptionWindowBorderCheckBox.IsChecked.Value,
+                    ForceForeground = WindowOptionForceForegroundCheckBox.IsChecked.Value,
+                    Transparent = WindowOptionTransparentCheckBox.IsChecked.Value,
+                });
+            }
+            Console.WriteLine("WindowOption");
+        }
 
+        //===========Root位置===========
+        private async void RootPos_Checked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.RootPositionControl
+                {
+                    CameraLock = CameraRootPosLockCheckBox.IsChecked.Value,
+                    LightLock = LightRootPosLockCheckBox.IsChecked.Value,
+                });
+            }
+            Console.WriteLine("RootPos");
+        }
+
+        //===========外部連携===========
+        private async void ExternalControl_Checked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.ExternalControl
+                {
+                    OBS = OBSExternalControl_CheckBox.IsChecked.Value
+                });
+            }
+            Console.WriteLine("ExternalControl");
+        }
+        //===========SEDSSサーバー===========
+        private async void SEDSSServer_Checked(object sender, RoutedEventArgs e)
+        {
+            if (SEDSSServerEnableCheckBox != null)
+            {
+                SEDSSServerPasswordTextBox.IsEnabled = !SEDSSServerEnableCheckBox.IsChecked.Value;
+            }
+
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.SEDSSServerControl
+                {
+                    Enable = SEDSSServerEnableCheckBox.IsChecked.Value,
+                    Password = SEDSSServerPasswordTextBox.Text,
+                });
+            }
+            Console.WriteLine("SEDSSServer");
+        }
+
+        //===========SEDSSクライアント===========
+        private async void SEDSSClientUploadButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.SEDSSClientRequestCommand
+                {
+                    RequestType = PipeCommands.SEDSS_RequestType.Upload,
+                    Address = SEDSSClientAddressTextBox.Text,
+                    Port = SEDSSClientPortTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Text,
+                    ID = SEDSSClientIDTextBox.Text,
+                });
+            }
+            Console.WriteLine("SEDSSClient Upload");
+        }
+        private async void SEDSSClientDownloadButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.SEDSSClientRequestCommand
+                {
+                    RequestType = PipeCommands.SEDSS_RequestType.Downdload,
+                    Address = SEDSSClientAddressTextBox.Text,
+                    Port = SEDSSClientPortTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Text,
+                    ID = SEDSSClientIDTextBox.Text,
+                });
+            }
+            Console.WriteLine("SEDSSClient Download");
+        }
         //-----------色設定----------------
         //===========背景色===========
         private async void BackgroundColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
@@ -417,6 +566,7 @@ namespace WPF_UI
                     await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
                 }
             }
+            Console.WriteLine("BackgroundColor");
         }
 
         //===========ライト色===========
@@ -431,6 +581,7 @@ namespace WPF_UI
                     await client?.SendCommandAsync(new PipeCommands.LightColor { r = c.R, g = c.G, b = c.B });
                 }
             }
+            Console.WriteLine("LightColor");
         }
 
 
