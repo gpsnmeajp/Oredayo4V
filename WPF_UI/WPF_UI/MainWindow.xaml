@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
         mc:Ignorable="d"
 		Background="#333333"
-        Title="Oredayo UI" Height="532.5" Width="427" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI" Height="532.5" Width="440" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<DockPanel LastChildFill="True">
 		<StatusBar DockPanel.Dock="Bottom" Height="20" VerticalAlignment="Bottom" Background="#222222">
 			<StatusBarItem>
@@ -121,14 +121,14 @@
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
 							<Slider Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
-							<TextBlock Grid.Column="3" Grid.Row="0">強さ</TextBlock>
+							<TextBlock Grid.Column="3" Grid.Row="0">距離</TextBlock>
 							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="LightValue1ResetButton_Click"/>
-							<TextBlock Grid.Column="3" Grid.Row="1">高さ</TextBlock>
-							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="LightSlider_ValueChanged" />
+							<TextBlock Grid.Column="3" Grid.Row="1">投射</TextBlock>
+							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="10" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="LightValue2ResetButton_Click"/>
-							<TextBlock Grid.Column="3" Grid.Row="2">レンジ</TextBlock>
-							<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="LightSlider_ValueChanged" />
+							<TextBlock Grid.Column="3" Grid.Row="2">角度</TextBlock>
+							<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="LightValue3ResetButton_Click"/>
 							<GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Header="種類" >
 								<Grid>
@@ -140,9 +140,9 @@
 									<Grid.RowDefinitions>
 										<RowDefinition />
 									</Grid.RowDefinitions>
-									<RadioButton Grid.Column="0" Content="Directional" IsChecked="True" Click="LightSlider_ValueChanged" />
-									<RadioButton Grid.Column="1" Content="Point" Click="LightSlider_ValueChanged"/>
-									<RadioButton Grid.Column="2" Content="Spot" Click="LightSlider_ValueChanged"/>
+									<RadioButton Name="LightTypeDirectionalRadioButton" Grid.Column="0" Content="Directional" IsChecked="True" Checked="LightTypeChanged" />
+									<RadioButton Name="LightTypePointRadioButton" Grid.Column="1" Content="Point" Checked="LightTypeChanged"/>
+									<RadioButton Name="LightTypeSpotRadioButton" Grid.Column="2" Content="Spot" Checked="LightTypeChanged"/>
 								</Grid>
 							</GroupBox>
 						</Grid>
@@ -172,13 +172,13 @@
 							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="180" Maximum="360" Minimum="0" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="BackgroundRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">X位置</TextBlock>
-							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="BackgroundValue1ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="1">Y位置</TextBlock>
-							<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="BackgroundValue2ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="2">Z位置</TextBlock>
-							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="BackgroundValue3ResetButton_Click"/>
 						</Grid>
 					</GroupBox>
@@ -198,14 +198,14 @@
 								<RowDefinition Height="20" />
 								<RowDefinition Height="20" />
 							</Grid.RowDefinitions>
-							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="Freeze"/>
-							<Button  Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="高解像度撮影"></Button>
-							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter Enable"/>
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0">フィルタ値:</TextBlock>
-							<TextBox Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" />
-							<CheckBox VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter Enable"/>
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
-							<TextBox  Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" />
+							<CheckBox Name="EVMC4UFreezeCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="Freeze" Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked" />
+							<Button  Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="高解像度撮影" Click="EVMC4U_TakePhotoButton" ></Button>
+							<CheckBox Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0" >フィルタ値:</TextBlock>
+							<TextBox Name="EVMC4UBoneFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" TextChanged="EVMC4U_TextChanged" />
+							<CheckBox Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
+							<TextBox Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
 						</Grid>
 					</GroupBox>
 
@@ -312,13 +312,13 @@
 					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
 						<GroupBox Header="背景色">
 							<StackPanel>
-								<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
+								<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
 								<CheckBox Name="GamingBackgroundCheckBox"  Content="ゲーミングモード" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
 						<GroupBox Header="ライト色">
 							<StackPanel>
-								<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="ColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
+								<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
 								<CheckBox Name="GamingLightCheckBox" Content="ゲーミングモード" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>

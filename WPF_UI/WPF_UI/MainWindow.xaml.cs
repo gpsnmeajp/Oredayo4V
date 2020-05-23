@@ -62,11 +62,14 @@ namespace WPF_UI
             if (e.CommandType == typeof(PipeCommands.Hello))
             {
                 //Unity側起動時処理(値送信など)
+                Console.WriteLine(">Hello");
+
             }
             else if (e.CommandType == typeof(PipeCommands.Bye))
             {
                 //Unity側終了処理
                 this.Close();
+                Console.WriteLine(">Bye");
             }
             else if (e.CommandType == typeof(PipeCommands.LogMessage))
             {
@@ -133,6 +136,7 @@ namespace WPF_UI
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
+            Console.WriteLine("VRMLoadButton_Click");
         }
 
         private async void VRMLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
@@ -147,6 +151,7 @@ namespace WPF_UI
             {
                 VRMPathTextBox.Text = dlg.FileName;
                 await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
+                Console.WriteLine("VRMLoadFileSelectButton_Click");
             }
         }
 
@@ -154,6 +159,7 @@ namespace WPF_UI
         private async void BackgroundObjectLoadButton_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+            Console.WriteLine("BackgroundObjectLoadButton_Click");
         }
 
         private async void BackgroundObjectLoadFileSelectButton_Click(object sender, RoutedEventArgs e)
@@ -168,11 +174,13 @@ namespace WPF_UI
             {
                 BackgroundObjectPathTextBox.Text = dlg.FileName;
                 await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+                Console.WriteLine("BackgroundObjectLoadFileSelectButton_Click");
             }
         }
         private async void BackgroundObjectRemoveButton_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.RemoveBackground { });
+            Console.WriteLine("BackgroundObjectRemoveButton_Click");
         }
 
         //===========カメラ位置===========
@@ -190,6 +198,7 @@ namespace WPF_UI
                     Height = (float)CameraValue2Slider.Value,
                     Fov = (float)CameraValue3Slider.Value,
                 });
+                Console.WriteLine("CameraSlider");
             }
         }
         private void CameraRotateXResetButton_Click(object sender, RoutedEventArgs e)
@@ -223,23 +232,46 @@ namespace WPF_UI
 
 
         //===========ライト位置===========
-
-        //===========背景オブジェクト位置===========
-
-
-        private async void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        private async void LightSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if (client != null)
             {
-                Color? d = ((ColorPicker)sender).SelectedColor;
-                if (d.HasValue)
+                PipeCommands.LightType type = PipeCommands.LightType.Directional;
+                if (LightTypeDirectionalRadioButton.IsChecked.Value)
                 {
-                    Color c = d.Value;
-                    await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
+                    type = PipeCommands.LightType.Directional;
                 }
+                if (LightTypePointRadioButton.IsChecked.Value)
+                {
+                    type = PipeCommands.LightType.Point;
+                }
+                if (LightTypeSpotRadioButton.IsChecked.Value)
+                {
+                    type = PipeCommands.LightType.Spot;
+                }
+
+                await client.SendCommandAsync(new PipeCommands.LightControl
+                {
+                    Rx = (float)LightRotateXSlider.Value,
+                    Ry = (float)LightRotateYSlider.Value,
+                    Rz = (float)LightRotateZSlider.Value,
+
+                    Distance = (float)LightValue1Slider.Value,
+                    Range = (float)LightValue2Slider.Value,
+                    SpotAngle = (float)LightValue3Slider.Value,
+
+                    Type = type,
+                });
+                Console.WriteLine("LightSlider");
+
             }
         }
 
+        private void LightTypeChanged(object sender, RoutedEventArgs e)
+        {
+            //ただ転送する(お行儀悪い)
+            LightSlider_ValueChanged(null, null);
+        }
 
         private void LightRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
@@ -258,17 +290,40 @@ namespace WPF_UI
 
         private void LightValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightValue1Slider.Value = 0;
+            LightValue1Slider.Value = 30f;
         }
 
         private void LightValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightValue2Slider.Value = 0;
+            LightValue2Slider.Value = 10f;
         }
 
         private void LightValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightValue3Slider.Value = 0;
+            LightValue3Slider.Value = 30;
+        }
+
+
+        //===========背景オブジェクト位置===========
+
+
+        private async void BackgroundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.BackgroundObjectControl
+                {
+                    Rx = (float)BackgroundRotateXSlider.Value,
+                    Ry = (float)BackgroundRotateYSlider.Value,
+                    Rz = (float)BackgroundRotateZSlider.Value,
+
+                    Px = (float)BackgroundValue1Slider.Value,
+                    Py = (float)BackgroundValue2Slider.Value,
+                    Pz = (float)BackgroundValue3Slider.Value,
+                });
+            }
+            Console.WriteLine("BackgroundSlider");
+
         }
 
         private void BackgroundRotateXResetButton_Click(object sender, RoutedEventArgs e)
@@ -288,33 +343,96 @@ namespace WPF_UI
 
         private void BackgroundValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-
+            BackgroundValue1Slider.Value = 0f;
         }
 
         private void BackgroundValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-
+            BackgroundValue2Slider.Value = 0f;
         }
 
         private void BackgroundValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-
+            BackgroundValue3Slider.Value = 0f;
         }
 
-        private void LightSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //-----------詳細設定----------------
+        //===========EVMC4U===========
+        float BoneFilter = 1f;
+        float BlendShapeFilter = 1f;
+        private async void EVMC4U_Checked(object sender, RoutedEventArgs e)
         {
+            float tmp = 0f;
+            if (EVMC4UBoneFilterValueTextBox != null && float.TryParse(EVMC4UBoneFilterValueTextBox.Text, out tmp))
+            {
+                BoneFilter = tmp;
+            }
+            if (EVMC4UBlendShapeFilterValueTextBox != null && float.TryParse(EVMC4UBlendShapeFilterValueTextBox.Text, out tmp))
+            {
+                BlendShapeFilter = tmp;
+            }
 
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.EVMC4UControl
+                {
+                    Freeze = EVMC4UFreezeCheckBox.IsChecked.Value,
+                    BoneFilterEnable = EVMC4UBoneFilterCheckBox.IsChecked.Value,
+                    BlendShapeFilterEnable = EVMC4UBlendShapeFilterCheckBox.IsChecked.Value,
+                    BoneFilterValue = BoneFilter,
+                    BlendShapeFilterValue = BlendShapeFilter,
+                });
+            }
+            Console.WriteLine("EVMC4U");
         }
-
-        private void BackgroundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private async void EVMC4U_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            //ただ転送する(お行儀悪い)
+            EVMC4U_Checked(null, null);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void EVMC4U_TakePhotoButton(object sender, RoutedEventArgs e)
         {
-
+            await client.SendCommandAsync(new PipeCommands.EVMC4UTakePhotoCommand
+            {
+            });
+            Console.WriteLine("EVMC4U TakePhoto");
         }
+
+        //===========Window===========
+        //===========Root位置===========
+        //===========外部連携===========
+        //===========SEDSSサーバー===========
+        //===========SEDSSクライアント===========
+
+        //-----------色設定----------------
+        //===========背景色===========
+        private async void BackgroundColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (client != null)
+            {
+                Color? d = ((ColorPicker)sender).SelectedColor;
+                if (d.HasValue)
+                {
+                    Color c = d.Value;
+                    await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
+                }
+            }
+        }
+
+        //===========ライト色===========
+        private async void LightColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (client != null)
+            {
+                Color? d = ((ColorPicker)sender).SelectedColor;
+                if (d.HasValue)
+                {
+                    Color c = d.Value;
+                    await client?.SendCommandAsync(new PipeCommands.LightColor { r = c.R, g = c.G, b = c.B });
+                }
+            }
+        }
+
 
     }
 }

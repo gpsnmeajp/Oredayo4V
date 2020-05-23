@@ -67,6 +67,7 @@ public class Controller : MonoBehaviour
 
     private async void Server_Received(object sender, DataReceivedEventArgs e)
     {
+        /*
         if (e.CommandType == typeof(PipeCommands.LoadVRM))
         {
             var d = (PipeCommands.LoadVRM)e.Data;
@@ -98,6 +99,7 @@ public class Controller : MonoBehaviour
                 cameraArm.localPosition = new Vector3(0, d.height, 0);
             });
         }
+        */
     }
 
     async void Update()
