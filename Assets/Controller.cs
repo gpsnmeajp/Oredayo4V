@@ -47,8 +47,12 @@ public class Controller : MonoBehaviour
     public WindowManagerEx windowManagerEx;
 
     public Transform cameraArm;
-    public Camera camera;
+    public Camera camera_comp;
     public LookAtModel lookAtModel;
+
+    public Transform lightArm;
+    public Light light_comp;
+    public LookAtModel lightLookAtModel;
 
     SEDSS_Server sedss_server;
     MemoryMappedFileServer server;
@@ -147,15 +151,62 @@ public class Controller : MonoBehaviour
 
                 lookAtModel.zaxis = d.Rz;
                 lookAtModel.height = d.Height;
+                cameraArm.localPosition = new Vector3(0, d.Height, 0);
                 cameraArm.localRotation = Quaternion.Euler(d.Rx, d.Ry, 0);
 
-                camera.transform.localPosition = new Vector3(0, 0, d.Zoom);
-                camera.fieldOfView = d.Fov;
+                camera_comp.transform.localPosition = new Vector3(0, d.Height, d.Zoom);
+                camera_comp.fieldOfView = d.Fov;
+
+                //ライト連動 //カメラのを持ってくる
+                lightArm.localPosition = new Vector3(0, lookAtModel.height, 0);
+                lightLookAtModel.height = lookAtModel.height;
+                light_comp.transform.localPosition = new Vector3(0, lookAtModel.height, light_comp.transform.localPosition.z);
 
             }
 
 
             //===========ライト位置===========
+            else if (e.CommandType == typeof(PipeCommands.LightControl))
+            {
+                var d = (PipeCommands.LightControl)e.Data;
+
+                lightLookAtModel.height = lookAtModel.height; //カメラのを持ってくる
+
+                lightLookAtModel.zaxis = d.Rz;
+                lightArm.localPosition = new Vector3(0, lookAtModel.height, 0);
+
+                light_comp.transform.localPosition = new Vector3(0, lookAtModel.height, d.Distance);
+                light_comp.range = d.Range;
+                light_comp.spotAngle = d.SpotAngle;
+
+                switch (d.Type) {
+                    case PipeCommands.LightType.Directional:
+                        lightArm.localRotation = Quaternion.Euler(0, 0, 0);
+                        light_comp.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+                        lightLookAtModel.enabled = false;
+                        light_comp.type = LightType.Directional;
+                        break;
+                    case PipeCommands.LightType.Point:
+                        lightArm.localRotation = Quaternion.Euler(d.Rx, d.Ry, 0);
+                        lightLookAtModel.enabled = true;
+                        light_comp.type = LightType.Point;
+                        break;
+                    case PipeCommands.LightType.Spot:
+                        lightArm.localRotation = Quaternion.Euler(d.Rx, d.Ry, 0);
+                        lightLookAtModel.enabled = true;
+                        light_comp.type = LightType.Spot;
+                        break;
+                    default:
+                        lightArm.localRotation = Quaternion.Euler(0, 0, 0);
+                        light_comp.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+                        lightLookAtModel.enabled = false;
+                        light_comp.type = LightType.Directional;
+                        break;
+                }
+            }
+
+
+
             //===========背景オブジェクト位置===========
             //-----------詳細設定----------------
             //===========EVMC4U===========

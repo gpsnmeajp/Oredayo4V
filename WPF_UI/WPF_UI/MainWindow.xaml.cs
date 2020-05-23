@@ -66,6 +66,21 @@ namespace WPF_UI
                 //Unity側起動時処理(値送信など)
                 Console.WriteLine(">Hello");
 
+                //デフォルト値送信
+                Dispatcher.Invoke(() => {
+                    VRMLoadButton_Click(null, null);
+                    BackgroundObjectLoadButton_Click(null, null);
+                    CameraSlider_ValueChanged(null, null);
+                    LightSlider_ValueChanged(null, null);
+                    BackgroundSlider_ValueChanged(null, null);
+                    EVMC4U_Checked(null, null);
+                    WindowOption_Checked(null, null);
+                    RootPos_Checked(null, null);
+                    ExternalControl_Checked(null, null);
+                    SEDSSServer_Checked(null, null);
+                    BackgroundColorPicker_SelectedColorChanged(null, null);
+                    LightColorPicker_SelectedColorChanged(null, null);
+                });
             }
             else if (e.CommandType == typeof(PipeCommands.Bye))
             {
@@ -339,7 +354,7 @@ namespace WPF_UI
 
         private void LightRotateXResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightRotateXSlider.Value = 0f;
+            LightRotateXSlider.Value = 140f;
         }
 
         private void LightRotateYResetButton_Click(object sender, RoutedEventArgs e)
@@ -354,12 +369,12 @@ namespace WPF_UI
 
         private void LightValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightValue1Slider.Value = 30f;
+            LightValue1Slider.Value = 5f;
         }
 
         private void LightValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            LightValue2Slider.Value = 10f;
+            LightValue2Slider.Value = 50f;
         }
 
         private void LightValue3ResetButton_Click(object sender, RoutedEventArgs e)
@@ -559,7 +574,7 @@ namespace WPF_UI
         {
             if (client != null)
             {
-                Color? d = ((ColorPicker)sender).SelectedColor;
+                Color? d = BackgroundColorPicker.SelectedColor;
                 if (d.HasValue)
                 {
                     Color c = d.Value;
@@ -574,7 +589,7 @@ namespace WPF_UI
         {
             if (client != null)
             {
-                Color? d = ((ColorPicker)sender).SelectedColor;
+                Color? d = LightColorPicker.SelectedColor;
                 if (d.HasValue)
                 {
                     Color c = d.Value;

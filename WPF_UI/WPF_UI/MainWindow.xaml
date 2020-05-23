@@ -113,19 +113,19 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="140" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="LightRotateXResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
 							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="LightRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-							<Slider Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
-							<Button Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
+							<Slider IsEnabled="False" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Button IsEnabled="False" Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">距離</TextBlock>
-							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="LightValue1ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="1">投射</TextBlock>
-							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="10" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
+							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="LightValue2ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="2">角度</TextBlock>
 							<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
@@ -318,13 +318,13 @@
 					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
 						<GroupBox Header="背景色">
 							<StackPanel>
-								<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
+								<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="#00FF00"  Width="200" Height="370" />
 								<CheckBox Name="GamingBackgroundCheckBox"  Content="ゲーミングモード" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
 						<GroupBox Header="ライト色">
 							<StackPanel>
-								<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="Green"  Width="200" Height="370" />
+								<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="#FFFFFF"  Width="200" Height="370" />
 								<CheckBox Name="GamingLightCheckBox" Content="ゲーミングモード" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
