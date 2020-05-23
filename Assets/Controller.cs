@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
 using System;
+using System.IO;
+using System.Text;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +32,7 @@ using UnityEngine;
 using akr.Unity.Windows;
 using EVMC4U;
 using UnityMemoryMappedFile;
+using VRM;
 
 /*
 ・あきらさんのグリーンバック(色可変)を載せる
@@ -54,10 +57,15 @@ public class Controller : MonoBehaviour
     public Light light_comp;
     public LookAtModel lightLookAtModel;
 
+    PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
+
+    GameObject backgroundObject;
+
     SEDSS_Server sedss_server;
     MemoryMappedFileServer server;
 
     SynchronizationContext synchronizationContext;
+    string backgroundObjectUrl = null;
 
     async void Start()
     {
@@ -85,7 +93,8 @@ public class Controller : MonoBehaviour
     private async void ApplicationLogHandler(string cond, string stack, LogType type)
     {
         PipeCommands.LogType sendType = PipeCommands.LogType.Error;
-        switch (type) {
+        switch (type)
+        {
             case LogType.Error: sendType = PipeCommands.LogType.Error; break;
             case LogType.Assert: sendType = PipeCommands.LogType.Error; break;
             case LogType.Exception: sendType = PipeCommands.LogType.Error; break;
@@ -94,7 +103,8 @@ public class Controller : MonoBehaviour
             default: break;
         }
 
-        await server.SendCommandAsync(new PipeCommands.LogMessage {
+        await server.SendCommandAsync(new PipeCommands.LogMessage
+        {
             Message = cond,
             Detail = stack,
             Type = sendType,
@@ -103,22 +113,24 @@ public class Controller : MonoBehaviour
 
     private async void Server_Received(object sender, DataReceivedEventArgs e)
     {
-        synchronizationContext.Post((arg) => {
+        synchronizationContext.Post(async (arg) => {
             //-----------システム系----------------
             if (e.CommandType == typeof(PipeCommands.Hello))
             {
+                //Helloが来たらHelloを返す。すると初期値が送られてくる。
+                await server.SendCommandAsync(new PipeCommands.Hello { });
                 Debug.Log(">Hello");
             }
             else if (e.CommandType == typeof(PipeCommands.Bye))
             {
                 //Unity側終了処理
-                    /*
+                /*
 #if UNITY_EDITOR
-                    UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false;
 #else
-                    Application.Quit();
+                Application.Quit();
 #endif
-                    */
+                */
                 Debug.Log(">Bye");
             }
             //-----------基本設定----------------
@@ -137,10 +149,79 @@ public class Controller : MonoBehaviour
                 Debug.Log("LoadBackground: " + d.filepath);
 
                 //TODO: 背景読み込み処理
+                if (d.filepath != null && d.filepath != "")
+                {
+                    //VRMの場合
+                    if (d.filepath.ToLower().EndsWith(".vrm") || d.filepath.ToLower().EndsWith(".glb"))
+                    {
+                        Destroy(backgroundObject);
+                        backgroundObject = null;
+                        //ファイルからモデルを読み込む
+                        //バイナリの読み込み
+                        if (File.Exists(d.filepath))
+                        {
+                            byte[] VRMdata = File.ReadAllBytes(d.filepath);
+
+                            //読み込み
+                            VRMImporterContext vrmImporter = new VRMImporterContext();
+                            vrmImporter.ParseGlb(VRMdata);
+
+                            vrmImporter.LoadAsync(() =>
+                            {
+                                GameObject Model = vrmImporter.Root;
+
+                                //backgroundObjectの下にぶら下げる
+                                backgroundObject = new GameObject();
+                                backgroundObject.transform.SetParent(transform, false);
+                                backgroundObject.name = "backgroundObject";
+
+                                //最後に設定されていた位置に設定
+                                if (lastBackgroundPos != null)
+                                {
+                                    backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
+                                    backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
+                                }
+                                //その下にモデルをぶら下げる
+                                Model.transform.SetParent(backgroundObject.transform, false);
+
+                                vrmImporter.EnableUpdateWhenOffscreen();
+                                vrmImporter.ShowMeshes();
+                            });
+                        }
+                        else
+                        {
+                            Debug.LogError("VRM load failed.");
+                        }
+                    }
+                    //画像の場合
+                    else if (d.filepath.ToLower().EndsWith(".png"))
+                    {
+                        Destroy(backgroundObject);
+                        backgroundObject = null;
+
+                        backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                        backgroundObject.transform.SetParent(transform, false);
+                        //最後に設定されていた位置に設定
+                        if (lastBackgroundPos != null)
+                        {
+                            backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
+                            backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
+                        }
+
+                        backgroundObjectUrl = "file://" + d.filepath;
+                        StartCoroutine("LoadTexture");
+                    }
+                    else
+                    {
+                        await server.SendCommandAsync(new PipeCommands.SendMessage { Message = "その背景は対応していません" });
+                    }
+                }
+
             }
             else if (e.CommandType == typeof(PipeCommands.RemoveBackground))
             {
-                //TODO: 背景消去処理
+                Destroy(backgroundObject);
+                backgroundObject = null;
             }
 
 
@@ -154,13 +235,13 @@ public class Controller : MonoBehaviour
                 cameraArm.localPosition = new Vector3(0, d.Height, 0);
                 cameraArm.localRotation = Quaternion.Euler(d.Rx, d.Ry, 0);
 
-                camera_comp.transform.localPosition = new Vector3(0, d.Height, d.Zoom);
+                camera_comp.transform.localPosition = new Vector3(0, 0, d.Zoom);
                 camera_comp.fieldOfView = d.Fov;
 
                 //ライト連動 //カメラのを持ってくる
                 lightArm.localPosition = new Vector3(0, lookAtModel.height, 0);
                 lightLookAtModel.height = lookAtModel.height;
-                light_comp.transform.localPosition = new Vector3(0, lookAtModel.height, light_comp.transform.localPosition.z);
+                light_comp.transform.localPosition = new Vector3(0, 0, light_comp.transform.localPosition.z);
 
             }
 
@@ -175,11 +256,12 @@ public class Controller : MonoBehaviour
                 lightLookAtModel.zaxis = d.Rz;
                 lightArm.localPosition = new Vector3(0, lookAtModel.height, 0);
 
-                light_comp.transform.localPosition = new Vector3(0, lookAtModel.height, d.Distance);
+                light_comp.transform.localPosition = new Vector3(0, 0, d.Distance);
                 light_comp.range = d.Range;
                 light_comp.spotAngle = d.SpotAngle;
 
-                switch (d.Type) {
+                switch (d.Type)
+                {
                     case PipeCommands.LightType.Directional:
                         lightArm.localRotation = Quaternion.Euler(0, 0, 0);
                         light_comp.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
@@ -205,11 +287,35 @@ public class Controller : MonoBehaviour
                 }
             }
 
-
-
             //===========背景オブジェクト位置===========
+            else if (e.CommandType == typeof(PipeCommands.BackgroundObjectControl))
+            {
+                if (backgroundObject != null)
+                {
+                    var d = (PipeCommands.BackgroundObjectControl)e.Data;
+                    lastBackgroundPos = d;
+                    backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
+                    backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+                }
+            }
+
             //-----------詳細設定----------------
             //===========EVMC4U===========
+            else if (e.CommandType == typeof(PipeCommands.EVMC4UControl))
+            {
+                var d = (PipeCommands.EVMC4UControl)e.Data;
+                externalReceiver.Freeze = d.Freeze;
+                externalReceiver.BoneFilter = d.BoneFilterValue;
+                externalReceiver.BonePositionFilterEnable = d.BoneFilterEnable;
+                externalReceiver.BoneRotationFilterEnable = d.BoneFilterEnable;
+
+                //TODO: BlendShapeFilter
+            }
+            else if (e.CommandType == typeof(PipeCommands.EVMC4UTakePhotoCommand))
+            {
+                var d = (PipeCommands.EVMC4UTakePhotoCommand)e.Data;
+                GetComponent<HiResolutionPhotoCamera>().shot = true;
+            }
             //===========Window===========
             //===========Root位置===========
             //===========外部連携===========
@@ -252,16 +358,39 @@ public class Controller : MonoBehaviour
     async void Update()
     {
         //KeepAlive 
-        if (Time.time > nextTime) {
+        if (Time.time > nextTime)
+        {
             //生きているということだけ送る
             await server.SendCommandAsync(new PipeCommands.KeepAlive { });
 
-            await server.SendCommandAsync(new PipeCommands.CommunicationStatus {
+            await server.SendCommandAsync(new PipeCommands.CommunicationStatus
+            {
                 EVMC4U = communicationValidator.time != lastEVMC4UTime //通信が行われていれば常に時刻は更新される
             });
 
             lastEVMC4UTime = communicationValidator.time;
             nextTime = Time.time + 1.5f;
+        }
+    }
+
+    IEnumerator LoadTexture()
+    {
+        using (WWW www = new WWW(backgroundObjectUrl))
+        {
+            yield return www;
+            if (backgroundObject != null)
+            {
+                Renderer renderer = backgroundObject.GetComponent<Renderer>();
+                renderer.material.shader = Shader.Find("Unlit/Texture");
+
+                //高画質化処理
+                Texture2D texture = www.texture;
+                texture.anisoLevel = 16;
+                texture.filterMode = FilterMode.Trilinear;
+                renderer.material.mainTexture = texture;
+
+                backgroundObject.transform.localScale = new Vector3(1f, (float)texture.height/ (float)texture.width, 0);
+            }
         }
     }
 }

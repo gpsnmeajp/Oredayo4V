@@ -54,7 +54,7 @@
 								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
-							<TextBox Name="BackgroundObjectPathTextBox" Text="" Grid.Column="1" Grid.Row="0" />
+							<TextBox Name="BackgroundObjectPathTextBox" Text="c:\background.png" Grid.Column="1" Grid.Row="0" />
 							<Button Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="BackgroundObjectLoadButton_Click"></Button>
 							<Button  Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="BackgroundObjectLoadFileSelectButton_Click"></Button>
 							<Button  Grid.Column="4" Grid.Row="0"  Margin="1,1,1,1" Content="削除" Click="BackgroundObjectRemoveButton_Click"></Button>
@@ -86,13 +86,13 @@
 							<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="CameraRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">ズーム</TextBlock>
-							<Slider Name="CameraValue1Slider" Grid.Column="4" Grid.Row="0"  Value="30" Maximum="100" Minimum="0"  ValueChanged="CameraSlider_ValueChanged" />
+							<Slider Name="CameraValue1Slider" Grid.Column="4" Grid.Row="0"  Value="1.7" Maximum="35" Minimum="0.3"  ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="CameraValue1ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="1">高さ</TextBlock>
 							<Slider Name="CameraValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="CameraValue2ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="2">FOV</TextBlock>
-							<Slider Name="CameraValue3Slider" Grid.Column="4" Grid.Row="2"  Value="1" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
+							<Slider Name="CameraValue3Slider" Grid.Column="4" Grid.Row="2"  Value="20" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
 							<Button Name="CameraValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="CameraValue3ResetButton_Click"/>
 						</Grid>
 					</GroupBox>
@@ -166,19 +166,19 @@
 							<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="BackgroundRotateXResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="-180" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="BackgroundRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
 							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="BackgroundRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">X位置</TextBlock>
-							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="BackgroundValue1ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="1">Y位置</TextBlock>
-							<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="BackgroundValue2ResetButton_Click"/>
 							<TextBlock Grid.Column="3" Grid.Row="2">Z位置</TextBlock>
-							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="0" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="BackgroundValue3ResetButton_Click"/>
 						</Grid>
 					</GroupBox>
@@ -203,9 +203,9 @@
 							<CheckBox Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
 							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0" >フィルタ値:</TextBlock>
 							<TextBox Name="EVMC4UBoneFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" TextChanged="EVMC4U_TextChanged" />
-							<CheckBox Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
+							<CheckBox IsEnabled="False"  Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
 							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
-							<TextBox Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
+							<TextBox IsEnabled="False"  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
 						</Grid>
 					</GroupBox>
 

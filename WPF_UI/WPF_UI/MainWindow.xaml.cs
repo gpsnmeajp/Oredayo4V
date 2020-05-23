@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Media;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -246,7 +247,7 @@ namespace WPF_UI
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "";
             dlg.DefaultExt = ".png";
-            dlg.Filter = "PNG file|*.png|JPEG file|*.jpg|VRM file|*.vrm|All file|*.*";
+            dlg.Filter = "PNG file|*.png|VRM file|*.vrm|GLB file|*.glb|All file|*.*";
 
             bool? result = dlg.ShowDialog();
             if (result == true)
@@ -296,7 +297,7 @@ namespace WPF_UI
         }
         private void CameraValue1ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraValue1Slider.Value = 30f;
+            CameraValue1Slider.Value = 1.7f;
         }
 
         private void CameraValue2ResetButton_Click(object sender, RoutedEventArgs e)
@@ -306,7 +307,7 @@ namespace WPF_UI
 
         private void CameraValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraValue3Slider.Value = 1f;
+            CameraValue3Slider.Value = 20f;
         }
 
 
@@ -412,7 +413,7 @@ namespace WPF_UI
 
         private void BackgroundRotateYResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundRotateYSlider.Value = 0f;
+            BackgroundRotateYSlider.Value = -180f;
         }
 
         private void BackgroundRotateZResetButton_Click(object sender, RoutedEventArgs e)
@@ -427,12 +428,12 @@ namespace WPF_UI
 
         private void BackgroundValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundValue2Slider.Value = 0f;
+            BackgroundValue2Slider.Value = 1.4f;
         }
 
         private void BackgroundValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundValue3Slider.Value = 0f;
+            BackgroundValue3Slider.Value = -1f;
         }
 
         //-----------詳細設定----------------
@@ -474,6 +475,7 @@ namespace WPF_UI
             await client.SendCommandAsync(new PipeCommands.EVMC4UTakePhotoCommand
             {
             });
+            SystemSounds.Beep.Play();
             Console.WriteLine("EVMC4U TakePhoto");
         }
 
