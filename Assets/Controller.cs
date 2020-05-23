@@ -204,20 +204,23 @@ public class Controller : MonoBehaviour
                     //画像の場合
                     else if (d.filepath.ToLower().EndsWith(".png"))
                     {
-                        Destroy(backgroundObject);
-                        backgroundObject = null;
-
-                        backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        backgroundObject.transform.SetParent(rootLockerTransform, false);
-                        //最後に設定されていた位置に設定
-                        if (lastBackgroundPos != null)
+                        if (File.Exists(d.filepath))
                         {
-                            backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
-                            backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
-                        }
+                            Destroy(backgroundObject);
+                            backgroundObject = null;
 
-                        backgroundObjectUrl = "file://" + d.filepath;
-                        StartCoroutine("LoadTexture");
+                            backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                            backgroundObject.transform.SetParent(rootLockerTransform, false);
+                            //最後に設定されていた位置に設定
+                            if (lastBackgroundPos != null)
+                            {
+                                backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
+                                backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
+                            }
+
+                            backgroundObjectUrl = "file://" + d.filepath;
+                            StartCoroutine("LoadTexture");
+                        }
                     }
                     else
                     {
