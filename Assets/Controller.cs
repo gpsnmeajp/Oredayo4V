@@ -57,6 +57,8 @@ public class Controller : MonoBehaviour
     public Light light_comp;
     public LookAtModel lightLookAtModel;
 
+    public Transform rootLockerTransform;
+
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
 
     GameObject backgroundObject;
@@ -66,6 +68,12 @@ public class Controller : MonoBehaviour
 
     SynchronizationContext synchronizationContext;
     string backgroundObjectUrl = null;
+
+    Color backgroundColor = new Color(0f,1f,0f);
+
+    public RootLocker cameraRootLocker;
+    public RootLocker lightRootLocker;
+    public RootLocker backgroundRootLocker;
 
     async void Start()
     {
@@ -172,7 +180,7 @@ public class Controller : MonoBehaviour
 
                                 //backgroundObjectの下にぶら下げる
                                 backgroundObject = new GameObject();
-                                backgroundObject.transform.SetParent(transform, false);
+                                backgroundObject.transform.SetParent(rootLockerTransform, false);
                                 backgroundObject.name = "backgroundObject";
 
                                 //最後に設定されていた位置に設定
@@ -200,7 +208,7 @@ public class Controller : MonoBehaviour
                         backgroundObject = null;
 
                         backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        backgroundObject.transform.SetParent(transform, false);
+                        backgroundObject.transform.SetParent(rootLockerTransform, false);
                         //最後に設定されていた位置に設定
                         if (lastBackgroundPos != null)
                         {
@@ -315,41 +323,75 @@ public class Controller : MonoBehaviour
             {
                 var d = (PipeCommands.EVMC4UTakePhotoCommand)e.Data;
                 GetComponent<HiResolutionPhotoCamera>().shot = true;
+
             }
             //===========Window===========
+            else if (e.CommandType == typeof(PipeCommands.WindowControl))
+            {
+                var d = (PipeCommands.WindowControl)e.Data;
+
+                windowManagerEx.SetThroughMouseClick(d.Transparent);
+                windowManagerEx.SetWindowBackgroundTransparent(d.Transparent, backgroundColor);
+
+                windowManagerEx.SetWindowBorder(d.NoBorder);
+                windowManagerEx.SetWindowAlwaysTopMost(d.ForceForeground);
+
+            }
+
             //===========Root位置===========
+            else if (e.CommandType == typeof(PipeCommands.RootPositionControl))
+            {
+                var d = (PipeCommands.RootPositionControl)e.Data;
+                cameraRootLocker.Lock = d.CameraLock;
+                lightRootLocker.Lock = d.LightLock;
+                backgroundRootLocker.Lock = d.BackgroundLock;
+            }
             //===========外部連携===========
+            else if (e.CommandType == typeof(PipeCommands.ExternalControl))
+            {
+                var d = (PipeCommands.ExternalControl)e.Data;
+                //TODO: OBS連動など
+            }
+
             //===========SEDSSサーバー===========
+            else if (e.CommandType == typeof(PipeCommands.SEDSSServerControl))
+            {
+                var d = (PipeCommands.SEDSSServerControl)e.Data;
+                //TODO: SEDSSサーバー設定
+            }
+
             //===========SEDSSクライアント===========
+            else if (e.CommandType == typeof(PipeCommands.SEDSSClientRequestCommand))
+            {
+                var d = (PipeCommands.SEDSSClientRequestCommand)e.Data;
+                //TODO: SEDSSクライアントリクエスト
+            }
 
             //-----------色設定----------------
             //===========背景色===========
-            //===========ライト色===========
-
-
-
-            /*
-            if (e.CommandType == typeof(PipeCommands.BackgrounColor))
+            else if (e.CommandType == typeof(PipeCommands.BackgrounColor))
             {
                 var d = (PipeCommands.BackgrounColor)e.Data;
-
-                mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
-                {
-                    windowManagerEx.SetWindowBackgroundTransparent(false, new Color(d.r / 255f, d.g / 255f, d.b / 255f));
-                });
+                windowManagerEx.SetWindowBackgroundTransparent(false, new Color(d.r / 255f, d.g / 255f, d.b / 255f));
             }
-            if (e.CommandType == typeof(PipeCommands.CameraPos))
+
+            //===========ライト色===========
+            else if (e.CommandType == typeof(PipeCommands.LightColor))
             {
-                var d = (PipeCommands.CameraPos)e.Data;
-
-                mainThreadInvoker.BeginInvoke(() => //別スレッドからGameObjectに触るときはメインスレッドで処理すること
-                {
-                    cameraArm.localRotation = Quaternion.Euler(0, d.rotate-180f, 0);
-                    camera.localPosition = new Vector3(0, 0, d.zoom);
-                    cameraArm.localPosition = new Vector3(0, d.height, 0);
-                });
+                var d = (PipeCommands.LightColor)e.Data;
+                light_comp.color = new Color(d.r / 255f, d.g / 255f, d.b / 255f);
             }
-            */
+            //===========環境光===========
+            else if (e.CommandType == typeof(PipeCommands.EnvironmentColor))
+            {
+                var d = (PipeCommands.EnvironmentColor)e.Data;
+                RenderSettings.ambientLight = new Color(d.r / 255f, d.g / 255f, d.b / 255f);
+            }
+            else
+            {
+                //未対応のなにか
+            }
+
         }, null);
     }
 

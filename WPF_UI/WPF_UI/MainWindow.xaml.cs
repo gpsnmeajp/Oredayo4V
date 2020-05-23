@@ -81,6 +81,7 @@ namespace WPF_UI
                     SEDSSServer_Checked(null, null);
                     BackgroundColorPicker_SelectedColorChanged(null, null);
                     LightColorPicker_SelectedColorChanged(null, null);
+                    EnvironmentColorPicker_SelectedColorChanged(null, null);
                 });
             }
             else if (e.CommandType == typeof(PipeCommands.Bye))
@@ -181,14 +182,18 @@ namespace WPF_UI
         private void GenericTimer(object sender, EventArgs e) {
             if (GamingBackgroundCheckBox.IsChecked.HasValue && GamingBackgroundCheckBox.IsChecked.Value)
             {
-                BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
+                BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 0.2f);
             }
             if (GamingLightCheckBox.IsChecked.HasValue && GamingLightCheckBox.IsChecked.Value)
             {
                 LightColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
             }
+            if (GamingEnvironmentCheckBox.IsChecked.HasValue && GamingEnvironmentCheckBox.IsChecked.Value)
+            {
+                EnvironmentColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
+            }
 
-            gamingH += 10f;
+            gamingH += 1f;
             if (gamingH > 360f) {
                 gamingH -= 360f;
             }
@@ -203,6 +208,11 @@ namespace WPF_UI
                 InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
                 InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                 InfoEVMC4UStateTextBlock.Text = "--";
+
+                //バッファの影響で高速点滅する場合があるので、UI通信が切れた場合は禁止
+                GamingBackgroundCheckBox.IsChecked = false;
+                GamingLightCheckBox.IsChecked = false;
+                GamingEnvironmentCheckBox.IsChecked = false;
             }
             else {
                 InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
@@ -484,9 +494,13 @@ namespace WPF_UI
         {
             if (client != null)
             {
+                if (WindowOptionTransparentCheckBox.IsChecked.Value) {
+                    WindowOptionWindowBorderCheckBox.IsChecked = true;
+                }
+
                 await client.SendCommandAsync(new PipeCommands.WindowControl
                 {
-                    Border = WindowOptionWindowBorderCheckBox.IsChecked.Value,
+                    NoBorder = WindowOptionWindowBorderCheckBox.IsChecked.Value,
                     ForceForeground = WindowOptionForceForegroundCheckBox.IsChecked.Value,
                     Transparent = WindowOptionTransparentCheckBox.IsChecked.Value,
                 });
@@ -503,6 +517,8 @@ namespace WPF_UI
                 {
                     CameraLock = CameraRootPosLockCheckBox.IsChecked.Value,
                     LightLock = LightRootPosLockCheckBox.IsChecked.Value,
+                    BackgroundLock = 
+                    BackgroundRootPosLockCheckBox.IsChecked.Value,
                 });
             }
             Console.WriteLine("RootPos");
@@ -582,6 +598,8 @@ namespace WPF_UI
                     Color c = d.Value;
                     await client?.SendCommandAsync(new PipeCommands.BackgrounColor { r = c.R, g = c.G, b = c.B });
                 }
+                //透明だと見えないでしょ！
+                WindowOptionTransparentCheckBox.IsChecked = false;
             }
             Console.WriteLine("BackgroundColor");
         }
@@ -599,6 +617,21 @@ namespace WPF_UI
                 }
             }
             Console.WriteLine("LightColor");
+        }
+
+        //===========環境光===========
+        private async void EnvironmentColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (client != null)
+            {
+                Color? d = EnvironmentColorPicker.SelectedColor;
+                if (d.HasValue)
+                {
+                    Color c = d.Value;
+                    await client?.SendCommandAsync(new PipeCommands.EnvironmentColor { r = c.R, g = c.G, b = c.B });
+                }
+            }
+            Console.WriteLine("EnvironmentColor");
         }
 
 

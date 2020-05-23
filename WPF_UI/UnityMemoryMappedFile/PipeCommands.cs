@@ -104,13 +104,14 @@ namespace UnityMemoryMappedFile
         {
             public bool ForceForeground { get; set; }
             public bool Transparent { get; set; }
-            public bool Border { get; set; }
+            public bool NoBorder { get; set; }
         }
 
         public class RootPositionControl
         {
             public bool CameraLock { get; set; }
             public bool LightLock { get; set; }
+            public bool BackgroundLock { get; set; }
         }
         public class ExternalControl
         {
@@ -139,6 +140,12 @@ namespace UnityMemoryMappedFile
             public float b { get; set; }
         }
         public class LightColor
+        {
+            public float r { get; set; }
+            public float g { get; set; }
+            public float b { get; set; }
+        }
+        public class EnvironmentColor
         {
             public float r { get; set; }
             public float g { get; set; }

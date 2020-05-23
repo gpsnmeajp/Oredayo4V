@@ -35,12 +35,12 @@ namespace akr.Unity.Windows
         {
             if (v)
             {
-                BackgroundRenderer.material.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+                BackgroundRenderer.sharedMaterial.color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
                 SetDwmTransparent(true);
             }
             else
             {
-                BackgroundRenderer.material.color = c;
+                BackgroundRenderer.sharedMaterial.color = c;
                 SetDwmTransparent(false);
             }
         }
