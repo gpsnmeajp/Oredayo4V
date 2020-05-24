@@ -569,7 +569,7 @@ namespace WPF_UI
             {
                 if (SEDSSServerEnableCheckBox.IsChecked.Value)
                 {
-                    if (SEDSSServerPasswordTextBox.Text.Length < 4)
+                    if (SEDSSServerPasswordTextBox.Password.Length < 4)
                     {
                         MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                         //拒否
@@ -593,7 +593,7 @@ namespace WPF_UI
                 await client.SendCommandAsync(new PipeCommands.SEDSSServerControl
                 {
                     Enable = SEDSSServerEnableCheckBox.IsChecked.Value,
-                    Password = SEDSSServerPasswordTextBox.Text,
+                    Password = SEDSSServerPasswordTextBox.Password,
                     ExchangeFilePath = SEDSSServerExchangeFilePathTextBox.Text,
                 });
             }
@@ -605,7 +605,7 @@ namespace WPF_UI
         {
             if (client != null)
             {
-                if (SEDSSClientPasswordTextBox.Text.Length < 4)
+                if (SEDSSClientPasswordTextBox.Password.Length < 4)
                 {
                     MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -620,7 +620,7 @@ namespace WPF_UI
                     RequestType = PipeCommands.SEDSS_RequestType.Upload,
                     Address = SEDSSClientAddressTextBox.Text,
                     Port = SEDSSClientPortTextBox.Text,
-                    Password = SEDSSClientPasswordTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Password,
                     ID = SEDSSClientIDTextBox.Text,
                     UploadFilePath = SEDSSClientUploadFilePathTextBox.Text,
                 });
@@ -631,7 +631,7 @@ namespace WPF_UI
         {
             if (client != null)
             {
-                if (SEDSSClientPasswordTextBox.Text.Length < 4)
+                if (SEDSSClientPasswordTextBox.Password.Length < 4)
                 {
                     MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -646,7 +646,7 @@ namespace WPF_UI
                     RequestType = PipeCommands.SEDSS_RequestType.Downdload,
                     Address = SEDSSClientAddressTextBox.Text,
                     Port = SEDSSClientPortTextBox.Text,
-                    Password = SEDSSClientPasswordTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Password,
                     ID = SEDSSClientIDTextBox.Text,
                     UploadFilePath = "",
                 });

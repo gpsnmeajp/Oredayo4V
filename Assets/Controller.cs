@@ -102,12 +102,14 @@ public class Controller : MonoBehaviour
         Debug.Log(startTime);
 
         Application.logMessageReceived += ApplicationLogHandler;
+        Application.logMessageReceivedThreaded += ApplicationLogHandler;
         Debug.Log("Server started");
     }
 
     private async void OnApplicationQuit()
     {
         Application.logMessageReceived -= ApplicationLogHandler;
+        Application.logMessageReceivedThreaded -= ApplicationLogHandler;
         await server.SendCommandAsync(new PipeCommands.Bye { });
 
         sedss_server.StopServer();
@@ -118,23 +120,26 @@ public class Controller : MonoBehaviour
 
     private async void ApplicationLogHandler(string cond, string stack, LogType type)
     {
-        PipeCommands.LogType sendType = PipeCommands.LogType.Error;
-        switch (type)
+        synchronizationContext.Post(async (arg) =>
         {
-            case LogType.Error: sendType = PipeCommands.LogType.Error; break;
-            case LogType.Assert: sendType = PipeCommands.LogType.Error; break;
-            case LogType.Exception: sendType = PipeCommands.LogType.Error; break;
-            case LogType.Log: sendType = PipeCommands.LogType.Debug; break;
-            case LogType.Warning: sendType = PipeCommands.LogType.Warning; break;
-            default: break;
-        }
+            PipeCommands.LogType sendType = PipeCommands.LogType.Error;
+            switch (type)
+            {
+                case LogType.Error: sendType = PipeCommands.LogType.Error; break;
+                case LogType.Assert: sendType = PipeCommands.LogType.Error; break;
+                case LogType.Exception: sendType = PipeCommands.LogType.Error; break;
+                case LogType.Log: sendType = PipeCommands.LogType.Debug; break;
+                case LogType.Warning: sendType = PipeCommands.LogType.Warning; break;
+                default: break;
+            }
 
-        await server.SendCommandAsync(new PipeCommands.LogMessage
-        {
-            Message = cond,
-            Detail = stack,
-            Type = sendType,
-        });
+            await server.SendCommandAsync(new PipeCommands.LogMessage
+            {
+                Message = cond,
+                Detail = stack,
+                Type = sendType,
+            });
+        }, null);
     }
 
     private async void Server_Received(object sender, DataReceivedEventArgs e)
