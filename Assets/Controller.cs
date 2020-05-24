@@ -354,7 +354,8 @@ public class Controller : MonoBehaviour
                 externalReceiver.BonePositionFilterEnable = d.BoneFilterEnable;
                 externalReceiver.BoneRotationFilterEnable = d.BoneFilterEnable;
 
-                //TODO: BlendShapeFilter
+                externalReceiver.BlendShapeFilter = d.BlendShapeFilterValue;
+                externalReceiver.BlendShapeFilterEnable = d.BlendShapeFilterEnable;
             }
             else if (e.CommandType == typeof(PipeCommands.EVMC4UTakePhotoCommand))
             {

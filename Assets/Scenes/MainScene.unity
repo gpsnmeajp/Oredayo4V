@@ -360,14 +360,14 @@ MonoBehaviour:
     m_Bits: 256
   stopNaNPropagation: 1
   finalBlitToCameraTarget: 0
-  antialiasingMode: 0
+  antialiasingMode: 2
   temporalAntialiasing:
     jitterSpread: 0.75
     sharpness: 0.25
     stationaryBlending: 0.95
     motionBlending: 0.85
   subpixelMorphologicalAntialiasing:
-    quality: 2
+    quality: 1
   fastApproximateAntialiasing:
     fastMode: 0
     keepAlpha: 0
@@ -576,7 +576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &767302126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,6 +1406,8 @@ MonoBehaviour:
   BonePositionFilterEnable: 0
   BoneRotationFilterEnable: 0
   BoneFilter: 0.7
+  BlendShapeFilterEnable: 0
+  BlendShapeFilter: 0.7
   enableAutoLoadVRM: 1
   HideInUncalibrated: 0
   SyncCalibrationModeWithScaleOffsetSynchronize: 1

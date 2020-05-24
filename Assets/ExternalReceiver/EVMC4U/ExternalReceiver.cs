@@ -65,6 +65,8 @@ namespace EVMC4U
         public bool BonePositionFilterEnable = false; //ボーン位置フィルタ
         public bool BoneRotationFilterEnable = false; //ボーン回転フィルタ
         public float BoneFilter = 0.7f; //ボーンフィルタ係数
+        public bool BlendShapeFilterEnable = false; //BlendShapeフィルタ
+        public float BlendShapeFilter = 0.7f; //BlendShapeフィルタ係数
 
         [Header("VRM Loader Option")]
         public bool enableAutoLoadVRM = true;        //VRMの自動読み込みの有効可否
@@ -104,6 +106,7 @@ namespace EVMC4U
         //フィルタ用データ保持変数
         private Vector3[] bonePosFilter = new Vector3[Enum.GetNames(typeof(HumanBodyBones)).Length];
         private Quaternion[] boneRotFilter = new Quaternion[Enum.GetNames(typeof(HumanBodyBones)).Length];
+        private Dictionary<string, float> blendShapeFilterDictionaly = new Dictionary<string, float>();
 
         //通信状態保持変数
         private int Available = 0; //データ送信可能な状態か
@@ -574,6 +577,26 @@ namespace EVMC4U
                 && (message.values[1] is float)
                 )
             {
+                //一旦変数に格納する
+                string key = (string)message.values[0];
+                float value = (float)message.values[1];
+
+                //BlendShapeフィルタが有効なら
+                if (BlendShapeFilterEnable)
+                {
+                    //フィルタテーブルに存在するか確認する
+                    if (blendShapeFilterDictionaly.ContainsKey(key))
+                    {
+                        //存在する場合はフィルタ更新して値として反映する
+                        blendShapeFilterDictionaly[key] = (blendShapeFilterDictionaly[key] * BlendShapeFilter) + value * (1.0f - BlendShapeFilter);
+                        value = blendShapeFilterDictionaly[key];
+                    }
+                    else {
+                        //存在しない場合はフィルタに登録する。値はそのまま
+                        blendShapeFilterDictionaly.Add(key, value);
+                    }
+                }
+
                 if (BlendShapeSynchronize && blendShapeProxy != null)
                 {
                     //v0.55ブレンドシェープ仕様変更対応
@@ -605,7 +628,7 @@ namespace EVMC4U
                             if (BlendShapePresetTryParse(ref presetName, out preset))
                             {
                                 //見つかった
-                                blendShapeProxy.AccumulateValue(preset, (float)message.values[1]);
+                                blendShapeProxy.AccumulateValue(preset, value);
                                 //Debug.Log("Key Found: " + NoCaseSensitiveKey + "->" + preset.ToString());
                             }
                             else
@@ -627,7 +650,7 @@ namespace EVMC4U
                             if (blendShapeProxyCaseConverter.TryGetValue(NoCaseSensitiveKey, out CaseSensitiveKey))
                             {
                                 //独自キーとしてUniVRMにわたす
-                                blendShapeProxy.AccumulateValue(CaseSensitiveKey, (float)message.values[1]);
+                                blendShapeProxy.AccumulateValue(CaseSensitiveKey, value);
                                 //Debug.Log("Key Convert: " + NoCaseSensitiveKey + "->" + CaseSensitiveKey);
                             }
                             else
@@ -639,7 +662,7 @@ namespace EVMC4U
                     else
                     {
                         //通常通り適用する
-                        blendShapeProxy.AccumulateValue((string)message.values[0], (float)message.values[1]);
+                        blendShapeProxy.AccumulateValue((string)message.values[0], value);
                     }
                 }
             }

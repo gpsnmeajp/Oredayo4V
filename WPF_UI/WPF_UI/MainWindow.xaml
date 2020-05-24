@@ -207,9 +207,9 @@
 							<CheckBox Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
 							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0" >フィルタ値:</TextBlock>
 							<TextBox Name="EVMC4UBoneFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" TextChanged="EVMC4U_TextChanged" />
-							<CheckBox IsEnabled="False"  Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
+							<CheckBox  Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
 							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
-							<TextBox IsEnabled="False"  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
+							<TextBox  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.7" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
 						</Grid>
 					</GroupBox>
 
