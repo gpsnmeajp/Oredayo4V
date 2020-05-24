@@ -121,6 +121,7 @@ namespace UnityMemoryMappedFile
         {
             public bool Enable { get; set; }
             public string Password { get; set; }
+            public string ExchangeFilePath { get; set; }
         }
         public class SEDSSClientRequestCommand
         {
@@ -129,6 +130,7 @@ namespace UnityMemoryMappedFile
             public string Port { get; set; }
             public string ID { get; set; }
             public string Password { get; set; }
+            public string UploadFilePath { get; set; }
         }
 
         //★色設定

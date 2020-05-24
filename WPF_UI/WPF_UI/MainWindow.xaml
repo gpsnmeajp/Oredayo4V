@@ -58,7 +58,7 @@
 							<Button Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="BackgroundObjectLoadButton_Click"></Button>
 							<Button  Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="BackgroundObjectLoadFileSelectButton_Click"></Button>
 							<Button  Grid.Column="4" Grid.Row="0"  Margin="1,1,1,1" Content="削除" Click="BackgroundObjectRemoveButton_Click"></Button>
-							<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5">対応拡張子: png, jpg, vrm</TextBlock>
+							<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5">対応拡張子: png, vrm</TextBlock>
 						</Grid>
 					</GroupBox>
 					<GroupBox Header="カメラ位置">
@@ -253,41 +253,49 @@
 					<GroupBox Header="SEDSSサーバー">
 						<Grid>
 							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="100"/>
 								<ColumnDefinition/>
 								<ColumnDefinition Width="100"/>
 								<ColumnDefinition Width="100"/>
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
 							</Grid.RowDefinitions>
-							<CheckBox IsEnabled="False" Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="送受信を許可する" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="0" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
-							<TextBox  IsEnabled="False" Name="SEDSSServerPasswordTextBox" Text="" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0" />
+							<CheckBox Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="送受信を許可する" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
+							<TextBox  Name="SEDSSServerPasswordTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="0" />
+							<TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0" >交換データパス:</TextBlock>
+							<TextBox Name="SEDSSServerExchangeFilePathTextBox" Text="" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" />
+
 						</Grid>
 					</GroupBox>
 					<GroupBox Header="SEDSSクライアント">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="50"/>
+								<ColumnDefinition Width="100"/>
 								<ColumnDefinition/>
-								<ColumnDefinition Width="50"/>
+								<ColumnDefinition Width="100"/>
 								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition Height="20" />
 								<RowDefinition Height="20" />
 								<RowDefinition Height="20" />
+								<RowDefinition Height="20" />
 							</Grid.RowDefinitions>
-							<Button IsEnabled="False" Content="アップロード" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientUploadButton_Clicked" />
-							<Button IsEnabled="False" Content="ダウンロード" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientDownloadButton_Clicked" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" >Address:</TextBlock>
-							<TextBox IsEnabled="False" Name="SEDSSClientAddressTextBox"  Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" >Port:</TextBlock>
-							<TextBox IsEnabled="False" Name="SEDSSClientPortTextBox"  Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0" >パスワード:</TextBlock>
-							<TextBox IsEnabled="False"  Name="SEDSSClientPasswordTextBox" Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" />
+							<Button Content="アップロード" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientUploadButton_Clicked" />
+							<Button Content="ダウンロード" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientDownloadButton_Clicked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" >アドレス:</TextBlock>
+							<TextBox Name="SEDSSClientAddressTextBox"  Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" >ポート:</TextBlock>
+							<TextBox Name="SEDSSClientPortTextBox"  Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
+							<TextBox Name="SEDSSClientPasswordTextBox" Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" />
 							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,0,2,0" >ID:</TextBlock>
-							<TextBox IsEnabled="False"  Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="2" />
+							<TextBox Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="2" />
+							<TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0" >送信データパス:</TextBlock>
+							<TextBox Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" />
 						</Grid>
 					</GroupBox>
 					<GroupBox Header="情報">

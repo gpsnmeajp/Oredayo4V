@@ -78,7 +78,7 @@ namespace WPF_UI
                     WindowOption_Checked(null, null);
                     RootPos_Checked(null, null);
                     ExternalControl_Checked(null, null);
-                    SEDSSServer_Checked(null, null);
+                    //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
                     BackgroundColorPicker_SelectedColorChanged(null, null);
                     LightColorPicker_SelectedColorChanged(null, null);
                     EnvironmentColorPicker_SelectedColorChanged(null, null);
@@ -101,7 +101,7 @@ namespace WPF_UI
                     switch (d.Type)
                     {
                         case PipeCommands.LogType.Error:
-                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 30, 30));
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 128, 128));
                             break;
                         case PipeCommands.LogType.Warning:
                             StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 30));
@@ -257,7 +257,7 @@ namespace WPF_UI
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "";
             dlg.DefaultExt = ".png";
-            dlg.Filter = "PNG file|*.png|VRM file|*.vrm|GLB file|*.glb|All file|*.*";
+            dlg.Filter = "PNG file|*.png|VRM file|*.vrm|All file|*.*";
 
             bool? result = dlg.ShowDialog();
             if (result == true)
@@ -541,6 +541,23 @@ namespace WPF_UI
         {
             if (SEDSSServerEnableCheckBox != null)
             {
+                if (SEDSSServerEnableCheckBox.IsChecked.Value)
+                {
+                    if (SEDSSServerPasswordTextBox.Text.Length < 4)
+                    {
+                        MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                        //拒否
+                        SEDSSServerEnableCheckBox.IsChecked = false; //強制的にオフ
+                        return;
+                    }
+
+                    var result = MessageBox.Show("SEDSSサーバー機能を本当に有効にしますか？\nパスワードを共有したデバイスからVRMデータを読み込み・送信することができるようになります。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                    if (result != MessageBoxResult.OK) {
+                        //拒否
+                        SEDSSServerEnableCheckBox.IsChecked = false; //強制的にオフ
+                        return;
+                    }
+                }
                 SEDSSServerPasswordTextBox.IsEnabled = !SEDSSServerEnableCheckBox.IsChecked.Value;
             }
 
@@ -550,6 +567,7 @@ namespace WPF_UI
                 {
                     Enable = SEDSSServerEnableCheckBox.IsChecked.Value,
                     Password = SEDSSServerPasswordTextBox.Text,
+                    ExchangeFilePath = SEDSSServerExchangeFilePathTextBox.Text,
                 });
             }
             Console.WriteLine("SEDSSServer");
@@ -560,6 +578,16 @@ namespace WPF_UI
         {
             if (client != null)
             {
+                if (SEDSSClientPasswordTextBox.Text.Length < 4)
+                {
+                    MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                var result = MessageBox.Show("SEDSSアップロードを本当に実行しますか？\nパスワードを共有したデバイスにVRMデータを送信します。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (result != MessageBoxResult.OK)
+                {
+                    return;
+                }
                 await client.SendCommandAsync(new PipeCommands.SEDSSClientRequestCommand
                 {
                     RequestType = PipeCommands.SEDSS_RequestType.Upload,
@@ -567,6 +595,7 @@ namespace WPF_UI
                     Port = SEDSSClientPortTextBox.Text,
                     Password = SEDSSClientPasswordTextBox.Text,
                     ID = SEDSSClientIDTextBox.Text,
+                    UploadFilePath = SEDSSClientUploadFilePathTextBox.Text,
                 });
             }
             Console.WriteLine("SEDSSClient Upload");
@@ -575,6 +604,16 @@ namespace WPF_UI
         {
             if (client != null)
             {
+                if (SEDSSClientPasswordTextBox.Text.Length < 4)
+                {
+                    MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                var result = MessageBox.Show("SEDSSダウンロードを本当に実行しますか？\nパスワードを共有したデバイスからVRMデータを受信します。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                if (result != MessageBoxResult.OK)
+                {
+                    return;
+                }
                 await client.SendCommandAsync(new PipeCommands.SEDSSClientRequestCommand
                 {
                     RequestType = PipeCommands.SEDSS_RequestType.Downdload,
@@ -582,6 +621,7 @@ namespace WPF_UI
                     Port = SEDSSClientPortTextBox.Text,
                     Password = SEDSSClientPasswordTextBox.Text,
                     ID = SEDSSClientIDTextBox.Text,
+                    UploadFilePath = "",
                 });
             }
             Console.WriteLine("SEDSSClient Download");

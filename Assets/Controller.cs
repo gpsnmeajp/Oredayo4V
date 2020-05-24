@@ -58,12 +58,14 @@ public class Controller : MonoBehaviour
     public LookAtModel lightLookAtModel;
 
     public Transform rootLockerTransform;
+    public Loader loader;
 
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
 
     GameObject backgroundObject;
 
     SEDSS_Server sedss_server;
+    SEDSS_Client sedss_client;
     MemoryMappedFileServer server;
 
     SynchronizationContext synchronizationContext;
@@ -75,10 +77,15 @@ public class Controller : MonoBehaviour
     public RootLocker lightRootLocker;
     public RootLocker backgroundRootLocker;
 
+    string ServerExchangePath = null;
+
     async void Start()
     {
         synchronizationContext = SynchronizationContext.Current;
-        sedss_server = new SEDSS_Server();
+        sedss_server = GetComponent<SEDSS_Server>();
+        sedss_server.SetPassword(null);
+        sedss_client = GetComponent<SEDSS_Client>();
+        sedss_client.SetPassword(null);
 
         server = new MemoryMappedFileServer();
         server.ReceivedEvent += Server_Received;
@@ -93,6 +100,8 @@ public class Controller : MonoBehaviour
     {
         Application.logMessageReceived -= ApplicationLogHandler;
         await server.SendCommandAsync(new PipeCommands.Bye { });
+
+        sedss_server.StopServer();
 
         server.ReceivedEvent -= Server_Received;
         server.Stop();
@@ -147,7 +156,17 @@ public class Controller : MonoBehaviour
             {
                 var d = (PipeCommands.LoadVRM)e.Data;
                 Debug.Log("LoadVRM: " + d.filepath);
-                externalReceiver.LoadVRM(d.filepath);
+
+                //許諾画面を出す
+                if (File.Exists(d.filepath)) {
+                    loader.LoadRequest(d.filepath,(path,bytes)=> {
+                        synchronizationContext.Post(async (args) =>
+                        {
+                            Debug.Log("Load start");
+                            externalReceiver.LoadVRMFromData(bytes);
+                        }, null);
+                    });
+                }
             }
 
             //===========背景読み込み===========
@@ -160,7 +179,7 @@ public class Controller : MonoBehaviour
                 if (d.filepath != null && d.filepath != "")
                 {
                     //VRMの場合
-                    if (d.filepath.ToLower().EndsWith(".vrm") || d.filepath.ToLower().EndsWith(".glb"))
+                    if (d.filepath.ToLower().EndsWith(".vrm"))
                     {
                         Destroy(backgroundObject);
                         backgroundObject = null;
@@ -168,32 +187,33 @@ public class Controller : MonoBehaviour
                         //バイナリの読み込み
                         if (File.Exists(d.filepath))
                         {
-                            byte[] VRMdata = File.ReadAllBytes(d.filepath);
+                            //許諾画面を出す
+                            loader.LoadRequest(d.filepath, (path, bytes) => {
+                                //読み込み
+                                VRMImporterContext vrmImporter = new VRMImporterContext();
+                                vrmImporter.ParseGlb(bytes);
 
-                            //読み込み
-                            VRMImporterContext vrmImporter = new VRMImporterContext();
-                            vrmImporter.ParseGlb(VRMdata);
-
-                            vrmImporter.LoadAsync(() =>
-                            {
-                                GameObject Model = vrmImporter.Root;
-
-                                //backgroundObjectの下にぶら下げる
-                                backgroundObject = new GameObject();
-                                backgroundObject.transform.SetParent(rootLockerTransform, false);
-                                backgroundObject.name = "backgroundObject";
-
-                                //最後に設定されていた位置に設定
-                                if (lastBackgroundPos != null)
+                                vrmImporter.LoadAsync(() =>
                                 {
-                                    backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
-                                    backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
-                                }
-                                //その下にモデルをぶら下げる
-                                Model.transform.SetParent(backgroundObject.transform, false);
+                                    GameObject Model = vrmImporter.Root;
 
-                                vrmImporter.EnableUpdateWhenOffscreen();
-                                vrmImporter.ShowMeshes();
+                                    //backgroundObjectの下にぶら下げる
+                                    backgroundObject = new GameObject();
+                                    backgroundObject.transform.SetParent(rootLockerTransform, false);
+                                    backgroundObject.name = "backgroundObject";
+
+                                    //最後に設定されていた位置に設定
+                                    if (lastBackgroundPos != null)
+                                    {
+                                        backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
+                                        backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
+                                    }
+                                    //その下にモデルをぶら下げる
+                                    Model.transform.SetParent(backgroundObject.transform, false);
+
+                                    vrmImporter.EnableUpdateWhenOffscreen();
+                                    vrmImporter.ShowMeshes();
+                                });
                             });
                         }
                         else
@@ -360,14 +380,91 @@ public class Controller : MonoBehaviour
             else if (e.CommandType == typeof(PipeCommands.SEDSSServerControl))
             {
                 var d = (PipeCommands.SEDSSServerControl)e.Data;
-                //TODO: SEDSSサーバー設定
+
+                sedss_server.SetPassword(d.Password);
+
+                //サーバー起動終了
+                if (d.Enable)
+                {
+                    ServerExchangePath = d.ExchangeFilePath;
+                    sedss_server.StartServer();
+                    Debug.Log("[SEDSS Server] サーバー起動");
+                }
+                else {
+                    ServerExchangePath = null;
+                    sedss_server.StopServer();
+                    Debug.Log("[SEDSS Server] サーバー停止");
+                }
+
+                sedss_server.OnDataUploaded = (bytes, id) => {
+                    Debug.Log("[SEDSS Server] アップロードを受けました");
+                    externalReceiver.LoadVRMFromData(bytes);
+                    return;
+                };
+                sedss_server.OnDownloadRequest = (id) =>
+                {
+                    //TODO: ダウンロード要求受信時処理
+                    if (File.Exists(d.ExchangeFilePath))
+                    {
+                        Debug.Log("[SEDSS Server] ダウンロード要求を受けました");
+                        byte[] data = File.ReadAllBytes(ServerExchangePath);
+                        return data;
+                    }
+                    else {
+                        Debug.LogError("[SEDSS Server] ダウンロード要求を受けましたがファイルが存在しません");
+                        return new byte[0];
+                    }
+                };
             }
 
             //===========SEDSSクライアント===========
             else if (e.CommandType == typeof(PipeCommands.SEDSSClientRequestCommand))
             {
                 var d = (PipeCommands.SEDSSClientRequestCommand)e.Data;
-                //TODO: SEDSSクライアントリクエスト
+
+                sedss_client.SetPassword(d.Password);
+                sedss_client.SetAddress(d.Address);
+
+                int port = 0;
+                if (int.TryParse(d.Port, out port))
+                {
+                    sedss_client.port = port;
+
+                    if (d.RequestType == PipeCommands.SEDSS_RequestType.Downdload)
+                    {
+                        sedss_client.Download(d.ID, (bytes, id) => {
+                            Debug.Log("[SEDSS Client] ダウンロード完了");
+                            externalReceiver.LoadVRMFromData(bytes);
+                        }, (err, id) =>
+                        {
+                            Debug.LogError("[SEDSS Client] ダウンロード失敗(通信異常,パスワード誤り)");
+                        });
+                    }
+                    else if (d.RequestType == PipeCommands.SEDSS_RequestType.Upload)
+                    {
+                        if (File.Exists(d.UploadFilePath))
+                        {
+                            byte[] data = File.ReadAllBytes(d.UploadFilePath);
+                            sedss_client.Upload(data, d.ID, (id) =>
+                            {
+                                Debug.Log("[SEDSS Client] アップロード完了");
+                            }, (err, id) =>
+                            {
+                                Debug.LogError("[SEDSS Client] アップロード失敗(通信異常,パスワード誤り)");
+                            });
+                        }
+                        else {
+                            Debug.LogError("アップロードファイルが存在しません");
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("不正なリクエスト");
+                    }
+                }
+                else {
+                    Debug.LogError("不正なポート番号");
+                }
             }
 
             //-----------色設定----------------
