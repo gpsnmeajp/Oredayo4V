@@ -352,6 +352,60 @@
 					</StackPanel>
 				</StackPanel>
 			</TabItem>
+			<TabItem Header="画質設定">
+				<StackPanel>
+					<GroupBox Header="Graphics">
+						<StackPanel>
+							<TextBlock>Anti-aliasing (Unity)</TextBlock>
+							<TextBlock>ColorSpace</TextBlock>
+							<TextBlock>Frame per second</TextBlock>
+							<TextBlock>V-Sync</TextBlock>
+						</StackPanel>
+					</GroupBox>
+					<GroupBox Header="PostProcessingStack V2">
+						<StackPanel Orientation="Horizontal">
+							<StackPanel>
+								<GroupBox Header="Anti-aliasing (PPS)">
+									<TextBlock>Select</TextBlock>
+								</GroupBox>
+								<GroupBox Header="Bloom">
+									<StackPanel>
+										<TextBlock>Enable</TextBlock>
+										<TextBlock>Intensity</TextBlock>
+										<TextBlock>Threshold</TextBlock>
+									</StackPanel>
+								</GroupBox>
+								<GroupBox Header="Depth of Field">
+									<StackPanel>
+										<TextBlock>Enable</TextBlock>
+										<TextBlock>Focus Distance</TextBlock>
+										<TextBlock>Aperture</TextBlock>
+										<TextBlock>Focus Length</TextBlock>
+										<TextBlock>Max Blur Size</TextBlock>
+									</StackPanel>
+								</GroupBox>
+							</StackPanel>
+							<StackPanel>
+								<GroupBox Header="Color Grading">
+									<StackPanel>
+										<TextBlock>Enable</TextBlock>
+										<TextBlock>Mode</TextBlock>
+										<TextBlock>Saturation</TextBlock>
+										<TextBlock>Contrast</TextBlock>
+									</StackPanel>
+								</GroupBox>
+								<GroupBox Header="Ambient Occlusion">
+									<StackPanel>
+										<TextBlock>Enable</TextBlock>
+										<TextBlock>Mode</TextBlock>
+										<TextBlock>Intensity</TextBlock>
+									</StackPanel>
+								</GroupBox>
+							</StackPanel>
+						</StackPanel>
+					</GroupBox>
+				</StackPanel>
+			</TabItem>
 		</TabControl>
 
 	</DockPanel>
