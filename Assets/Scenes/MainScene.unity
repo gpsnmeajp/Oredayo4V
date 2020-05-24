@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0, g: 1, b: 0.6666667, a: 1}
+  m_AmbientSkyColor: {r: 0.21176471, g: 0.22745098, b: 0.25882354, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -140,7 +140,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0, g: 1, b: 0.6666667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 50
   m_SpotAngle: 30
@@ -295,7 +295,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1e+9
-  field of view: 26.991467
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -555,7 +555,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0, g: 0.2, b: 0.13333334, a: 1}
+    - _Color: {r: 0, g: 1, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadeColor: {r: 0.96999997, g: 0.81, b: 0.86, a: 1}
@@ -1417,6 +1417,7 @@ MonoBehaviour:
   LoadedModelParent: {fileID: 0}
   LastPacketframeCounterInFrame: 0
   DropPackets: 0
+  HeadPosition: {x: 0, y: 0, z: 0}
   NextReceivers:
   - {fileID: 8135304415098092766}
   - {fileID: 8134819791841697572}

@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
         mc:Ignorable="d"
 		Background="#333333"
-        Title="Oredayo UI v0.2 alpha" Height="532.5" Width="440" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI v0.2 alpha" Height="545.5" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<DockPanel LastChildFill="True">
 		<StatusBar DockPanel.Dock="Bottom" Height="20" VerticalAlignment="Bottom" Background="#222222">
 			<StatusBarItem>
@@ -64,7 +64,7 @@
 					<GroupBox Header="カメラ位置">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="40" />
 								<ColumnDefinition />
 								<ColumnDefinition Width="45"/>
 								<ColumnDefinition Width="30" />
@@ -99,7 +99,7 @@
 					<GroupBox Header="ライト位置">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="40" />
 								<ColumnDefinition />
 								<ColumnDefinition Width="45"/>
 								<ColumnDefinition Width="30" />
@@ -150,7 +150,7 @@
 					<GroupBox Header="背景オブジェクト位置">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="30" />
+								<ColumnDefinition Width="40" />
 								<ColumnDefinition />
 								<ColumnDefinition Width="45"/>
 								<ColumnDefinition Width="30" />
@@ -158,6 +158,7 @@
 								<ColumnDefinition Width="45"/>
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
+								<RowDefinition />
 								<RowDefinition />
 								<RowDefinition />
 								<RowDefinition />
@@ -180,6 +181,9 @@
 							<TextBlock Grid.Column="3" Grid.Row="2">Z位置</TextBlock>
 							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
 							<Button Name="BackgroundValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="BackgroundValue3ResetButton_Click"/>
+							<TextBlock Grid.Column="0" Grid.Row="3">スケール</TextBlock>
+							<Slider Name="BackgroundScaleSlider" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="3"  Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundScaleResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="3"  Content="リセット" Click="BackgroundScaleResetButton_Click"/>
 						</Grid>
 					</GroupBox>
 				</StackPanel>
@@ -356,6 +360,50 @@
 				<StackPanel>
 					<GroupBox Header="Graphics">
 						<StackPanel>
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition/>
+									<ColumnDefinition/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="20"/>
+								</Grid.RowDefinitions>
+								<TextBlock Grid.Column="0" Grid.Row="0">Anti-aliasing:</TextBlock>
+								<ComboBox  Grid.Column="1" Grid.Row="0" />
+							</Grid>
+						</StackPanel>
+					</GroupBox>
+					<GroupBox Header="PostProcessingStack V2">
+						<StackPanel>
+							<GroupBox Header="Anti-aliasing (PPS)">
+								<Grid>
+									<CheckBox  Grid.Column="1" Grid.Row="0" Content="Enable" />
+								</Grid>
+							</GroupBox>
+							<GroupBox Header="Bloom">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="80"/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+									</Grid.RowDefinitions>
+									<CheckBox  Grid.Column="0" Grid.Row="0" Content="Enable" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<Slider Grid.Column="1" Grid.Row="1" /> 
+									<TextBlock Grid.Column="0" Grid.Row="2">Threshold</TextBlock>
+									<Slider Grid.Column="1" Grid.Row="2" />
+								</Grid>
+							</GroupBox>
+						</StackPanel>
+					</GroupBox>
+
+					<!--
+					<GroupBox Header="Graphics">
+						<StackPanel>
 							<TextBlock>Anti-aliasing (Unity)</TextBlock>
 							<TextBlock>ColorSpace</TextBlock>
 							<TextBlock>Frame per second</TextBlock>
@@ -404,6 +452,7 @@
 							</StackPanel>
 						</StackPanel>
 					</GroupBox>
+					-->
 				</StackPanel>
 			</TabItem>
 		</TabControl>

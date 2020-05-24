@@ -38,7 +38,9 @@ namespace UnityMemoryMappedFile
         };
 
         //Each
-        public class Hello{ }
+        public class Hello{ 
+            public DateTime startTime { get; set; }
+        }
         public class Bye{ }
 
         //To Unity
@@ -83,6 +85,7 @@ namespace UnityMemoryMappedFile
             public float Px { get; set; }
             public float Py { get; set; }
             public float Pz { get; set; }
+            public float scale { get; set; }
         }
 
         //★詳細設定
@@ -169,6 +172,10 @@ namespace UnityMemoryMappedFile
         public class CommunicationStatus
         {
             public bool EVMC4U { get; set; }
+        }
+        public class ResetInfo
+        {
+            public float HeadHeight { get; set; }
         }
         public class KeepAlive
         {

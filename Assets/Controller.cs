@@ -78,6 +78,9 @@ public class Controller : MonoBehaviour
     public RootLocker backgroundRootLocker;
 
     string ServerExchangePath = null;
+    Texture2D bgtexture = null;
+
+    public DateTime startTime = DateTime.Now;
 
     async void Start()
     {
@@ -91,7 +94,9 @@ public class Controller : MonoBehaviour
         server.ReceivedEvent += Server_Received;
         server.Start("Oredayo_UI_Connection");
 
-        await server.SendCommandAsync(new PipeCommands.Hello { });
+        await server.SendCommandAsync(new PipeCommands.Hello { startTime = this.startTime });
+        Debug.Log(startTime);
+
         Application.logMessageReceived += ApplicationLogHandler;
         Debug.Log("Server started");
     }
@@ -135,7 +140,7 @@ public class Controller : MonoBehaviour
             if (e.CommandType == typeof(PipeCommands.Hello))
             {
                 //Helloが来たらHelloを返す。すると初期値が送られてくる。
-                await server.SendCommandAsync(new PipeCommands.Hello { });
+                await server.SendCommandAsync(new PipeCommands.Hello { startTime = this.startTime });
                 Debug.Log(">Hello");
             }
             else if (e.CommandType == typeof(PipeCommands.Bye))
@@ -182,6 +187,7 @@ public class Controller : MonoBehaviour
                     if (d.filepath.ToLower().EndsWith(".vrm"))
                     {
                         Destroy(backgroundObject);
+                        bgtexture = null;
                         backgroundObject = null;
                         //ファイルからモデルを読み込む
                         //バイナリの読み込み
@@ -224,11 +230,11 @@ public class Controller : MonoBehaviour
                     //画像の場合
                     else if (d.filepath.ToLower().EndsWith(".png"))
                     {
+                        Destroy(backgroundObject);
+                        bgtexture = null;
+                        backgroundObject = null;
                         if (File.Exists(d.filepath))
                         {
-                            Destroy(backgroundObject);
-                            backgroundObject = null;
-
                             backgroundObject = GameObject.CreatePrimitive(PrimitiveType.Quad);
                             backgroundObject.transform.SetParent(rootLockerTransform, false);
                             //最後に設定されていた位置に設定
@@ -327,6 +333,14 @@ public class Controller : MonoBehaviour
                     lastBackgroundPos = d;
                     backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
                     backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+
+                    if (bgtexture != null)
+                    {
+                        backgroundObject.transform.localScale = new Vector3(d.scale, d.scale* (float)bgtexture.height / (float)bgtexture.width, d.scale);
+                    }
+                    else {
+                        backgroundObject.transform.localScale = new Vector3(d.scale, d.scale, d.scale);
+                    }
                 }
             }
 
@@ -403,7 +417,6 @@ public class Controller : MonoBehaviour
                 };
                 sedss_server.OnDownloadRequest = (id) =>
                 {
-                    //TODO: ダウンロード要求受信時処理
                     if (File.Exists(d.ExchangeFilePath))
                     {
                         Debug.Log("[SEDSS Server] ダウンロード要求を受けました");
@@ -510,6 +523,10 @@ public class Controller : MonoBehaviour
                 EVMC4U = communicationValidator.time != lastEVMC4UTime //通信が行われていれば常に時刻は更新される
             });
 
+            await server.SendCommandAsync(new PipeCommands.ResetInfo {
+                HeadHeight = externalReceiver.HeadPosition.y //カメラ位置用に送り続ける
+            });
+
             lastEVMC4UTime = communicationValidator.time;
             nextTime = Time.time + 1.5f;
         }
@@ -526,12 +543,12 @@ public class Controller : MonoBehaviour
                 renderer.material.shader = Shader.Find("Unlit/Texture");
 
                 //高画質化処理
-                Texture2D texture = www.texture;
-                texture.anisoLevel = 16;
-                texture.filterMode = FilterMode.Trilinear;
-                renderer.material.mainTexture = texture;
+                bgtexture = www.texture;
+                bgtexture.anisoLevel = 16;
+                bgtexture.filterMode = FilterMode.Trilinear;
+                renderer.material.mainTexture = bgtexture;
 
-                backgroundObject.transform.localScale = new Vector3(1f, (float)texture.height/ (float)texture.width, 0);
+                backgroundObject.transform.localScale = new Vector3(1f, (float)bgtexture.height/ (float)bgtexture.width, 0);
             }
         }
     }

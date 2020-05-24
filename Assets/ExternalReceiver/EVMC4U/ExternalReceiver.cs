@@ -86,6 +86,8 @@ namespace EVMC4U
         public int LastPacketframeCounterInFrame = 0; //1フレーム中に受信したパケットフレーム数
         public int DropPackets = 0; //廃棄されたパケット(not パケットフレーム)
 
+        public Vector3 HeadPosition = Vector3.zero;
+
         [Header("Daisy Chain")]
         public GameObject[] NextReceivers = new GameObject[6]; //デイジーチェーン
 
@@ -141,6 +143,9 @@ namespace EVMC4U
 
         //1フレームに30パケットフレーム来たら、同一フレーム内でそれ以上は受け取らない。
         const int PACKET_LIMIT_MAX = 30;
+
+        //読込中は読み込まない
+        bool isLoading = false;
 
         //メッセージ処理一時変数struct(負荷対策)
         Vector3 pos;
@@ -683,14 +688,20 @@ namespace EVMC4U
         //ファイルからモデルを読み込む
         public void LoadVRMFromData(byte[] VRMdata)
         {
+            if (isLoading) {
+                Debug.LogError("Now Loading! load request is rejected.");
+                return;
+            }
             DestroyModel();
 
             //読み込み
             VRMImporterContext vrmImporter = new VRMImporterContext();
             vrmImporter.ParseGlb(VRMdata);
 
+            isLoading = true;
             vrmImporter.LoadAsync(() =>
             {
+                isLoading = false;
                 Model = vrmImporter.Root;
 
                 //ExternalReceiverの下にぶら下げる
@@ -702,6 +713,10 @@ namespace EVMC4U
 
                 vrmImporter.EnableUpdateWhenOffscreen();
                 vrmImporter.ShowMeshes();
+
+                //カメラなどの移動補助のため、頭の位置を格納する
+                animator = Model.GetComponent<Animator>();
+                HeadPosition = animator.GetBoneTransform(HumanBodyBones.Head).position;
             });
         }
 

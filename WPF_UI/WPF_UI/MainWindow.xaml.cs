@@ -53,6 +53,8 @@ namespace WPF_UI
         private float gamingH = 0f;
 
         private int UI_KeepAlive = 0;
+        private float cameraResetHeight = 1.4f;
+        private DateTime lastStartTime = new DateTime();
 
         public MainWindow()
         {
@@ -62,41 +64,46 @@ namespace WPF_UI
         //-----------システム系----------------
         private void Client_Received(object sender, DataReceivedEventArgs e)
         {
-            if (e.CommandType == typeof(PipeCommands.Hello))
-            {
-                //Unity側起動時処理(値送信など)
-                Console.WriteLine(">Hello");
+            Dispatcher.Invoke(() => {
 
-                //デフォルト値送信
-                Dispatcher.Invoke(() => {
-                    VRMLoadButton_Click(null, null);
-                    BackgroundObjectLoadButton_Click(null, null);
-                    CameraSlider_ValueChanged(null, null);
-                    LightSlider_ValueChanged(null, null);
-                    BackgroundSlider_ValueChanged(null, null);
-                    EVMC4U_Checked(null, null);
-                    WindowOption_Checked(null, null);
-                    RootPos_Checked(null, null);
-                    ExternalControl_Checked(null, null);
-                    //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
-                    BackgroundColorPicker_SelectedColorChanged(null, null);
-                    LightColorPicker_SelectedColorChanged(null, null);
-                    EnvironmentColorPicker_SelectedColorChanged(null, null);
-                });
-            }
-            else if (e.CommandType == typeof(PipeCommands.Bye))
-            {
-                //Unity側終了処理
-                Dispatcher.Invoke(() => {
+                if (e.CommandType == typeof(PipeCommands.Hello))
+                {
+                    var d = (PipeCommands.Hello)e.Data;
+
+                    //Unity側からすでに送られているものは無視する
+                    if (lastStartTime != d.startTime)
+                    {
+                        lastStartTime = d.startTime;
+                        //Unity側起動時処理(値送信など)
+                        Console.WriteLine(">Hello");
+                        Console.WriteLine(lastStartTime);
+
+                        //デフォルト値送信
+                        VRMLoadButton_Click(null, null);
+                        BackgroundObjectLoadButton_Click(null, null);
+                        CameraSlider_ValueChanged(null, null);
+                        LightSlider_ValueChanged(null, null);
+                        BackgroundSlider_ValueChanged(null, null);
+                        EVMC4U_Checked(null, null);
+                        WindowOption_Checked(null, null);
+                        RootPos_Checked(null, null);
+                        ExternalControl_Checked(null, null);
+                        //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
+                        BackgroundColorPicker_SelectedColorChanged(null, null);
+                        LightColorPicker_SelectedColorChanged(null, null);
+                        EnvironmentColorPicker_SelectedColorChanged(null, null);
+                    }
+                }
+                else if (e.CommandType == typeof(PipeCommands.Bye))
+                {
+                    //Unity側終了処理
                     //this.Close();
-                });
-                Console.WriteLine(">Bye");
-            }
-            else if (e.CommandType == typeof(PipeCommands.LogMessage))
-            {
-                //ログ受信時処理
-                var d = (PipeCommands.LogMessage)e.Data;
-                Dispatcher.Invoke(() => {
+                    Console.WriteLine(">Bye");
+                }
+                else if (e.CommandType == typeof(PipeCommands.LogMessage))
+                {
+                    //ログ受信時処理
+                    var d = (PipeCommands.LogMessage)e.Data;
                     StatusBarText.Text = "[" + d.Type.ToString() + "] " + d.Message;
                     switch (d.Type)
                     {
@@ -110,21 +117,17 @@ namespace WPF_UI
                             StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                             break;
                     }
-                });
-            }
-            else if (e.CommandType == typeof(PipeCommands.SendMessage))
-            {
-                //エラーダイアログ処理
-                var d = (PipeCommands.SendMessage)e.Data;
-                Dispatcher.Invoke(() => {
+                }
+                else if (e.CommandType == typeof(PipeCommands.SendMessage))
+                {
+                    //エラーダイアログ処理
+                    var d = (PipeCommands.SendMessage)e.Data;
                     MessageBox.Show(d.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
-                });
-            }
-            else if (e.CommandType == typeof(PipeCommands.CommunicationStatus))
-            {
-                //KeepAlive処理
-                var d = (PipeCommands.CommunicationStatus)e.Data;
-                Dispatcher.Invoke(() => {
+                }
+                else if (e.CommandType == typeof(PipeCommands.CommunicationStatus))
+                {
+                    //KeepAlive処理
+                    var d = (PipeCommands.CommunicationStatus)e.Data;
                     if (!d.EVMC4U)
                     {
                         InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
@@ -137,12 +140,23 @@ namespace WPF_UI
                         InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                         InfoEVMC4UStateTextBlock.Text = "OK";
                     }
-                });
-            }
-            else if (e.CommandType == typeof(PipeCommands.KeepAlive))
-            {
-                UI_KeepAlive = 0;
-            }
+                }
+                else if (e.CommandType == typeof(PipeCommands.KeepAlive))
+                {
+                    UI_KeepAlive = 0;
+                }
+                else if (e.CommandType == typeof(PipeCommands.ResetInfo))
+                {
+                    //リセット用情報
+                    var d = (PipeCommands.ResetInfo)e.Data;
+
+                    //前回と値が違うときは合わせる(VRM読み込み時)
+                    if (cameraResetHeight != d.HeadHeight) {
+                        CameraValue2Slider.Value = d.HeadHeight;
+                    }
+                    cameraResetHeight = d.HeadHeight;
+                }
+            });
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -179,7 +193,8 @@ namespace WPF_UI
             client.Stop();
         }
 
-        private void GenericTimer(object sender, EventArgs e) {
+        private void GenericTimer(object sender, EventArgs e)
+        {
             if (GamingBackgroundCheckBox.IsChecked.HasValue && GamingBackgroundCheckBox.IsChecked.Value)
             {
                 BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 0.2f);
@@ -194,7 +209,8 @@ namespace WPF_UI
             }
 
             gamingH += 1f;
-            if (gamingH > 360f) {
+            if (gamingH > 360f)
+            {
                 gamingH -= 360f;
             }
 
@@ -214,9 +230,10 @@ namespace WPF_UI
                 GamingLightCheckBox.IsChecked = false;
                 GamingEnvironmentCheckBox.IsChecked = false;
             }
-            else {
+            else
+            {
                 InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0,0,0));
+                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
                 InfoUIStateTextBlock.Text = "OK";
             }
         }
@@ -312,7 +329,7 @@ namespace WPF_UI
 
         private void CameraValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            CameraValue2Slider.Value = 1.4f;
+            CameraValue2Slider.Value = cameraResetHeight;
         }
 
         private void CameraValue3ResetButton_Click(object sender, RoutedEventArgs e)
@@ -410,6 +427,8 @@ namespace WPF_UI
                     Px = (float)BackgroundValue1Slider.Value,
                     Py = (float)BackgroundValue2Slider.Value,
                     Pz = (float)BackgroundValue3Slider.Value,
+
+                    scale = (float)BackgroundScaleSlider.Value,
                 });
             }
             Console.WriteLine("BackgroundSlider");
@@ -444,6 +463,11 @@ namespace WPF_UI
         private void BackgroundValue3ResetButton_Click(object sender, RoutedEventArgs e)
         {
             BackgroundValue3Slider.Value = -1f;
+        }
+
+        private void BackgroundScaleResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            BackgroundScaleSlider.Value = 1f;
         }
 
         //-----------詳細設定----------------
@@ -494,7 +518,8 @@ namespace WPF_UI
         {
             if (client != null)
             {
-                if (WindowOptionTransparentCheckBox.IsChecked.Value) {
+                if (WindowOptionTransparentCheckBox.IsChecked.Value)
+                {
                     WindowOptionWindowBorderCheckBox.IsChecked = true;
                 }
 
@@ -517,7 +542,7 @@ namespace WPF_UI
                 {
                     CameraLock = CameraRootPosLockCheckBox.IsChecked.Value,
                     LightLock = LightRootPosLockCheckBox.IsChecked.Value,
-                    BackgroundLock = 
+                    BackgroundLock =
                     BackgroundRootPosLockCheckBox.IsChecked.Value,
                 });
             }
@@ -552,7 +577,8 @@ namespace WPF_UI
                     }
 
                     var result = MessageBox.Show("SEDSSサーバー機能を本当に有効にしますか？\nパスワードを共有したデバイスからVRMデータを読み込み・送信することができるようになります。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-                    if (result != MessageBoxResult.OK) {
+                    if (result != MessageBoxResult.OK)
+                    {
                         //拒否
                         SEDSSServerEnableCheckBox.IsChecked = false; //強制的にオフ
                         return;
@@ -673,7 +699,5 @@ namespace WPF_UI
             }
             Console.WriteLine("EnvironmentColor");
         }
-
-
     }
 }
