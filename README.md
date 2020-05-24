@@ -1,5 +1,5 @@
-# Oredayo
-非公式Waidayoクライアント
+# VMCProtocol対応バストアップ撮影ツール Oredayo
+Waidayo での利用を想定しています。バーチャルモーションキャプチャーなどでも利用可能です。
 
 **[ダウンロード](https://github.com/gpsnmeajp/Oredayo/releases)**  
 
