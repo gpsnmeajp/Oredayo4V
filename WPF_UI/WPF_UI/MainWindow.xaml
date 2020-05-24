@@ -358,26 +358,11 @@
 			</TabItem>
 			<TabItem Header="画質設定">
 				<StackPanel>
-					<GroupBox Header="Graphics">
-						<StackPanel>
-							<Grid>
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition/>
-									<ColumnDefinition/>
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="20"/>
-								</Grid.RowDefinitions>
-								<TextBlock Grid.Column="0" Grid.Row="0">Anti-aliasing:</TextBlock>
-								<ComboBox  Grid.Column="1" Grid.Row="0" />
-							</Grid>
-						</StackPanel>
-					</GroupBox>
 					<GroupBox Header="PostProcessingStack V2">
 						<StackPanel>
 							<GroupBox Header="Anti-aliasing (PPS)">
 								<Grid>
-									<CheckBox  Grid.Column="1" Grid.Row="0" Content="Enable" />
+									<CheckBox Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="Enable"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 								</Grid>
 							</GroupBox>
 							<GroupBox Header="Bloom">
@@ -391,11 +376,11 @@
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox  Grid.Column="0" Grid.Row="0" Content="Enable" />
+									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
-									<Slider Grid.Column="1" Grid.Row="1" /> 
+									<Slider Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" /> 
 									<TextBlock Grid.Column="0" Grid.Row="2">Threshold</TextBlock>
-									<Slider Grid.Column="1" Grid.Row="2" />
+									<Slider Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
 						</StackPanel>

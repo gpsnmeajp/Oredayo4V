@@ -92,6 +92,7 @@ namespace WPF_UI
                         BackgroundColorPicker_SelectedColorChanged(null, null);
                         LightColorPicker_SelectedColorChanged(null, null);
                         EnvironmentColorPicker_SelectedColorChanged(null, null);
+                        PostProcessingStackSlider_Checked(null, null);
                     }
                 }
                 else if (e.CommandType == typeof(PipeCommands.Bye))
@@ -698,6 +699,27 @@ namespace WPF_UI
                 }
             }
             Console.WriteLine("EnvironmentColor");
+        }
+        //-----------画質設定----------------
+        //===========PostProcessing===========
+        private async void PostProcessingStackSlider_Checked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client?.SendCommandAsync(new PipeCommands.PostProcessingControl {
+                    AntiAliasingEnable= PostProcessingAntiAliasingEnableCheckBox.IsChecked.Value,
+                    BloomEnable= PostProcessingBloomEnableCheckBox.IsChecked.Value,
+                    BloomIntensity= (float)PostProcessingBloomIntensitySlider.Value,
+                    BloomThreshold= (float)PostProcessingBloomThresholdSlider.Value,
+                });
+            }
+            Console.WriteLine("PostProcessingStack");
+        }
+
+        private void PostProcessingStackSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            //ただ転送する(お行儀悪い)
+            PostProcessingStackSlider_Checked(null, null);
         }
     }
 }

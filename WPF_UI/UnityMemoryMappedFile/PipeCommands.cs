@@ -157,6 +157,23 @@ namespace UnityMemoryMappedFile
             public float b { get; set; }
         }
 
+        //★画質設定
+        /*
+        public class UnityGraphicsControl
+        {
+
+        }
+        */
+        public class PostProcessingControl
+        {
+            public bool AntiAliasingEnable { get; set; }
+            public bool BloomEnable { get; set; }
+            public float BloomIntensity { get; set; }
+            public float BloomThreshold { get; set; }
+        }
+
+
+
         //From Unity
         public class LogMessage
         {

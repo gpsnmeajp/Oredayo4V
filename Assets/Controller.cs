@@ -29,6 +29,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using akr.Unity.Windows;
 using EVMC4U;
 using UnityMemoryMappedFile;
@@ -59,6 +60,9 @@ public class Controller : MonoBehaviour
 
     public Transform rootLockerTransform;
     public Loader loader;
+
+    public PostProcessLayer PPSLayer;
+    public PostProcessVolume PPSVolume;
 
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
 
@@ -500,6 +504,31 @@ public class Controller : MonoBehaviour
             {
                 var d = (PipeCommands.EnvironmentColor)e.Data;
                 RenderSettings.ambientLight = new Color(d.r / 255f, d.g / 255f, d.b / 255f);
+            }
+            //===========PostProcessing===========
+            else if (e.CommandType == typeof(PipeCommands.PostProcessingControl))
+            {
+                var d = (PipeCommands.PostProcessingControl)e.Data;
+
+                //アンチエイリアス
+                if (d.AntiAliasingEnable)
+                {
+                    PPSLayer.antialiasingMode = PostProcessLayer.Antialiasing.SubpixelMorphologicalAntialiasing;
+                }
+                else {
+                    PPSLayer.antialiasingMode = PostProcessLayer.Antialiasing.None;
+                }
+
+                var p = PPSVolume.sharedProfile;
+
+                //ブルーム
+                var b = p.GetSetting<Bloom>(); b.active = true;
+                b.enabled.value = d.BloomEnable;
+                b.intensity.value = d.BloomIntensity;
+                b.threshold.value = d.BloomThreshold;
+
+                PPSVolume.sharedProfile = p;
+                
             }
             else
             {
