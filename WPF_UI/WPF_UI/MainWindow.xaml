@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
         mc:Ignorable="d"
 		Background="#333333"
-        Title="Oredayo UI v0.3 alpha" Height="545.5" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI v0.3c alpha" Height="655" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<DockPanel LastChildFill="True">
 		<StatusBar DockPanel.Dock="Bottom" Height="20" VerticalAlignment="Bottom" Background="#222222">
 			<StatusBarItem>
@@ -17,6 +17,19 @@
 		<TabControl DockPanel.Dock="Top">
 			<TabItem  Header="基本設定">
 				<StackPanel>
+					<GroupBox Header="設定ファイル">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<Button IsEnabled="False" Name="SaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="セーブ"></Button>
+							<Button IsEnabled="False"  Name="LoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="ロード"></Button>
+						</Grid>
+					</GroupBox>
 					<GroupBox Header="VRM読み込み">
 						<Grid>
 							<Grid.ColumnDefinitions>
@@ -186,6 +199,28 @@
 							<Button Name="BackgroundScaleResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="3"  Content="リセット" Click="BackgroundScaleResetButton_Click"/>
 						</Grid>
 					</GroupBox>
+					<GroupBox Header="情報">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="110"/>
+								<ColumnDefinition Width="110"/>
+								<ColumnDefinition Width="110"/>
+								<ColumnDefinition Width="110"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0">EVMC4U ポート番号</TextBlock>
+							<TextBlock Grid.Column="1" Grid.Row="0">39009</TextBlock>
+							<TextBlock Grid.Column="0" Grid.Row="1">SEDSS ポート番号</TextBlock>
+							<TextBlock Grid.Column="1" Grid.Row="1">39008</TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="0">EVMC4U受信状態</TextBlock>
+							<TextBlock Name="InfoEVMC4UStateTextBlock" Grid.Column="3" Grid.Row="0" Background="Gray">--</TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1">UI通信状態</TextBlock>
+							<TextBlock Name="InfoUIStateTextBlock" Grid.Column="3" Grid.Row="1" Background="Gray">--</TextBlock>
+						</Grid>
+					</GroupBox>
 				</StackPanel>
 			</TabItem>
 			<TabItem  Header="詳細設定">
@@ -302,28 +337,6 @@
 							<TextBox Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Header="情報">
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="110"/>
-								<ColumnDefinition Width="110"/>
-								<ColumnDefinition Width="110"/>
-								<ColumnDefinition Width="110"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition />
-								<RowDefinition />
-							</Grid.RowDefinitions>
-							<TextBlock Grid.Column="0" Grid.Row="0">EVMC4U ポート番号</TextBlock>
-							<TextBlock Grid.Column="1" Grid.Row="0">39009</TextBlock>
-							<TextBlock Grid.Column="0" Grid.Row="1">SEDSS ポート番号</TextBlock>
-							<TextBlock Grid.Column="1" Grid.Row="1">39008</TextBlock>
-							<TextBlock Grid.Column="2" Grid.Row="0">EVMC4U受信状態</TextBlock>
-							<TextBlock Name="InfoEVMC4UStateTextBlock" Grid.Column="3" Grid.Row="0" Background="Gray">--</TextBlock>
-							<TextBlock Grid.Column="2" Grid.Row="1">UI通信状態</TextBlock>
-							<TextBlock Name="InfoUIStateTextBlock" Grid.Column="3" Grid.Row="1" Background="Gray">--</TextBlock>
-						</Grid>
-					</GroupBox>
 				</StackPanel>
 			</TabItem>
 			<TabItem Header="色設定1">
@@ -378,9 +391,90 @@
 									</Grid.RowDefinitions>
 									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
-									<Slider Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" /> 
+									<Slider Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 									<TextBlock Grid.Column="0" Grid.Row="2">Threshold</TextBlock>
 									<Slider Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+								</Grid>
+							</GroupBox>
+							<GroupBox Header="Depth of Field">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="80"/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+									</Grid.RowDefinitions>
+									<CheckBox Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >Focus Distance</TextBlock>
+									<Slider Name="PostProcessingDoFFocusDistanceSlider" Grid.Column="1" Grid.Row="1"  Value="10.0" Maximum="100" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="2">Aperture</TextBlock>
+									<Slider Name="PostProcessingDoFApertureSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="32.0" Minimum="0.1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="3" >Focus Length</TextBlock>
+									<Slider Name="PostProcessingDoFFocusLengthSlider" Grid.Column="1" Grid.Row="3"  Value="1.0" Maximum="300.0" Minimum="1.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="4">Max Blur Size</TextBlock>
+									<Slider Name="PostProcessingDoFMaxBlurSizeSlider" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"  Grid.Row="4" Value="2" Maximum="4" Minimum="1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+								</Grid>
+							</GroupBox>
+							<GroupBox Header="Color Grading">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="80"/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+									</Grid.RowDefinitions>
+									<CheckBox Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >Temperature</TextBlock>
+									<Slider Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="2">Saturation</TextBlock>
+									<Slider Name="PostProcessingCGSaturationSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="3" >Contrast</TextBlock>
+									<Slider Name="PostProcessingCGContrastSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+								</Grid>
+							</GroupBox>
+							<GroupBox Header="Vignette">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="80"/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+									</Grid.RowDefinitions>
+									<CheckBox Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<Slider Name="PostProcessingVIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="2">Smoothness</TextBlock>
+									<Slider Name="PostProcessingVSmoothnessSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+									<TextBlock Grid.Column="0" Grid.Row="3" >Rounded</TextBlock>
+									<Slider Name="PostProcessingVRoundedSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+								</Grid>
+							</GroupBox>
+							<GroupBox Header="Chromatic Aberration">
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="80"/>
+										<ColumnDefinition/>
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition  Height="20"/>
+										<RowDefinition  Height="20"/>
+									</Grid.RowDefinitions>
+									<CheckBox Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<Slider Name="PostProcessingCAIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
 						</StackPanel>

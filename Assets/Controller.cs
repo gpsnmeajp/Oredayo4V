@@ -336,10 +336,11 @@ public class Controller : MonoBehaviour
             //===========背景オブジェクト位置===========
             else if (e.CommandType == typeof(PipeCommands.BackgroundObjectControl))
             {
+                var d = (PipeCommands.BackgroundObjectControl)e.Data;
+                lastBackgroundPos = d;
+
                 if (backgroundObject != null)
                 {
-                    var d = (PipeCommands.BackgroundObjectControl)e.Data;
-                    lastBackgroundPos = d;
                     backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
                     backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
 
@@ -527,10 +528,52 @@ public class Controller : MonoBehaviour
                 var p = PPSVolume.sharedProfile;
 
                 //ブルーム
-                var b = p.GetSetting<Bloom>(); b.active = true;
-                b.enabled.value = d.BloomEnable;
-                b.intensity.value = d.BloomIntensity;
-                b.threshold.value = d.BloomThreshold;
+                var bloom = p.GetSetting<Bloom>();
+                bloom.active = true;
+                bloom.enabled.value = d.BloomEnable;
+                bloom.intensity.value = d.BloomIntensity;
+                bloom.threshold.value = d.BloomThreshold;
+
+                //DoF
+                var dof = p.GetSetting<DepthOfField>();
+                dof.active = true;
+                dof.enabled.value = d.DoFEnable;
+                dof.focusDistance.value = d.DoFFocusDistance;
+                dof.aperture.value = d.DoFAperture;
+                dof.focalLength.value = d.DoFFocusLength;
+                switch (d.DoFMaxBlurSize) {
+                    case 1:
+                        dof.kernelSize.value = KernelSize.Small; break;
+                    case 2:
+                        dof.kernelSize.value = KernelSize.Medium; break;
+                    case 3:
+                        dof.kernelSize.value = KernelSize.Large; break;
+                    case 4:
+                        dof.kernelSize.value = KernelSize.VeryLarge; break;
+                    default:
+                        dof.kernelSize.value = KernelSize.Medium; break;
+                }
+
+                //CG
+                var cg = p.GetSetting<ColorGrading>();
+                cg.active = true;
+                cg.enabled.value = d.CGEnable;
+                cg.temperature.value = d.CGTemperature;
+                cg.saturation.value = d.CGSaturation;
+                cg.contrast.value = d.CGContrast;
+
+                var v = p.GetSetting<Vignette>();
+                v.active = true;
+                v.enabled.value = d.VEnable;
+                v.intensity.value = d.VIntensity;
+                v.smoothness.value = d.VSmoothness;
+                v.roundness.value = d.VRounded;
+
+                var ca = p.GetSetting<ChromaticAberration>();
+                ca.active = true;
+                ca.enabled.value = d.CAEnable;
+                ca.intensity.value = d.CAIntensity;
+
 
                 PPSVolume.sharedProfile = p;
                 

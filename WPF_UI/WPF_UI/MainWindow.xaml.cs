@@ -154,6 +154,7 @@ namespace WPF_UI
                     //前回と値が違うときは合わせる(VRM読み込み時)
                     if (cameraResetHeight != d.HeadHeight) {
                         CameraValue2Slider.Value = d.HeadHeight;
+                        BackgroundValue2Slider.Value = d.HeadHeight;
                     }
                     cameraResetHeight = d.HeadHeight;
                 }
@@ -708,9 +709,29 @@ namespace WPF_UI
             {
                 await client?.SendCommandAsync(new PipeCommands.PostProcessingControl {
                     AntiAliasingEnable= PostProcessingAntiAliasingEnableCheckBox.IsChecked.Value,
+                    
                     BloomEnable= PostProcessingBloomEnableCheckBox.IsChecked.Value,
                     BloomIntensity= (float)PostProcessingBloomIntensitySlider.Value,
                     BloomThreshold= (float)PostProcessingBloomThresholdSlider.Value,
+
+                    DoFEnable = PostProcessingDoFEnableCheckBox.IsChecked.Value,
+                    DoFFocusDistance = (float)PostProcessingDoFFocusDistanceSlider.Value,
+                    DoFAperture = (float)PostProcessingDoFApertureSlider.Value,
+                    DoFFocusLength = (float)PostProcessingDoFFocusLengthSlider.Value,
+                    DoFMaxBlurSize = (int)PostProcessingDoFMaxBlurSizeSlider.Value,
+
+                    CGEnable= PostProcessingCGEnableCheckBox.IsChecked.Value,
+                    CGTemperature=(float)PostProcessingCGTemperatureSlider.Value,
+                    CGSaturation=(float)PostProcessingCGSaturationSlider.Value,
+                    CGContrast= (float)PostProcessingCGContrastSlider.Value,
+
+                    VEnable= PostProcessingVEnableCheckBox.IsChecked.Value,
+                    VIntensity= (float)PostProcessingVIntensitySlider.Value,
+                    VSmoothness= (float)PostProcessingVSmoothnessSlider.Value,
+                    VRounded= (float)PostProcessingVRoundedSlider.Value,
+
+                    CAEnable = PostProcessingCAEnableCheckBox.IsChecked.Value,
+                    CAIntensity = (float)PostProcessingCAIntensitySlider.Value,
                 });
             }
             Console.WriteLine("PostProcessingStack");

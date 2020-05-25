@@ -170,6 +170,21 @@ namespace UnityMemoryMappedFile
             public bool BloomEnable { get; set; }
             public float BloomIntensity { get; set; }
             public float BloomThreshold { get; set; }
+            public bool DoFEnable { get; set; }
+            public float DoFFocusDistance { get; set; }
+            public float DoFAperture { get; set; }
+            public float DoFFocusLength { get; set; }
+            public int DoFMaxBlurSize { get; set; }
+            public bool CGEnable { get; set; }
+            public float CGTemperature { get; set; }
+            public float CGSaturation { get; set; }
+            public float CGContrast { get; set; }
+            public bool VEnable { get; set; }
+            public float VIntensity { get; set; }
+            public float VSmoothness { get; set; }
+            public float VRounded { get; set; }
+            public bool CAEnable { get; set; }
+            public float CAIntensity { get; set; }
         }
 
 
