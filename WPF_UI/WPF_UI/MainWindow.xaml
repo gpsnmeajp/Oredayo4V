@@ -7,7 +7,7 @@
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
         mc:Ignorable="d"
 		Background="#333333"
-        Title="Oredayo UI v0.3c alpha" Height="655" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI v0.3d alpha" Height="655" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<DockPanel LastChildFill="True">
 		<StatusBar DockPanel.Dock="Bottom" Height="20" VerticalAlignment="Bottom" Background="#222222">
 			<StatusBarItem>

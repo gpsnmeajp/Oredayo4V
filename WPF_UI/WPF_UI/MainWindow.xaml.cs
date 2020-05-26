@@ -871,7 +871,7 @@ namespace WPF_UI
                 A = s.LightColorPicker_SelectedColor_A,
             };
 
-            EnvironmentColorPicker.SelectedColor = LightColorPicker.SelectedColor = new Color
+            EnvironmentColorPicker.SelectedColor = new Color
             {
                 R = s.EnvironmentColorPicker_SelectedColor_R,
                 G = s.EnvironmentColorPicker_SelectedColor_G,
