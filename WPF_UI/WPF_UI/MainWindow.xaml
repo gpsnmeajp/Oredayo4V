@@ -20,14 +20,14 @@
 					<GroupBox Header="設定ファイル">
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="40"/>
-								<ColumnDefinition Width="40"/>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition />
 							</Grid.RowDefinitions>
-							<Button IsEnabled="False" Name="SaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="セーブ"></Button>
-							<Button IsEnabled="False"  Name="LoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="ロード"></Button>
+							<Button Name="SaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="セーブ"></Button>
+							<Button Name="LoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="ロード"></Button>
 						</Grid>
 					</GroupBox>
 					<GroupBox Header="VRM読み込み">
@@ -43,13 +43,11 @@
 								<RowDefinition />
 								<RowDefinition />
 								<RowDefinition />
-								<RowDefinition />
 							</Grid.RowDefinitions>
 							<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
 							<TextBox Name="VRMPathTextBox" Text="c:\default.vrm" Grid.Column="1" Grid.Row="0" />
 							<Button Name="VRMLoadButton" Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="VRMLoadButton_Click"></Button>
 							<Button  Name="VRMLoadFileSelectButton" Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="VRMLoadFileSelectButton_Click"></Button>
-							<TextBlock Text="※VRMファイルのライセンスは事前にご確認の上読み込みください。" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" />
 							<TextBlock Text="※必ず送信側アプリケーションと同じものを読み込んでください。" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
 						</Grid>
 					</GroupBox>
@@ -132,15 +130,15 @@
 							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="LightRotateYResetButton_Click" />
 							<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-							<Slider IsEnabled="False" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
-							<Button IsEnabled="False" Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
+							<Slider Visibility="Hidden" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Button Visibility="Hidden" Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
 							<TextBlock Grid.Column="3" Grid.Row="0">距離</TextBlock>
 							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="LightValue1ResetButton_Click"/>
-							<TextBlock Grid.Column="3" Grid.Row="1">投射</TextBlock>
+							<TextBlock Grid.Column="3" Grid.Row="1">強度</TextBlock>
 							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="LightValue2ResetButton_Click"/>
-							<TextBlock Grid.Column="3" Grid.Row="2">角度</TextBlock>
+							<TextBlock Grid.Column="3" Grid.Row="2">広さ</TextBlock>
 							<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 							<Button Name="LightValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="LightValue3ResetButton_Click"/>
 							<GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Header="種類" >
@@ -373,15 +371,15 @@
 				<StackPanel>
 					<GroupBox Header="PostProcessingStack V2">
 						<StackPanel>
-							<GroupBox Header="Anti-aliasing (PPS)">
+							<GroupBox Header="アンチエイリアス(Anti-aliasing) (PPS)">
 								<Grid>
-									<CheckBox Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="Enable"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<CheckBox Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="有効(Enable)"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="Bloom">
+							<GroupBox Header="光にじみ(Bloom)">
 								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80"/>
+										<ColumnDefinition Width="180"/>
 										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
@@ -389,17 +387,17 @@
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
 									<Slider Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">Threshold</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2">しきい値(Threshold)</TextBlock>
 									<Slider Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="Depth of Field">
+							<GroupBox Header="被写界深度(Depth of Field)">
 								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80"/>
+										<ColumnDefinition Width="180"/>
 										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
@@ -409,21 +407,21 @@
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >Focus Distance</TextBlock>
+									<CheckBox Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >焦点距離(Focus Distance)</TextBlock>
 									<Slider Name="PostProcessingDoFFocusDistanceSlider" Grid.Column="1" Grid.Row="1"  Value="10.0" Maximum="100" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">Aperture</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2">絞り(Aperture)</TextBlock>
 									<Slider Name="PostProcessingDoFApertureSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="32.0" Minimum="0.1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >Focus Length</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3" >フィルム焦点距離(Focus Length)</TextBlock>
 									<Slider Name="PostProcessingDoFFocusLengthSlider" Grid.Column="1" Grid.Row="3"  Value="1.0" Maximum="300.0" Minimum="1.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="4">Max Blur Size</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="4">ぼかしサイズ(Max Blur Size)</TextBlock>
 									<Slider Name="PostProcessingDoFMaxBlurSizeSlider" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"  Grid.Row="4" Value="2" Maximum="4" Minimum="1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="Color Grading">
+							<GroupBox Header="色彩補正(Color Grading)">
 								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80"/>
+										<ColumnDefinition Width="180"/>
 										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
@@ -432,19 +430,19 @@
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >Temperature</TextBlock>
+									<CheckBox Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >色温度(Temperature)</TextBlock>
 									<Slider Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">Saturation</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2">彩度(Saturation)</TextBlock>
 									<Slider Name="PostProcessingCGSaturationSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >Contrast</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3" >コントラスト(Contrast)</TextBlock>
 									<Slider Name="PostProcessingCGContrastSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="Vignette">
+							<GroupBox Header="口径効果(Vignette)">
 								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80"/>
+										<ColumnDefinition Width="180"/>
 										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
@@ -453,27 +451,27 @@
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<CheckBox Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
 									<Slider Name="PostProcessingVIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">Smoothness</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2">滑らかさ(Smoothness)</TextBlock>
 									<Slider Name="PostProcessingVSmoothnessSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >Rounded</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3" >丸み(Rounded)</TextBlock>
 									<Slider Name="PostProcessingVRoundedSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="Chromatic Aberration">
+							<GroupBox Header="レンズ色収差(Chromatic Aberration)">
 								<Grid>
 									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="80"/>
+										<ColumnDefinition Width="180"/>
 										<ColumnDefinition/>
 									</Grid.ColumnDefinitions>
 									<Grid.RowDefinitions>
 										<RowDefinition  Height="20"/>
 										<RowDefinition  Height="20"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="Enable" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >Intensity</TextBlock>
+									<CheckBox Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
 									<Slider Name="PostProcessingCAIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>

@@ -62,6 +62,16 @@ namespace WPF_UI
         }
 
         //-----------システム系----------------
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void Client_Received(object sender, DataReceivedEventArgs e)
         {
             Dispatcher.Invoke(() => {
@@ -117,6 +127,9 @@ namespace WPF_UI
                         default:
                             StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                             break;
+                    }
+                    if (d.Message.Contains("SocketException")) {
+                        MessageBox.Show("ポートのオープンに失敗しました。\n他のアプリケーションが競合している可能性があります。\n\n通信機能は利用できません。", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if (e.CommandType == typeof(PipeCommands.SendMessage))
