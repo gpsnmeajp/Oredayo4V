@@ -25,9 +25,12 @@
 							</Grid.ColumnDefinitions>
 							<Grid.RowDefinitions>
 								<RowDefinition />
+								<RowDefinition />
 							</Grid.RowDefinitions>
-							<Button Name="SaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="セーブ"></Button>
-							<Button Name="LoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="ロード"></Button>
+							<Button Name="QuickSaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="クイック設定セーブ" Click="QuickSaveButton_Click"></Button>
+							<Button Name="QuickLoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="クイック設定ロード" Click="QuickLoadButton_Click"></Button>
+							<Button Name="SaveButton" Grid.Column="0" Grid.Row="1"  Margin="1,1,1,1" Content="設定セーブ" Click="SaveButton_Click"></Button>
+							<Button Name="LoadButton" Grid.Column="1" Grid.Row="1"  Margin="1,1,1,1" Content="設定ロード" Click="LoadButton_Click"></Button>
 						</Grid>
 					</GroupBox>
 					<GroupBox Header="VRM読み込み">
