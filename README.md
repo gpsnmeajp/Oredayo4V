@@ -5,7 +5,7 @@ Waidayo での利用を想定しています。バーチャルモーションキ
 # [お問合せ先(Discordサーバー)](https://discord.gg/nGapSR7)
 ## twitterでのサポートは行っておりません
 
-<img src="https://github.com/gpsnmeajp/Oredayo/blob/wiki_img/wiki_img/ore3.png?raw=true"></img<
+<img src="https://github.com/gpsnmeajp/Oredayo/blob/wiki_img/wiki_img/ore3.png?raw=true"></img>
 
 [VMC Protocol対応](https://sh-akira.github.io/VirtualMotionCaptureProtocol/)  
 <img src="https://github.com/gpsnmeajp/Oredayo/blob/wiki_img/wiki_img/vmpc_logo_128x128.png?raw=true"></img>
