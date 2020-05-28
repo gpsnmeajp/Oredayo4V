@@ -6,7 +6,7 @@ Waidayo での利用を想定しています。バーチャルモーションキ
 ## twitterでのサポートは行っておりません
 
 [VMC Protocol対応](https://sh-akira.github.io/VirtualMotionCaptureProtocol/)  
-<img src="https://github.com/gpsnmeajp/VMCProtocolModelViewer/blob/master/logo/vmpc_logo_128x128.png?raw=true"></img>
+<img src="https://github.com/gpsnmeajp/Oredayo/blob/wiki_img/wiki_img/vmpc_logo_128x128.png?raw=true"></img>
 
 # Waidayoは以下
 https://github.com/nmchan/waidayo
