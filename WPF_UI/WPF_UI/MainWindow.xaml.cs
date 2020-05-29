@@ -61,6 +61,8 @@ namespace WPF_UI
         public MainWindow()
         {
             InitializeComponent();
+            //言語切替
+            Application.Current.Resources = Application.Current.Resources.MergedDictionaries[0];
         }
 
         //-----------システム系----------------
@@ -74,7 +76,7 @@ namespace WPF_UI
             }
             catch (Exception)
             {
-                MessageBox.Show("設定の保存に失敗しました", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("設定の保存に失敗しました\n(Save failed.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -86,7 +88,7 @@ namespace WPF_UI
             }
             else
             {
-                MessageBox.Show("ファイルがありません", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("ファイルがありません\n(File not found.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -106,7 +108,7 @@ namespace WPF_UI
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("設定の保存に失敗しました", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("設定の保存に失敗しました\n(Save failed.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -182,7 +184,7 @@ namespace WPF_UI
                     }
                     if (d.Message.Contains("SocketException"))
                     {
-                        MessageBox.Show("ポートのオープンに失敗しました。\n他のアプリケーションが競合している可能性があります。\n\n通信機能は利用できません。", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("ポートのオープンに失敗しました。\n他のアプリケーションが競合している可能性があります。\n\n通信機能は利用できません。\n(Port open failed.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else if (e.CommandType == typeof(PipeCommands.SendMessage))
@@ -639,13 +641,13 @@ namespace WPF_UI
                 {
                     if (SEDSSServerPasswordTextBox.Password.Length < 4)
                     {
-                        MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("暗号化パスワードが短すぎます\n(Password is too short.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                         //拒否
                         SEDSSServerEnableCheckBox.IsChecked = false; //強制的にオフ
                         return;
                     }
 
-                    var result = MessageBox.Show("SEDSSサーバー機能を本当に有効にしますか？\nパスワードを共有したデバイスからVRMデータを読み込み・送信することができるようになります。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                    var result = MessageBox.Show("SEDSSサーバー機能を本当に有効にしますか？\nパスワードを共有したデバイスとVRMデータを共有することができるようになります。\n注意: 信頼できる端末とのみ通信してください。\n(Are you sure you want to Data Sharing with LAN device?)", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                     if (result != MessageBoxResult.OK)
                     {
                         //拒否
@@ -675,10 +677,10 @@ namespace WPF_UI
             {
                 if (SEDSSClientPasswordTextBox.Password.Length < 4)
                 {
-                    MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("暗号化パスワードが短すぎます\n(Password is too short.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                var result = MessageBox.Show("SEDSSアップロードを本当に実行しますか？\nパスワードを共有したデバイスにVRMデータを送信します。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                var result = MessageBox.Show("SEDSSアップロードを本当に実行しますか？\nパスワードを共有したデバイスにVRMデータを送信します。\n注意: 信頼できる端末とのみ通信してください。\n(Are you sure you want to Data Upload to device?)", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (result != MessageBoxResult.OK)
                 {
                     return;
@@ -701,10 +703,10 @@ namespace WPF_UI
             {
                 if (SEDSSClientPasswordTextBox.Password.Length < 4)
                 {
-                    MessageBox.Show("暗号化パスワードが短すぎます", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("暗号化パスワードが短すぎます\n(Password is too short.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-                var result = MessageBox.Show("SEDSSダウンロードを本当に実行しますか？\nパスワードを共有したデバイスからVRMデータを受信します。\n注意: 信頼できる端末とのみ通信してください。", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                var result = MessageBox.Show("SEDSSダウンロードを本当に実行しますか？\nパスワードを共有したデバイスからVRMデータを受信します。\n注意: 信頼できる端末とのみ通信してください。\n(Are you sure you want to Data Download from device?)", "Oredayo UI", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (result != MessageBoxResult.OK)
                 {
                     return;

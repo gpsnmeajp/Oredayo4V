@@ -19,9 +19,9 @@
 			</StatusBarItem>
 		</StatusBar>
 		<TabControl DockPanel.Dock="Top">
-			<TabItem  Header="基本設定">
+			<TabItem  Header="{DynamicResource Tab_BasicSetting}">
 				<StackPanel>
-					<GroupBox Header="設定ファイル">
+					<GroupBox Header="{DynamicResource Tab_Basic_SettingFiles}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition/>
@@ -31,208 +31,208 @@
 								<RowDefinition />
 								<RowDefinition />
 							</Grid.RowDefinitions>
-							<Button Name="QuickSaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="クイック設定セーブ" Click="QuickSaveButton_Click">
-			</Button>
-			<Button Name="QuickLoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="クイック設定ロード" Click="QuickLoadButton_Click"></Button>
-			<Button Name="SaveButton" Grid.Column="0" Grid.Row="1"  Margin="1,1,1,1" Content="設定セーブ" Click="SaveButton_Click"></Button>
-			<Button Name="LoadButton" Grid.Column="1" Grid.Row="1"  Margin="1,1,1,1" Content="設定ロード" Click="LoadButton_Click"></Button>
-			</Grid>
-			</GroupBox>
-			<GroupBox Header="VRM読み込み">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="40"/>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="40"/>
-						<ColumnDefinition Width="40"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
-					<TextBox Name="VRMPathTextBox" Text="c:\default.vrm" Grid.Column="1" Grid.Row="0" />
-					<Button Name="VRMLoadButton" Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="VRMLoadButton_Click"></Button>
-					<Button  Name="VRMLoadFileSelectButton" Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="VRMLoadFileSelectButton_Click"></Button>
-					<TextBlock Text="※必ず送信側アプリケーションと同じものを読み込んでください。" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
-				</Grid>
-			</GroupBox>
-			<GroupBox Header="背景読み込み">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="40"/>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="40"/>
-						<ColumnDefinition Width="40"/>
-						<ColumnDefinition Width="40"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">パス:</TextBlock>
-					<TextBox Name="BackgroundObjectPathTextBox" Text="c:\background.png" Grid.Column="1" Grid.Row="0" />
-					<Button Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="読込" Click="BackgroundObjectLoadButton_Click"></Button>
-					<Button  Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="参照" Click="BackgroundObjectLoadFileSelectButton_Click"></Button>
-					<Button  Grid.Column="4" Grid.Row="0"  Margin="1,1,1,1" Content="削除" Click="BackgroundObjectRemoveButton_Click"></Button>
-					<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5">対応拡張子: png, vrm</TextBlock>
-				</Grid>
-			</GroupBox>
-			<GroupBox Header="カメラ位置">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-					<Slider Name="CameraRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="CameraRotateXResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-					<Slider Name="CameraRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="CameraRotateYResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-					<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="CameraRotateZResetButton_Click" />
-					<TextBlock Grid.Column="3" Grid.Row="0">ズーム</TextBlock>
-					<Slider Name="CameraValue1Slider" Grid.Column="4" Grid.Row="0"  Value="1.7" Maximum="35" Minimum="0.3"  ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="CameraValue1ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="1">高さ</TextBlock>
-					<Slider Name="CameraValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="CameraValue2ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="2">FOV</TextBlock>
-					<Slider Name="CameraValue3Slider" Grid.Column="4" Grid.Row="2"  Value="20" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
-					<Button Name="CameraValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="CameraValue3ResetButton_Click"/>
-				</Grid>
-			</GroupBox>
-			<GroupBox Header="ライト位置">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-					<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="140" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
-					<Button Name="LightRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="LightRotateXResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-					<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
-					<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="LightRotateYResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-					<Slider Visibility="Hidden" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
-					<Button Visibility="Hidden" Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="LightRotateZResetButton_Click" />
-					<TextBlock Grid.Column="3" Grid.Row="0">距離</TextBlock>
-					<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
-					<Button Name="LightValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="LightValue1ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="1">強度</TextBlock>
-					<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
-					<Button Name="LightValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="LightValue2ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="2">広さ</TextBlock>
-					<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
-					<Button Name="LightValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="LightValue3ResetButton_Click"/>
-					<GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Header="種類" >
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition />
-							</Grid.RowDefinitions>
-							<RadioButton Name="LightTypeDirectionalRadioButton" Grid.Column="0" Content="Directional" IsChecked="True" Checked="LightTypeChanged" />
-							<RadioButton Name="LightTypePointRadioButton" Grid.Column="1" Content="Point" Checked="LightTypeChanged"/>
-							<RadioButton Name="LightTypeSpotRadioButton" Grid.Column="2" Content="Spot" Checked="LightTypeChanged"/>
+							<Button Name="QuickSaveButton" Grid.Column="0" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Tab_Basic_QuickConfigSave}" Click="QuickSaveButton_Click">
+							</Button>
+							<Button Name="QuickLoadButton" Grid.Column="1" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Tab_Basic_QuickConfigLoad}" Click="QuickLoadButton_Click"></Button>
+							<Button Name="SaveButton" Grid.Column="0" Grid.Row="1"  Margin="1,1,1,1" Content="{DynamicResource Tab_Basic_ConfigSave}" Click="SaveButton_Click"></Button>
+							<Button Name="LoadButton" Grid.Column="1" Grid.Row="1"  Margin="1,1,1,1" Content="{DynamicResource Tab_Basic_ConfigLoad}" Click="LoadButton_Click"></Button>
 						</Grid>
 					</GroupBox>
-				</Grid>
-			</GroupBox>
-			<GroupBox Header="背景オブジェクト位置">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-						<ColumnDefinition Width="40" />
-						<ColumnDefinition />
-						<ColumnDefinition Width="45"/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">X回転</TextBlock>
-					<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="リセット" Click="BackgroundRotateXResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="1">Y回転</TextBlock>
-					<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="-180" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="リセット" Click="BackgroundRotateYResetButton_Click" />
-					<TextBlock Grid.Column="0" Grid.Row="2">Z回転</TextBlock>
-					<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="リセット" Click="BackgroundRotateZResetButton_Click" />
-					<TextBlock Grid.Column="3" Grid.Row="0">X位置</TextBlock>
-					<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="リセット" Click="BackgroundValue1ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="1">Y位置</TextBlock>
-					<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="リセット" Click="BackgroundValue2ResetButton_Click"/>
-					<TextBlock Grid.Column="3" Grid.Row="2">Z位置</TextBlock>
-					<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="リセット" Click="BackgroundValue3ResetButton_Click"/>
-					<TextBlock Grid.Column="0" Grid.Row="3">スケール</TextBlock>
-					<Slider Name="BackgroundScaleSlider" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="3"  Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
-					<Button Name="BackgroundScaleResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="3"  Content="リセット" Click="BackgroundScaleResetButton_Click"/>
-				</Grid>
-			</GroupBox>
+					<GroupBox Header="{DynamicResource Tab_Basic_VRMLoading}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_Path}"/>
+							<TextBox Name="VRMPathTextBox" Text="c:\default.vrm" Grid.Column="1" Grid.Row="0" />
+							<Button Name="VRMLoadButton" Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Gen_Load}" Click="VRMLoadButton_Click"></Button>
+							<Button  Name="VRMLoadFileSelectButton" Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Gen_Browse}" Click="VRMLoadFileSelectButton_Click"></Button>
+							<TextBlock Text="{DynamicResource Tab_Basic_VRMLoadingCaution}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" />
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="{DynamicResource Tab_Basic_LoadBackground}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+								<ColumnDefinition Width="40"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_Path}"/>
+							<TextBox Name="BackgroundObjectPathTextBox" Text="c:\background.png" Grid.Column="1" Grid.Row="0" />
+							<Button Grid.Column="2" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Gen_Load}" Click="BackgroundObjectLoadButton_Click"></Button>
+							<Button  Grid.Column="3" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Gen_Browse}" Click="BackgroundObjectLoadFileSelectButton_Click"></Button>
+							<Button  Grid.Column="4" Grid.Row="0"  Margin="1,1,1,1" Content="{DynamicResource Gen_Remove}" Click="BackgroundObjectRemoveButton_Click"></Button>
+							<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Text="{DynamicResource Tab_Basic_LoadBackgroundTypes}"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="{DynamicResource Tab_Basic_CameraPosition}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_X_Rot}"/>
+							<Slider Name="CameraRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="CameraRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource Gen_Y_Rot}"/>
+							<Slider Name="CameraRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="CameraRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource Gen_Z_Rot}"/>
+							<Slider Name="CameraRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="CameraRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0" Text="{DynamicResource Gen_Zoom}"/>
+							<Slider Name="CameraValue1Slider" Grid.Column="4" Grid.Row="0"  Value="1.7" Maximum="35" Minimum="0.3"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="CameraValue1ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1" Text="{DynamicResource Gen_Height}"/>
+							<Slider Name="CameraValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="CameraValue2ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2" Text="{DynamicResource Gen_FOV}"/>
+							<Slider Name="CameraValue3Slider" Grid.Column="4" Grid.Row="2"  Value="20" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
+							<Button Name="CameraValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="CameraValue3ResetButton_Click"/>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="{DynamicResource Tab_Basic_LightPosition}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_X_Rot}"/>
+							<Slider Name="LightRotateXSlider" Grid.Column="1" Grid.Row="0" Value="140" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="LightRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource Gen_Y_Rot}"/>
+							<Slider Name="LightRotateYSlider" Grid.Column="1" Grid.Row="1" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="LightRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource Gen_Z_Rot}"/>
+							<Slider Visibility="Hidden" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+							<Button Visibility="Hidden" Name="LightRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="LightRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0" Text="{DynamicResource Gen_Distance}"/>
+							<Slider Name="LightValue1Slider" Grid.Column="4" Grid.Row="0"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="LightValue1ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1" Text="{DynamicResource Gen_Intensity}"/>
+							<Slider Name="LightValue2Slider" Grid.Column="4" Grid.Row="1"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="LightValue2ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2" Text="{DynamicResource Gen_Diffusion}"/>
+							<Slider Name="LightValue3Slider" Grid.Column="4" Grid.Row="2"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
+							<Button Name="LightValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="LightValue3ResetButton_Click"/>
+							<GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6" Header="{DynamicResource Gen_Type}" >
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition />
+										<ColumnDefinition />
+										<ColumnDefinition />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition />
+									</Grid.RowDefinitions>
+									<RadioButton Name="LightTypeDirectionalRadioButton" Grid.Column="0" Content="{DynamicResource Gen_Directional}" IsChecked="True" Checked="LightTypeChanged" />
+									<RadioButton Name="LightTypePointRadioButton" Grid.Column="1" Content="{DynamicResource Gen_Point}" Checked="LightTypeChanged"/>
+									<RadioButton Name="LightTypeSpotRadioButton" Grid.Column="2" Content="{DynamicResource Gen_Spot}" Checked="LightTypeChanged"/>
+								</Grid>
+							</GroupBox>
+						</Grid>
+					</GroupBox>
+					<GroupBox Header="{DynamicResource BackgroundObjectPosition}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition />
+								<ColumnDefinition Width="45"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_X_Rot}"/>
+							<Slider Name="BackgroundRotateXSlider" Grid.Column="1" Grid.Row="0" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateXResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateXResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource Gen_Y_Rot}"/>
+							<Slider Name="BackgroundRotateYSlider" Grid.Column="1" Grid.Row="1" Value="-180" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateYResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateYResetButton_Click" />
+							<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource Gen_Z_Rot}"/>
+							<Slider Name="BackgroundRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundRotateZResetButton" Margin="1,1,1,1"  Grid.Column="2" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateZResetButton_Click" />
+							<TextBlock Grid.Column="3" Grid.Row="0" Text="{DynamicResource Gen_X_Pos}"/>
+							<Slider Name="BackgroundValue1Slider" Grid.Column="4" Grid.Row="0"  Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundValue1ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="0"  Content="{DynamicResource Gen_Reset}" Click="BackgroundValue1ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="1" Text="{DynamicResource Gen_Y_Pos}"/>
+							<Slider Name="BackgroundValue2Slider" Grid.Column="4" Grid.Row="1"  Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundValue2ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="1"  Content="{DynamicResource Gen_Reset}" Click="BackgroundValue2ResetButton_Click"/>
+							<TextBlock Grid.Column="3" Grid.Row="2" Text="{DynamicResource Gen_Z_Pos}"/>
+							<Slider Name="BackgroundValue3Slider" Grid.Column="4" Grid.Row="2"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundValue3ResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="2"  Content="{DynamicResource Gen_Reset}" Click="BackgroundValue3ResetButton_Click"/>
+							<TextBlock Grid.Column="0" Grid.Row="3" Text="{DynamicResource Gen_Scale}"/>
+							<Slider Name="BackgroundScaleSlider" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="3"  Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+							<Button Name="BackgroundScaleResetButton" Margin="1,1,1,1"  Grid.Column="5" Grid.Row="3"  Content="{DynamicResource Gen_Reset}" Click="BackgroundScaleResetButton_Click"/>
+						</Grid>
+					</GroupBox>
 
-			<GroupBox Header="情報">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="130"/>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="130"/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition />
-						<RowDefinition />
-					</Grid.RowDefinitions>
-					<TextBlock Grid.Column="0" Grid.Row="0">EVMC4U ポート番号</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="0">39009</TextBlock>
-					<TextBlock Grid.Column="0" Grid.Row="1">SEDSS ポート番号</TextBlock>
-					<TextBlock Grid.Column="1" Grid.Row="1">39008</TextBlock>
-					<TextBlock Grid.Column="2" Grid.Row="0">EVMC4U受信状態</TextBlock>
-					<TextBlock Name="InfoEVMC4UStateTextBlock" Grid.Column="3" Grid.Row="0" Background="Gray">--</TextBlock>
-					<TextBlock Grid.Column="2" Grid.Row="1">UI通信状態</TextBlock>
-					<TextBlock Name="InfoUIStateTextBlock" Grid.Column="3" Grid.Row="1" Background="Gray">--</TextBlock>
-				</Grid>
-			</GroupBox>
-			</StackPanel>
+					<GroupBox Header="{DynamicResource Gen_Information}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="130"/>
+								<ColumnDefinition/>
+								<ColumnDefinition Width="130"/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+							<TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_EVMC4UPort}"/>
+							<TextBlock Grid.Column="1" Grid.Row="0" Text="39009"/>
+							<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource Gen_SEDSSPort}"/>
+							<TextBlock Grid.Column="1" Grid.Row="1" Text="39008"/>
+							<TextBlock Grid.Column="2" Grid.Row="0" Text="{DynamicResource Gen_EVMC4UReceiveStatus}"/>
+							<TextBlock Name="InfoEVMC4UStateTextBlock" Grid.Column="3" Grid.Row="0" Background="Gray">--</TextBlock>
+							<TextBlock Grid.Column="2" Grid.Row="1" Text="{DynamicResource Gen_UICommunicationStatus}"/>
+							<TextBlock Name="InfoUIStateTextBlock" Grid.Column="3" Grid.Row="1" Background="Gray">--</TextBlock>
+						</Grid>
+					</GroupBox>
+				</StackPanel>
 			</TabItem>
-			<TabItem  Header="詳細設定">
+			<TabItem  Header="{DynamicResource Tab_AdvancedSetting}">
 				<StackPanel>
-					<GroupBox Header="EVMC4U">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_EVMC4U}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition/>
@@ -244,18 +244,18 @@
 								<RowDefinition Height="25" />
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<CheckBox Name="EVMC4UFreezeCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="Freeze" Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked" />
-							<Button  Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="高解像度撮影" Click="EVMC4U_TakePhotoButton" ></Button>
-							<CheckBox Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="Bone Filter"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0" >フィルタ値:</TextBlock>
+							<CheckBox Name="EVMC4UFreezeCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_Freeze}" Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked" />
+							<Button  Name="PhotoButton"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera}" Click="EVMC4U_TakePhotoButton" ></Button>
+							<CheckBox Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="1"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BoneFilter}"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="1" Margin="0,0,2,0" Text="{DynamicResource Gen_FilterValue}"/>
 							<TextBox Name="EVMC4UBoneFilterValueTextBox" Text="0.9" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="1" TextChanged="EVMC4U_TextChanged" />
-							<CheckBox  Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="Blend Shape Filter"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
-							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0" >フィルタ値:</TextBlock>
+							<CheckBox  Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="2"   Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BlendShapeFilter}"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
+							<TextBlock VerticalAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" Grid.Row="2" Margin="0,0,2,0"  Text="{DynamicResource Gen_FilterValue}"/>
 							<TextBox  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.7" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="2" TextChanged="EVMC4U_TextChanged" />
 						</Grid>
 					</GroupBox>
 
-					<GroupBox Header="Window">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_Window}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="0.3*"/>
@@ -265,12 +265,12 @@
 							<Grid.RowDefinitions>
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<CheckBox Name="WindowOptionForceForegroundCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="最前面" Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked" />
-							<CheckBox Name="WindowOptionTransparentCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="透過"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
-							<CheckBox Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="ウィンドウ枠"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
+							<CheckBox Name="WindowOptionForceForegroundCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_ForceForeground}" Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked" />
+							<CheckBox Name="WindowOptionTransparentCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_Transparent}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
+							<CheckBox Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_Window_WindowBorder}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
 						</Grid>
 					</GroupBox>
-					<GroupBox Header="Root位置">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_RootPosition}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="0.3*"/>
@@ -280,12 +280,12 @@
 							<Grid.RowDefinitions>
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<CheckBox Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="カメラロック" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
-							<CheckBox Name="LightRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="ライトロック" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
-							<CheckBox Name="BackgroundRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"  Content="背景ロック" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+							<CheckBox Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_CameraLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+							<CheckBox Name="LightRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_LightLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+								<CheckBox Name="BackgroundRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_BackgroundLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Header="外部連携">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_ExternalControl}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="0.3*"/>
@@ -293,10 +293,10 @@
 							<Grid.RowDefinitions>
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<CheckBox IsEnabled="False" Name="OBSExternalControl_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="OBS連動"  Checked="ExternalControl_Checked"  Unchecked="ExternalControl_Checked" />
+							<CheckBox IsEnabled="False" Name="OBSExternalControl_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_ExternalControl_OBSControl}"  Checked="ExternalControl_Checked"  Unchecked="ExternalControl_Checked" />
 						</Grid>
 					</GroupBox>
-					<GroupBox Header="SEDSSサーバー">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="100"/>
@@ -308,15 +308,15 @@
 								<RowDefinition Height="25" />
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<CheckBox Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="送受信を許可する" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
+							<CheckBox Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{DynamicResource Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive}" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="0,0,2,0" Text="{DynamicResource Gen_EncryptionPassword}"/>
 							<PasswordBox  Name="SEDSSServerPasswordTextBox" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="0" />
-							<TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0" >交換データパス:</TextBlock>
+							<TextBlock Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0" Text="{DynamicResource Gen_ExchangeDataPath}" ></TextBlock>
 							<TextBox Name="SEDSSServerExchangeFilePathTextBox" Text="" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" />
 
 						</Grid>
 					</GroupBox>
-					<GroupBox Header="SEDSSクライアント">
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}">
 						<Grid>
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="100"/>
@@ -330,62 +330,62 @@
 								<RowDefinition Height="25" />
 								<RowDefinition Height="25" />
 							</Grid.RowDefinitions>
-							<Button Content="アップロード" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientUploadButton_Clicked" />
-							<Button Content="ダウンロード" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientDownloadButton_Clicked" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" >アドレス:</TextBlock>
+							<Button Content="{DynamicResource Gen_Upload}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientUploadButton_Clicked" />
+							<Button Content="{DynamicResource Gen_Download}" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" Margin="1,1,1,1" Click="SEDSSClientDownloadButton_Clicked" />
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" Text="{DynamicResource Gen_IPAddress}"/>
 							<TextBox Name="SEDSSClientAddressTextBox" Text="127.0.0.1" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" >ポート:</TextBlock>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" Text="{DynamicResource Gen_Port}"/>
 							<TextBox Name="SEDSSClientPortTextBox" Text="8000" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0" >暗号化パスワード:</TextBlock>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0"  Text="{DynamicResource Gen_EncryptionPassword}"/>
 							<PasswordBox Name="SEDSSClientPasswordTextBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" />
-							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,0,2,0" >ID:</TextBlock>
+							<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,0,2,0" Text="{DynamicResource Gen_ID}"/>
 							<TextBox Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="2" />
-							<TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0" >送信データパス:</TextBlock>
+							<TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"  Text="{DynamicResource Gen_ExchangeDataPath}"/>
 							<TextBox Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" />
 						</Grid>
 					</GroupBox>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="色設定1">
+			<TabItem Header="{DynamicResource Tab_Color1}">
 				<StackPanel>
 					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
-						<GroupBox Header="背景色">
+						<GroupBox Header="{DynamicResource Gen_BackgroundColor}">
 							<StackPanel>
 								<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="#00FF00"  Width="200" Height="370" />
-								<CheckBox Name="GamingBackgroundCheckBox"  Content="ゲーミングモード" Margin="0,5,0,0"/>
+								<CheckBox Name="GamingBackgroundCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
-						<GroupBox Header="ライト色">
+						<GroupBox Header="{DynamicResource Gen_LightColor}">
 							<StackPanel>
 								<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="#FFFFFF"  Width="200" Height="370" />
-								<CheckBox Name="GamingLightCheckBox" Content="ゲーミングモード" Margin="0,5,0,0"/>
+								<CheckBox Name="GamingLightCheckBox" Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
 					</StackPanel>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="色設定2">
+			<TabItem Header="{DynamicResource Tab_Color2}">
 				<StackPanel>
 					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
-						<GroupBox Header="環境光">
+						<GroupBox Header="{DynamicResource Gen_EnvironmentColor}">
 							<StackPanel>
 								<Controls:ColorPicker Name="EnvironmentColorPicker" SelectedColorChanged="EnvironmentColorPicker_SelectedColorChanged" SelectedColor="#363A42"  Width="200" Height="370" />
-								<CheckBox Name="GamingEnvironmentCheckBox"  Content="ゲーミングモード" Margin="0,5,0,0"/>
+								<CheckBox Name="GamingEnvironmentCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
 							</StackPanel>
 						</GroupBox>
 					</StackPanel>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="画質設定">
+			<TabItem Header="{DynamicResource Tab_Graphics}">
 				<StackPanel>
-					<GroupBox Header="PostProcessingStack V2">
+					<GroupBox Header="{DynamicResource Tab_PostProcessingStackV2}">
 						<StackPanel>
-							<GroupBox Header="アンチエイリアス(Anti-aliasing) (PPS)">
+							<GroupBox Header="{DynamicResource PPS_Anti-aliasing}">
 								<Grid>
-									<CheckBox Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="有効(Enable)"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<CheckBox Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="{DynamicResource PPS_Enable}"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="光にじみ(Bloom)">
+							<GroupBox Header="{DynamicResource PPS_Bloom}">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="190"/>
@@ -396,14 +396,14 @@
 										<RowDefinition  Height="25"/>
 										<RowDefinition  Height="25"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
+									<CheckBox Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
 									<Slider Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">しきい値(Threshold)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Threshold}"/>
 									<Slider Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="被写界深度(Depth of Field)">
+							<GroupBox Header="{DynamicResource PPS_DoF}">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="190"/>
@@ -416,18 +416,18 @@
 										<RowDefinition  Height="25"/>
 										<RowDefinition  Height="25"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >焦点距離(Focus Distance)</TextBlock>
+									<CheckBox Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_FocusDistance}"/>
 									<Slider Name="PostProcessingDoFFocusDistanceSlider" Grid.Column="1" Grid.Row="1"  Value="10.0" Maximum="100" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">絞り(Aperture)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Aperture}"/>
 									<Slider Name="PostProcessingDoFApertureSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="32.0" Minimum="0.1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >フィルム焦点距離(Focus Length)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3" Text="{DynamicResource PPS_FocusLength}"/>
 									<Slider Name="PostProcessingDoFFocusLengthSlider" Grid.Column="1" Grid.Row="3"  Value="1.0" Maximum="300.0" Minimum="1.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="4">ぼかしサイズ(Max Blur Size)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="4" Text="{DynamicResource PPS_MaxBlurSize}"/>
 									<Slider Name="PostProcessingDoFMaxBlurSizeSlider" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"  Grid.Row="4" Value="2" Maximum="4" Minimum="1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="色彩補正(Color Grading)">
+							<GroupBox Header="{DynamicResource PPS_CG}">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="190"/>
@@ -439,16 +439,16 @@
 										<RowDefinition  Height="25"/>
 										<RowDefinition  Height="25"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >色温度(Temperature)</TextBlock>
+									<CheckBox Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Temperature}"/>
 									<Slider Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">彩度(Saturation)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Saturation}"/>
 									<Slider Name="PostProcessingCGSaturationSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >コントラスト(Contrast)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Contrast}"/>
 									<Slider Name="PostProcessingCGContrastSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="口径効果(Vignette)">
+							<GroupBox Header="{DynamicResource PPS_Vi}">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="190"/>
@@ -460,16 +460,16 @@
 										<RowDefinition  Height="25"/>
 										<RowDefinition  Height="25"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
+									<CheckBox Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
 									<Slider Name="PostProcessingVIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="2">滑らかさ(Smoothness)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Smoothness}"/>
 									<Slider Name="PostProcessingVSmoothnessSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-									<TextBlock Grid.Column="0" Grid.Row="3" >丸み(Rounded)</TextBlock>
+									<TextBlock Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Rounded}"/>
 									<Slider Name="PostProcessingVRoundedSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
-							<GroupBox Header="レンズ色収差(Chromatic Aberration)">
+							<GroupBox Header="{DynamicResource PPS_CA}">
 								<Grid>
 									<Grid.ColumnDefinitions>
 										<ColumnDefinition Width="190"/>
@@ -479,8 +479,8 @@
 										<RowDefinition  Height="25"/>
 										<RowDefinition  Height="25"/>
 									</Grid.RowDefinitions>
-									<CheckBox Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="有効(Enable)" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-									<TextBlock Grid.Column="0" Grid.Row="1" >強度(Intensity)</TextBlock>
+									<CheckBox Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+									<TextBlock Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
 									<Slider Name="PostProcessingCAIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 								</Grid>
 							</GroupBox>
