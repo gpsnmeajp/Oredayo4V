@@ -42,6 +42,7 @@ using UnityMemoryMappedFile;
 using akr.WPF.Controls;
 using System.Windows.Threading;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace WPF_UI
 {
@@ -58,14 +59,24 @@ namespace WPF_UI
         private float cameraResetHeight = 1.4f;
         private DateTime lastStartTime = new DateTime();
 
+        Collection<ResourceDictionary> dics = null;
+
         public MainWindow()
         {
             InitializeComponent();
-            //言語切替
-            Application.Current.Resources = Application.Current.Resources.MergedDictionaries[0];
+            dics = Application.Current.Resources.MergedDictionaries;
+            Application.Current.Resources = dics[0]; //JP
         }
 
         //-----------システム系----------------
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //言語切替
+            if (dics != null)
+            {
+                Application.Current.Resources = dics[LanguageComboBox.SelectedIndex];
+            }
+        }
 
         private void QuickSaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -980,5 +991,7 @@ namespace WPF_UI
             s.PostProcessingCAIntensitySlider_Value = PostProcessingCAIntensitySlider.Value;
             return s;
         }
+
+
     }
 }

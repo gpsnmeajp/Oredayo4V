@@ -2,5 +2,131 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPF_UI"
 					xmlns:system="clr-namespace:System;assembly=mscorlib">
+	<system:String x:Key="Tab_BasicSetting">Basic</system:String>
+	<system:String x:Key="Tab_Basic_SettingFiles">Configuration</system:String>
+	<system:String x:Key="Tab_Basic_QuickConfigSave">Quick Save</system:String>
+	<system:String x:Key="Tab_Basic_QuickConfigLoad">Quick Load</system:String>
+	<system:String x:Key="Tab_Basic_ConfigSave">Save</system:String>
+	<system:String x:Key="Tab_Basic_ConfigLoad">Load</system:String>
+	<system:String x:Key="Tab_Basic_VRMLoading">VRM</system:String>
+	<system:String x:Key="Tab_Basic_VRMLoadingCaution">※Caution: Please load same VRM file in Motion sending device.</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackground">Background Object</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">Extensions: png, vrm</system:String>
+	<system:String x:Key="Tab_Basic_CameraPosition">Camera Position</system:String>
+	<system:String x:Key="Tab_Basic_LightPosition">Light Position</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">Background Object Position</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting">Advanced</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_Freeze">Freeze</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera">Hi reso photo</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BoneFilter">Bone motion filter</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BlendShapeFilter">Blend Shape filter</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window">Window</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_ForceForeground">Force foreground</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_Transparent">Transparent</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_WindowBorder">Window Border</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition">Root Position Lock</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_CameraLock">Camera</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_LightLock">Light</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_BackgroundLock">Background object</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_ExternalControl">External Control</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_ExternalControl_OBSControl">OBS Control</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS Server</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">Permit To Send And Receive</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS Client</system:String>
+
+	<system:String x:Key="Tab_Color1">Color1</system:String>
+	<system:String x:Key="Tab_Color2">Color2</system:String>
+
+	<system:String x:Key="Tab_Graphics">Graphics</system:String>
+	<system:String x:Key="Tab_PostProcessingStackV2">PostProcessingStack V2</system:String>
+
+
+	<system:String x:Key="Gen_X_Rot">X Rot</system:String>
+	<system:String x:Key="Gen_Y_Rot">Y Rot</system:String>
+	<system:String x:Key="Gen_Z_Rot">Z Rot</system:String>
+	<system:String x:Key="Gen_X_Pos">X Pos</system:String>
+	<system:String x:Key="Gen_Y_Pos">Y Pos</system:String>
+	<system:String x:Key="Gen_Z_Pos">Z Pos</system:String>
+	<system:String x:Key="Gen_Reset">Reset</system:String>
+	<system:String x:Key="Gen_Scale">Scale</system:String>
+	<system:String x:Key="Gen_Distance">Distance</system:String>
+	<system:String x:Key="Gen_Zoom">Zoom</system:String>
+	<system:String x:Key="Gen_Intensity">Intensity</system:String>
+	<system:String x:Key="Gen_Diffusion">Diffusion</system:String>
+	<system:String x:Key="Gen_Directional">Directional</system:String>
+	<system:String x:Key="Gen_Point">Point</system:String>
+	<system:String x:Key="Gen_Spot">Spot</system:String>
+	<system:String x:Key="Gen_Type">Type</system:String>
+	<system:String x:Key="Gen_Height">Height</system:String>
+	<system:String x:Key="Gen_FOV">FOV</system:String>
+	<system:String x:Key="Gen_Information">Information</system:String>
+	<system:String x:Key="Gen_Port">Port</system:String>
+	<system:String x:Key="Gen_EVMC4UPort">EVMC4U Port</system:String>
+	<system:String x:Key="Gen_SEDSSPort">SEDSS Port</system:String>
+	<system:String x:Key="Gen_UICommunicationStatus">UI Comm Status</system:String>
+	<system:String x:Key="Gen_EVMC4UReceiveStatus">EVMC4U Comm Status</system:String>
+	<system:String x:Key="Gen_Communication">Communication</system:String>
+	<system:String x:Key="Gen_Status">Status</system:String>
+	<system:String x:Key="Gen_IPAddress">IP Address</system:String>
+
+	<system:String x:Key="Gen_Remove">Remove</system:String>
+	<system:String x:Key="Gen_Browse">Browse</system:String>
+	<system:String x:Key="Gen_Load">Load</system:String>
+	<system:String x:Key="Gen_Path">Path: </system:String>
+	<system:String x:Key="Gen_FilterValue">Filter: </system:String>
+	<system:String x:Key="Gen_EncryptionPassword">Password: </system:String>
+	<system:String x:Key="Gen_ExchangeDataPath">Exchange Data Path: </system:String>
+	<system:String x:Key="Gen_Upload">Upload</system:String>
+	<system:String x:Key="Gen_Download">Download</system:String>
+	<system:String x:Key="Gen_ID">ID</system:String>
+	<system:String x:Key="Gen_BackgroundColor">Background Color</system:String>
+	<system:String x:Key="Gen_LightColor">Light Color</system:String>
+	<system:String x:Key="Gen_EnvironmentColor">Environment Color</system:String>
+	<system:String x:Key="Gen_GamingMode">Gaming Mode</system:String>
+	<system:String x:Key="Gen_Language">Language Setting</system:String>
+
+
+	<system:String x:Key="PPS_Enable">Enable</system:String>
+	<system:String x:Key="PPS_Intensity">Intensity</system:String>
+	<system:String x:Key="PPS_Threshold">Threshold</system:String>
+	<system:String x:Key="PPS_Anti-aliasing">Anti-aliasing (PPS)</system:String>
+	<system:String x:Key="PPS_Bloom">Bloom</system:String>
+	<system:String x:Key="PPS_DoF">Depth of Field</system:String>
+	<system:String x:Key="PPS_CG">Color Grading</system:String>
+	<system:String x:Key="PPS_Vi">Vignette</system:String>
+	<system:String x:Key="PPS_CA">Chromatic Aberration</system:String>
+
+	<system:String x:Key="PPS_FocusDistance">Focus Distance</system:String>
+	<system:String x:Key="PPS_Aperture">Aperture</system:String>
+	<system:String x:Key="PPS_FocusLength">Focus Length</system:String>
+	<system:String x:Key="PPS_MaxBlurSize">Max Blur Size</system:String>
+	<system:String x:Key="PPS_Temperature">Temperature</system:String>
+	<system:String x:Key="PPS_Saturation">Saturation</system:String>
+	<system:String x:Key="PPS_Contrast">Contrast</system:String>
+	<system:String x:Key="PPS_Smoothness">Smoothness</system:String>
+	<system:String x:Key="PPS_Rounded">Rounded</system:String>
+
 
 </ResourceDictionary>
+<!--
+	<system:String x:Key="">
+	</system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	<system:String x:Key=""></system:String>
+	-->

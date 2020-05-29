@@ -75,10 +75,10 @@
 	<system:String x:Key="Gen_Remove">削除</system:String>
 	<system:String x:Key="Gen_Browse">参照</system:String>
 	<system:String x:Key="Gen_Load">読込</system:String>
-	<system:String x:Key="Gen_Path">パス:</system:String>
-	<system:String x:Key="Gen_FilterValue">フィルタ値:</system:String>
-	<system:String x:Key="Gen_EncryptionPassword">暗号化パスワード:</system:String>
-	<system:String x:Key="Gen_ExchangeDataPath">交換データパス:</system:String>
+	<system:String x:Key="Gen_Path">パス: </system:String>
+	<system:String x:Key="Gen_FilterValue">フィルタ値: </system:String>
+	<system:String x:Key="Gen_EncryptionPassword">暗号化パスワード: </system:String>
+	<system:String x:Key="Gen_ExchangeDataPath">交換データパス: </system:String>
 	<system:String x:Key="Gen_Upload">アップロード</system:String>
 	<system:String x:Key="Gen_Download">ダウンロード</system:String>
 	<system:String x:Key="Gen_ID">ID</system:String>
@@ -86,6 +86,7 @@
 	<system:String x:Key="Gen_LightColor">ライト色</system:String>
 	<system:String x:Key="Gen_EnvironmentColor">環境光</system:String>
 	<system:String x:Key="Gen_GamingMode">ゲーミングモード</system:String>
+	<system:String x:Key="Gen_Language">言語設定</system:String>
 
 
 	<system:String x:Key="PPS_Enable">有効(Enable)</system:String>
@@ -110,22 +111,3 @@
 
 
 </ResourceDictionary>
-<!--
-	<system:String x:Key="">
-	</system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	-->
