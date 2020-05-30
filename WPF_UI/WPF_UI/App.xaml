@@ -9,7 +9,7 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="LanguageDictionaryJP.xaml" />
 				<ResourceDictionary Source="LanguageDictionaryEN.xaml" />
-				<materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="#1976D2" SecondaryColor="#00695C" />
+				<materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="#0d47a1" SecondaryColor="#80deea" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
