@@ -1,11 +1,13 @@
-﻿<Window
+﻿<mde:MaterialWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_UI"
         xmlns:Controls="clr-namespace:akr.WPF.Controls;assembly=akr.WPF.Controls.ColorPicker" x:Class="WPF_UI.MainWindow"
+		xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		xmlns:system="clr-namespace:System;assembly=mscorlib"
 		TextElement.FontFamily="Yu Gothic"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="14"
@@ -20,26 +22,30 @@
 		SizeToContent="WidthAndHeight"
 
         Title="Oredayo UI v0.1 beta" Height="800" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="boolToVisible"/>
+	</Window.Resources>
 	<DockPanel LastChildFill="True">
 		<StatusBar DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Background="#222222">
 			<StatusBarItem>
 				<TextBlock Name="StatusBarText" VerticalAlignment="Center" Foreground="#F0F0F0">Welcome to Oredayo!</TextBlock>
 			</StatusBarItem>
 		</StatusBar>
-		<TabControl DockPanel.Dock="Top">
-			<TabItem  Header="ようこそ">
+		<TabControl DockPanel.Dock="Top" AllowDrop="False" Style="{StaticResource MaterialDesignTabControl}">
+			<TabItem  Header="ようこそ" Name="TabWelcome">
 				<StackPanel>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="1. Oredayoを起動しましょう">
+						<GroupBox Header="1. Oredayoを起動しましょう"  BorderThickness="0">
 							<DockPanel>
 								<Button Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Top"  Margin="5,5,5,5" Content="Oredayoを起動する" Click="LaunchOredayo_Click" />
-								<TextBlock Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
-								<TextBlock Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
+
+								<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
+								<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
 							</DockPanel>
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="2. Waidayoを準備しましょう">
+						<GroupBox Header="2. Waidayoを準備しましょう"  BorderThickness="0">
 							<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
 								<TabItem  Header="2-1. ダウンロード">
 									<Grid>
@@ -92,9 +98,9 @@
 											<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" VerticalAlignment="Center" Text="..."/>
 											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="Send Motion Portを39009に設定してください。"/>
 											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="正常に設定されると、以下の表示が変化します"/>
-											<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
-											<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
-											<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="Yellow" Text="Oredayoが正常に起動していません"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightCoral" Text="Oredayoが正常に起動していません"/>
 										</DockPanel>
 									</Grid>
 								</TabItem>
@@ -102,17 +108,17 @@
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="3. VRMを読み込みましょう">
+						<GroupBox Header="3. VRMを読み込みましょう" BorderThickness="0">
 							<DockPanel>
-								<TextBlock DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
+								<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
 								<Button DockPanel.Dock="Top"  Margin="5,5,5,5" Content="VRMを読み込む" Click="VRMLoadFileSelectButton_Click" />
-								<TextBlock   Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
-								<TextBlock   Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
+								<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
+								<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
 							</DockPanel>
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="4. エフェクトを掛けましょう">
+						<GroupBox Header="4. エフェクトを掛けましょう" BorderThickness="0">
 							<DockPanel>
 								<Grid>
 									<Grid.ColumnDefinitions>
@@ -123,16 +129,16 @@
 										<RowDefinition />
 										<RowDefinition />
 									</Grid.RowDefinitions>
-									<Button Grid.Column="0" Grid.Row="0"  Margin="5,5,5,5" Content="グリーンバック" />
-									<Button Grid.Column="1" Grid.Row="0"  Margin="5,5,5,5" Content="SF風透過" />
-									<Button Grid.Column="0" Grid.Row="1"  Margin="5,5,5,5" Content="エモーショナル透過" />
-									<Button Grid.Column="1" Grid.Row="1"  Margin="5,5,5,5" Content="黒背景" />
+									<Button Grid.Column="0" Grid.Row="0"  Margin="5,5,5,5" Content="グリーンバック" Click="Preset1_Cliecked"/>
+									<Button Grid.Column="1" Grid.Row="0"  Margin="5,5,5,5" Content="SF風透過" Click="Preset2_Cliecked" />
+									<Button Grid.Column="0" Grid.Row="1"  Margin="5,5,5,5" Content="エモーショナル透過" Click="Preset3_Cliecked" />
+									<Button Grid.Column="1" Grid.Row="1"  Margin="5,5,5,5" Content="黒背景" Click="Preset4_Cliecked" />
 								</Grid>
 							</DockPanel>
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Gen_Language}">
+						<GroupBox Header="{DynamicResource Gen_Language}" BorderThickness="0">
 							<DockPanel Grid.Column="0" Grid.Row="0" >
 								<TextBlock VerticalAlignment="Center" Text="Language: "/>
 								<ComboBox Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged">
@@ -144,10 +150,10 @@
 					</materialDesign:Card>
 				</StackPanel>
 			</TabItem>
-			<TabItem  Header="{DynamicResource Tab_BasicSetting}">
+			<TabItem Name="TabBasicSetting" Header="{DynamicResource Tab_BasicSetting}">
 				<StackPanel>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_Basic_SettingFiles}">
+						<GroupBox Header="{DynamicResource Tab_Basic_SettingFiles}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -166,7 +172,7 @@
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_Basic_VRMLoading}">
+						<GroupBox Header="{DynamicResource Tab_Basic_VRMLoading}" BorderThickness="0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition />
@@ -184,7 +190,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_Basic_CameraPosition}">
+						<GroupBox Header="{DynamicResource Tab_Basic_CameraPosition}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition />
@@ -230,7 +236,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_Basic_LightPosition}">
+						<GroupBox Header="{DynamicResource Tab_Basic_LightPosition}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition />
@@ -274,7 +280,7 @@
 								</DockPanel>
 								<materialDesign:Card Margin="5,5,5,5" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"  >
 
-									<GroupBox Header="{DynamicResource Gen_Type}" >
+									<GroupBox Header="{DynamicResource Gen_Type}"  BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition />
@@ -295,7 +301,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Gen_Information}">
+						<GroupBox Header="{DynamicResource Gen_Information}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -331,7 +337,7 @@
 				<StackPanel>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_Basic_LoadBackground}">
+						<GroupBox Header="{DynamicResource Tab_Basic_LoadBackground}" BorderThickness="0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition />
@@ -349,7 +355,7 @@
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_Basic_BackgroundObjectPosition}">
+						<GroupBox Header="{DynamicResource Tab_Basic_BackgroundObjectPosition}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition />
@@ -406,7 +412,7 @@
 			<TabItem  Header="{DynamicResource Tab_AdvancedSetting}">
 				<StackPanel>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_EVMC4U}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_EVMC4U}" BorderThickness="0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition />
@@ -432,7 +438,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_Window}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_Window}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -449,7 +455,7 @@
 						</GroupBox>
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_RootPosition}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_RootPosition}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -467,7 +473,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_ExternalControl}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_ExternalControl}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition/>
@@ -481,7 +487,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}" BorderThickness="0">
 							<Grid>
 								<Grid.RowDefinitions>
 									<RowDefinition />
@@ -501,7 +507,7 @@
 					</materialDesign:Card>
 					<materialDesign:Card Margin="5,5,5,5" >
 
-						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}">
+						<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}" BorderThickness="0">
 							<Grid>
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition MinWidth="150"/>
@@ -536,7 +542,7 @@
 				<StackPanel>
 					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
 						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Gen_BackgroundColor}">
+							<GroupBox Header="{DynamicResource Gen_BackgroundColor}" BorderThickness="0">
 								<StackPanel>
 									<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="#00FF00"  Width="200" Height="370" />
 									<CheckBox Name="GamingBackgroundCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
@@ -544,21 +550,15 @@
 							</GroupBox>
 						</materialDesign:Card>
 						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Gen_LightColor}">
+							<GroupBox Header="{DynamicResource Gen_LightColor}" BorderThickness="0">
 								<StackPanel>
 									<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="#FFFFFF"  Width="200" Height="370" />
 									<CheckBox Name="GamingLightCheckBox" Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
 								</StackPanel>
 							</GroupBox>
 						</materialDesign:Card>
-					</StackPanel>
-				</StackPanel>
-			</TabItem>
-			<TabItem Header="{DynamicResource Tab_Color2}">
-				<StackPanel>
-					<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
 						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Gen_EnvironmentColor}">
+							<GroupBox Header="{DynamicResource Gen_EnvironmentColor}" BorderThickness="0">
 								<StackPanel>
 									<Controls:ColorPicker Name="EnvironmentColorPicker" SelectedColorChanged="EnvironmentColorPicker_SelectedColorChanged" SelectedColor="#363A42"  Width="200" Height="370" />
 									<CheckBox Name="GamingEnvironmentCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
@@ -571,17 +571,17 @@
 			<TabItem Header="{DynamicResource Tab_Graphics}">
 				<StackPanel>
 					<materialDesign:Card Margin="5,5,5,5" >
-						<GroupBox Header="{DynamicResource Tab_PostProcessingStackV2}">
+						<GroupBox Header="{DynamicResource Tab_PostProcessingStackV2}" BorderThickness="0">
 							<StackPanel>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_Anti-aliasing}">
+									<GroupBox Header="{DynamicResource PPS_Anti-aliasing}" BorderThickness="0">
 										<Grid>
 											<CheckBox Margin="0,3,3,0" Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="{DynamicResource PPS_Enable}"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
 										</Grid>
 									</GroupBox>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_Bloom}">
+									<GroupBox Header="{DynamicResource PPS_Bloom}" BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -601,7 +601,7 @@
 									</GroupBox>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_DoF}">
+									<GroupBox Header="{DynamicResource PPS_DoF}" BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -627,7 +627,7 @@
 									</GroupBox>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_CG}">
+									<GroupBox Header="{DynamicResource PPS_CG}" BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -650,7 +650,7 @@
 									</GroupBox>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_Vi}">
+									<GroupBox Header="{DynamicResource PPS_Vi}" BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -673,7 +673,7 @@
 									</GroupBox>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<GroupBox Header="{DynamicResource PPS_CA}">
+									<GroupBox Header="{DynamicResource PPS_CA}" BorderThickness="0">
 										<Grid>
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition/>
@@ -697,4 +697,4 @@
 		</TabControl>
 
 	</DockPanel>
-</Window>
+</mde:MaterialWindow>

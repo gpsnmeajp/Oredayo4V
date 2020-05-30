@@ -45,13 +45,14 @@ using System.Windows.Threading;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using MaterialDesignExtensions.Controls;
 
 namespace WPF_UI
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MaterialWindow// : Window
     {
         private MemoryMappedFileClient client;
         private DispatcherTimer dispatcherTimer;
@@ -61,14 +62,16 @@ namespace WPF_UI
         private float cameraResetHeight = 0f;
         private DateTime lastStartTime = new DateTime();
 
-        ResourceDictionary[] dics = null;
+        static ResourceDictionary[] dics = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            dics = new ResourceDictionary[Application.Current.Resources.MergedDictionaries.Count];
-            Application.Current.Resources.MergedDictionaries.CopyTo(dics,0);
+            if (dics == null) {
+                dics = new ResourceDictionary[Application.Current.Resources.MergedDictionaries.Count];
+                Application.Current.Resources.MergedDictionaries.CopyTo(dics, 0);
+            }
 
             Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
             Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
@@ -118,7 +121,7 @@ namespace WPF_UI
                 else if (e.CommandType == typeof(PipeCommands.Bye))
                 {
                     //Unity側終了処理
-                    //this.Close();
+                    this.Close();
                     Console.WriteLine(">Bye");
                 }
                 else if (e.CommandType == typeof(PipeCommands.LogMessage))
@@ -312,6 +315,26 @@ namespace WPF_UI
             }
         }
 
+        private void Preset1_Cliecked(object sender, RoutedEventArgs e)
+        {
+            LoadSettingFromFile("Preset1.json");
+        }
+
+        private void Preset2_Cliecked(object sender, RoutedEventArgs e)
+        {
+            LoadSettingFromFile("Preset2.json");
+        }
+
+        private void Preset3_Cliecked(object sender, RoutedEventArgs e)
+        {
+            LoadSettingFromFile("Preset3.json");
+        }
+
+        private void Preset4_Cliecked(object sender, RoutedEventArgs e)
+        {
+            LoadSettingFromFile("Preset4.json");
+        }
+
         //-----------基本設定----------------
         //===========言語切替==========
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -342,15 +365,20 @@ namespace WPF_UI
 
         private void QuickLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            if (File.Exists("QuickSetting.json"))
+            LoadSettingFromFile("QuickSetting.json");
+        }
+
+        void LoadSettingFromFile(string path) {
+            if (File.Exists(path))
             {
-                LoadSetting(JsonConvert.DeserializeObject<Setting>(File.ReadAllText("QuickSetting.json", new UTF8Encoding(false))));
+                LoadSetting(JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false))));
             }
             else
             {
                 MessageBox.Show("ファイルがありません\n(File not found.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -383,7 +411,7 @@ namespace WPF_UI
             bool? result = dlg.ShowDialog();
             if (result == true)
             {
-                LoadSetting(JsonConvert.DeserializeObject<Setting>(File.ReadAllText(dlg.FileName, new UTF8Encoding(false))));
+                LoadSettingFromFile(dlg.FileName);
             }
         }
 
@@ -892,8 +920,21 @@ namespace WPF_UI
 
         void LoadSetting(Setting s)
         {
-            VRMPathTextBox.Text = s.VRMPathTextBox_Text;
-            BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
+            //依存関係があるため先に設定する
+            WindowOptionTransparentCheckBox.IsChecked = s.WindowOptionTransparentCheckBox_IsChecked_Value;
+
+            WindowOptionWindowBorderCheckBox.IsChecked = s.WindowOptionWindowBorderCheckBox_IsChecked_Value;
+            WindowOptionForceForegroundCheckBox.IsChecked = s.WindowOptionForceForegroundCheckBox_IsChecked_Value;
+
+
+            if (s.VRMPathTextBox_Text != "")
+            {
+                VRMPathTextBox.Text = s.VRMPathTextBox_Text;
+            }
+            if (s.BackgroundObjectPathTextBox_Text != "")
+            {
+                BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
+            }
             CameraRotateXSlider.Value = s.CameraRotateXSlider_Value;
             CameraRotateYSlider.Value = s.CameraRotateYSlider_Value;
             CameraRotateZSlider.Value = s.CameraRotateZSlider_Value;
@@ -921,9 +962,6 @@ namespace WPF_UI
             EVMC4UBlendShapeFilterCheckBox.IsChecked = s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value;
             EVMC4UBoneFilterValueTextBox.Text = s.EVMC4UBoneFilterValueTextBox_Text;
             EVMC4UBlendShapeFilterValueTextBox.Text = s.EVMC4UBlendShapeFilterValueTextBox_Text;
-            WindowOptionWindowBorderCheckBox.IsChecked = s.WindowOptionWindowBorderCheckBox_IsChecked_Value;
-            WindowOptionForceForegroundCheckBox.IsChecked = s.WindowOptionForceForegroundCheckBox_IsChecked_Value;
-            WindowOptionTransparentCheckBox.IsChecked = s.WindowOptionTransparentCheckBox_IsChecked_Value;
             CameraRootPosLockCheckBox.IsChecked = s.CameraRootPosLockCheckBox_IsChecked_Value;
             LightRootPosLockCheckBox.IsChecked = s.LightRootPosLockCheckBox_IsChecked_Value;
             BackgroundRootPosLockCheckBox.IsChecked = s.BackgroundRootPosLockCheckBox_IsChecked_Value;
