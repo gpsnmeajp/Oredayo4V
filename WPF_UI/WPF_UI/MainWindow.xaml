@@ -8,8 +8,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.FontWeight="Normal"
         TextElement.FontSize="14"
-		Background="#333333"
 		mc:Ignorable="d"
+	
+	    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+
         Title="Oredayo UI v0.1 beta" Height="800" Width="500" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<!--		-->
 	<DockPanel LastChildFill="True">
@@ -19,6 +25,94 @@
 			</StatusBarItem>
 		</StatusBar>
 		<TabControl DockPanel.Dock="Top">
+			<TabItem  Header="ようこそ">
+				<StackPanel>
+					<GroupBox Header="1. Oredayoを起動しましょう">
+						<DockPanel>
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="Oredayoを起動する" Click="LaunchOredayo_Click" />
+							<TextBlock Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
+							<TextBlock Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
+						</DockPanel>
+					</GroupBox>
+					<GroupBox Header="2. Waidayoを準備しましょう">
+						<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
+							<TabItem  Header="2-1. ダウンロード">
+								<Grid>
+									<DockPanel>
+										<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Text="waidayoをインストールしましょう！"/>
+										<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Text="Face ID搭載のiPhoneあるいはiPadが必要です"/>
+										<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition/>
+												<ColumnDefinition Width="0.4*"/>
+											</Grid.ColumnDefinitions>
+											<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
+											<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
+										</Grid>
+										<Button DockPanel.Dock="Bottom" Margin="3,3,3,3" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+									</DockPanel>
+								</Grid>
+							</TabItem>
+							<TabItem  Header="2-2. 起動">
+								<Grid>
+									<DockPanel>
+										<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Text="ホーム画面からwaidayoを起動しましょう"/>
+										<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
+										<Button DockPanel.Dock="Bottom" Margin="3,3,3,3"  Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+									</DockPanel>
+								</Grid>
+							</TabItem>
+							<TabItem  Header="2-3. VRMを転送">
+								<Grid>
+									<DockPanel>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="VRMファイルをwaidayoに導入します。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="1. 使いたいVRMファイルを「default.vrm」というファイル名にして準備してください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="2. iPhone(iPad)をPCに接続し、iTunesを開いてください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="3. iTunes上でiPhone(iPad)を選択してください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="4. ファイル共有->waidayo を選択してください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="5. 「waidayoの書類」と書かれたファイル一覧に、「default.vrm」を"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="    ドラッグ&amp;ドロップしてください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="6. waidayoを一度終了し、再度起動してください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="　 アバターが変わっていれば転送完了です。"/>
+										<Button DockPanel.Dock="Bottom" Margin="3,3,3,3" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+									</DockPanel>
+								</Grid>
+							</TabItem>
+							<TabItem  Header="2-4. 設定">
+								<Grid>
+									<DockPanel>
+										<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="waidayoのメニューを開き"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="Send Motion IP Addressを以下のいずれかに設定してください"/>
+										<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" VerticalAlignment="Center" Text="..."/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="Send Motion Portを39009に設定してください。"/>
+										<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Text="正常に設定されると、以下の表示が変化します"/>
+										<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
+										<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
+										<TextBlock DockPanel.Dock="Bottom" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="Yellow" Text="Oredayoが正常に起動していません"/>
+									</DockPanel>
+								</Grid>
+							</TabItem>
+						</TabControl>
+					</GroupBox>
+					<GroupBox Header="3. VRMを読み込みましょう">
+						<DockPanel>
+							<TextBlock DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="VRMを読み込む" Click="VRMLoadFileSelectButton_Click" />
+							<TextBlock   Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
+							<TextBlock   Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Bottom" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
+						</DockPanel>
+					</GroupBox>
+					<GroupBox Header="4. エフェクトを掛けましょう">
+						<DockPanel>
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="グリーンバック" />
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="SF風透過" />
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="エモーショナル透過" />
+							<Button DockPanel.Dock="Top" Margin="1,1,1,1" Content="黒背景" />
+						</DockPanel>
+					</GroupBox>
+				</StackPanel>
+			</TabItem>
 			<TabItem  Header="{DynamicResource Tab_BasicSetting}">
 				<StackPanel>
 					<GroupBox Header="{DynamicResource Gen_Language}">

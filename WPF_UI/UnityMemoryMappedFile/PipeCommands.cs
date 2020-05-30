@@ -201,18 +201,10 @@ namespace UnityMemoryMappedFile
         {
             public string Message { get; set; }
         }
-        public class CommunicationStatus
+        public class CyclicStatus
         {
             public bool EVMC4U { get; set; }
-        }
-        public class ResetInfo
-        {
             public float HeadHeight { get; set; }
         }
-        public class KeepAlive
-        {
-        }
-
-
     }
 }

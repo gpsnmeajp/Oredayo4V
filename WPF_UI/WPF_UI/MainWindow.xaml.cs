@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Media;
 using System.Threading.Tasks;
@@ -43,6 +44,7 @@ using akr.WPF.Controls;
 using System.Windows.Threading;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace WPF_UI
 {
@@ -55,28 +57,275 @@ namespace WPF_UI
         private DispatcherTimer dispatcherTimer;
         private float gamingH = 0f;
 
-        private int UI_KeepAlive = 0;
-        private float cameraResetHeight = 1.4f;
+        private int UI_KeepAlive = int.MaxValue;
+        private float cameraResetHeight = 0f;
         private DateTime lastStartTime = new DateTime();
 
-        Collection<ResourceDictionary> dics = null;
+        ResourceDictionary[] dics = null;
 
         public MainWindow()
         {
             InitializeComponent();
-            dics = Application.Current.Resources.MergedDictionaries;
-            Application.Current.Resources = dics[0]; //JP
+
+            dics = new ResourceDictionary[Application.Current.Resources.MergedDictionaries.Count];
+            Application.Current.Resources.MergedDictionaries.CopyTo(dics,0);
+
+            Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
+            Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
+
+            Application.Current.Resources.MergedDictionaries.Add(dics[0]); //JP
         }
 
         //-----------システム系----------------
+
+        private void Client_Received(object sender, DataReceivedEventArgs e)
+        {
+            Dispatcher.Invoke(() => {
+                UI_KeepAlive = 0; //何らか受信した
+
+                if (e.CommandType == typeof(PipeCommands.Hello))
+                {
+                    var d = (PipeCommands.Hello)e.Data;
+
+                    //Unity側からすでに送られているものは無視する
+                    if (lastStartTime != d.startTime)
+                    {
+                        lastStartTime = d.startTime;
+                        //Unity側起動時処理(値送信など)
+                        Console.WriteLine(">Hello");
+                        Console.WriteLine(lastStartTime);
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            //デフォルト値送信
+                            VRMLoadButton_Click(null, null);
+                            BackgroundObjectLoadButton_Click(null, null);
+                            CameraSlider_ValueChanged(null, null);
+                            LightSlider_ValueChanged(null, null);
+                            BackgroundSlider_ValueChanged(null, null);
+                            EVMC4U_Checked(null, null);
+                            WindowOption_Checked(null, null);
+                            RootPos_Checked(null, null);
+                            ExternalControl_Checked(null, null);
+                            //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
+                            BackgroundColorPicker_SelectedColorChanged(null, null);
+                            LightColorPicker_SelectedColorChanged(null, null);
+                            EnvironmentColorPicker_SelectedColorChanged(null, null);
+                            PostProcessingStackSlider_Checked(null, null);
+                        });
+                    }
+                }
+                else if (e.CommandType == typeof(PipeCommands.Bye))
+                {
+                    //Unity側終了処理
+                    //this.Close();
+                    Console.WriteLine(">Bye");
+                }
+                else if (e.CommandType == typeof(PipeCommands.LogMessage))
+                {
+                    //ログ受信時処理
+                    var d = (PipeCommands.LogMessage)e.Data;
+                    StatusBarText.Text = "[" + d.Type.ToString() + "] " + d.Message;
+                    switch (d.Type)
+                    {
+                        case PipeCommands.LogType.Error:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 128, 128));
+                            break;
+                        case PipeCommands.LogType.Warning:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 30));
+                            break;
+                        default:
+                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                            break;
+                    }
+                    if (d.Message.Contains("SocketException"))
+                    {
+                        MessageBox.Show("ポートのオープンに失敗しました。\n他のアプリケーションが競合している可能性があります。\n\n通信機能は利用できません。\n(Port open failed.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else if (e.CommandType == typeof(PipeCommands.SendMessage))
+                {
+                    //エラーダイアログ処理
+                    var d = (PipeCommands.SendMessage)e.Data;
+                    MessageBox.Show(d.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (e.CommandType == typeof(PipeCommands.CyclicStatus))
+                {
+                    //KeepAlive処理
+                    var d = (PipeCommands.CyclicStatus)e.Data;
+                    if (!d.EVMC4U)
+                    {
+                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                        InfoEVMC4UStateTextBlock.Text = "NG";
+
+                        WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
+                        WelcomeWaidayoIsNotReceived.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                        InfoEVMC4UStateTextBlock.Text = "OK";
+
+                        WelcomeWaidayoIsReceived.Visibility = Visibility.Visible;
+                        WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
+                    }
+
+                    //前回と値が違うときは合わせる(VRM読み込み時)
+                    if (cameraResetHeight != d.HeadHeight)
+                    {
+                        CameraValue2Slider.Value = d.HeadHeight;
+                        BackgroundValue2Slider.Value = d.HeadHeight;
+                    }
+                    cameraResetHeight = d.HeadHeight;
+                }
+            });
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //通信をトライ開始
+            client = new MemoryMappedFileClient();
+            client.ReceivedEvent += Client_Received;
+            client.Start("Oredayo_UI_Connection");
+
+            //タイマー起動
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 32);
+            dispatcherTimer.Tick += new EventHandler(GenericTimer);
+            dispatcherTimer.Start();
+
+            //起動したことを伝える
+            await client.SendCommandAsync(new PipeCommands.Hello { });
+
+            //IPアドレス取得
+            IPAddress[] ips = Dns.GetHostAddresses(Dns.GetHostName());
+            string ipList = "";
+            foreach (var ip in ips) {
+                //IPv4のみ
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) { 
+                    ipList += ip.ToString() + "\n";
+                }
+            }
+            WelcomeIPAddressTextBlock.Text = ipList.Trim();
+
+        }
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //終了を伝える
+            await client.SendCommandAsync(new PipeCommands.Bye { });
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            dispatcherTimer.Stop();
+            client.Stop();
+        }
+
+        private void GenericTimer(object sender, EventArgs e)
+        {
+            if (GamingBackgroundCheckBox.IsChecked.HasValue && GamingBackgroundCheckBox.IsChecked.Value)
+            {
+                BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 0.2f);
+            }
+            if (GamingLightCheckBox.IsChecked.HasValue && GamingLightCheckBox.IsChecked.Value)
+            {
+                LightColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
+            }
+            if (GamingEnvironmentCheckBox.IsChecked.HasValue && GamingEnvironmentCheckBox.IsChecked.Value)
+            {
+                EnvironmentColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
+            }
+
+            gamingH += 1f;
+            if (gamingH > 360f)
+            {
+                gamingH -= 360f;
+            }
+
+            //身長が一定以上で読み込み成功と判定する
+            if (cameraResetHeight > 0.1f)
+            {
+                WelcomeVRMisLoadedTextBlock.Visibility = Visibility.Visible;
+                WelcomeVRMisNotLoadedTextBlock.Visibility = Visibility.Collapsed;
+            }
+            else {
+                WelcomeVRMisLoadedTextBlock.Visibility = Visibility.Collapsed;
+                WelcomeVRMisNotLoadedTextBlock.Visibility = Visibility.Visible;
+            }
+
+            //-------
+            if (UI_KeepAlive > 60)
+            {
+                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                InfoUIStateTextBlock.Text = "NG";
+
+                //ようこそ画面
+                WelcomeOredayoIsRunningTextBlock.Visibility = Visibility.Collapsed;
+                WelcomeOredayoIsNotRunningTextBlock.Visibility = Visibility.Visible;
+
+                WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
+                WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
+                WelcomeWaidayoIsNotRunning.Visibility = Visibility.Visible;
+
+                InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
+                InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                InfoEVMC4UStateTextBlock.Text = "--";
+
+                //バッファの影響で高速点滅する場合があるので、UI通信が切れた場合は禁止
+                GamingBackgroundCheckBox.IsChecked = false;
+                GamingLightCheckBox.IsChecked = false;
+                GamingEnvironmentCheckBox.IsChecked = false;
+            }
+            else
+            {
+                UI_KeepAlive++;
+
+                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
+                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+                InfoUIStateTextBlock.Text = "OK";
+
+                //ようこそ画面
+                WelcomeOredayoIsRunningTextBlock.Visibility = Visibility.Visible;
+                WelcomeOredayoIsNotRunningTextBlock.Visibility = Visibility.Collapsed;
+
+                WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
+
+            }
+        }
+
+        //-----------ようこそ----------------
+        //===========チュートリアル==========
+        private void WelcomeWaidayoNextButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            WelcomeWaidayoTabControl.SelectedIndex++;
+        }
+
+        private void LaunchOredayo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Environment/Oredayo.exe");
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        //-----------基本設定----------------
+        //===========言語切替==========
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //言語切替
             if (dics != null)
             {
-                Application.Current.Resources = dics[LanguageComboBox.SelectedIndex];
+                Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
+                Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
+
+                Application.Current.Resources.MergedDictionaries.Add(dics[LanguageComboBox.SelectedIndex]); //JP
             }
         }
+        //===========設定読み込み==========
 
         private void QuickSaveButton_Click(object sender, RoutedEventArgs e)
         {
@@ -137,190 +386,7 @@ namespace WPF_UI
                 LoadSetting(JsonConvert.DeserializeObject<Setting>(File.ReadAllText(dlg.FileName, new UTF8Encoding(false))));
             }
         }
-        private void Client_Received(object sender, DataReceivedEventArgs e)
-        {
-            Dispatcher.Invoke(() => {
 
-                if (e.CommandType == typeof(PipeCommands.Hello))
-                {
-                    var d = (PipeCommands.Hello)e.Data;
-
-                    //Unity側からすでに送られているものは無視する
-                    if (lastStartTime != d.startTime)
-                    {
-                        lastStartTime = d.startTime;
-                        //Unity側起動時処理(値送信など)
-                        Console.WriteLine(">Hello");
-                        Console.WriteLine(lastStartTime);
-
-                        //デフォルト値送信
-                        VRMLoadButton_Click(null, null);
-                        BackgroundObjectLoadButton_Click(null, null);
-                        CameraSlider_ValueChanged(null, null);
-                        LightSlider_ValueChanged(null, null);
-                        BackgroundSlider_ValueChanged(null, null);
-                        EVMC4U_Checked(null, null);
-                        WindowOption_Checked(null, null);
-                        RootPos_Checked(null, null);
-                        ExternalControl_Checked(null, null);
-                        //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
-                        BackgroundColorPicker_SelectedColorChanged(null, null);
-                        LightColorPicker_SelectedColorChanged(null, null);
-                        EnvironmentColorPicker_SelectedColorChanged(null, null);
-                        PostProcessingStackSlider_Checked(null, null);
-                    }
-                }
-                else if (e.CommandType == typeof(PipeCommands.Bye))
-                {
-                    //Unity側終了処理
-                    //this.Close();
-                    Console.WriteLine(">Bye");
-                }
-                else if (e.CommandType == typeof(PipeCommands.LogMessage))
-                {
-                    //ログ受信時処理
-                    var d = (PipeCommands.LogMessage)e.Data;
-                    StatusBarText.Text = "[" + d.Type.ToString() + "] " + d.Message;
-                    switch (d.Type)
-                    {
-                        case PipeCommands.LogType.Error:
-                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 128, 128));
-                            break;
-                        case PipeCommands.LogType.Warning:
-                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 30));
-                            break;
-                        default:
-                            StatusBarText.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                            break;
-                    }
-                    if (d.Message.Contains("SocketException"))
-                    {
-                        MessageBox.Show("ポートのオープンに失敗しました。\n他のアプリケーションが競合している可能性があります。\n\n通信機能は利用できません。\n(Port open failed.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else if (e.CommandType == typeof(PipeCommands.SendMessage))
-                {
-                    //エラーダイアログ処理
-                    var d = (PipeCommands.SendMessage)e.Data;
-                    MessageBox.Show(d.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else if (e.CommandType == typeof(PipeCommands.CommunicationStatus))
-                {
-                    //KeepAlive処理
-                    var d = (PipeCommands.CommunicationStatus)e.Data;
-                    if (!d.EVMC4U)
-                    {
-                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                        InfoEVMC4UStateTextBlock.Text = "NG";
-                    }
-                    else
-                    {
-                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                        InfoEVMC4UStateTextBlock.Text = "OK";
-                    }
-                }
-                else if (e.CommandType == typeof(PipeCommands.KeepAlive))
-                {
-                    UI_KeepAlive = 0;
-                }
-                else if (e.CommandType == typeof(PipeCommands.ResetInfo))
-                {
-                    //リセット用情報
-                    var d = (PipeCommands.ResetInfo)e.Data;
-
-                    //前回と値が違うときは合わせる(VRM読み込み時)
-                    if (cameraResetHeight != d.HeadHeight)
-                    {
-                        CameraValue2Slider.Value = d.HeadHeight;
-                        BackgroundValue2Slider.Value = d.HeadHeight;
-                    }
-                    cameraResetHeight = d.HeadHeight;
-                }
-            });
-        }
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            client = new MemoryMappedFileClient();
-            client.ReceivedEvent += Client_Received;
-            client.Start("Oredayo_UI_Connection");
-
-            dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 32);
-            dispatcherTimer.Tick += new EventHandler(GenericTimer);
-            dispatcherTimer.Start();
-
-            //起動したことを伝える
-            await client.SendCommandAsync(new PipeCommands.Hello { });
-            /*
-                        await client.SendCommandAsync(new PipeCommands.SendMessage { Message = "TestFromWPF" });
-                        await client.SendCommandWaitAsync(new PipeCommands.GetCurrentPosition(), d =>
-                        {
-                            var ret = (PipeCommands.ReturnCurrentPosition)d;
-                            Dispatcher.Invoke(() => {
-                                //UIスレッド
-                            });
-                        });
-                        */
-        }
-        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //終了を伝える
-            await client.SendCommandAsync(new PipeCommands.Bye { });
-        }
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            dispatcherTimer.Stop();
-            client.Stop();
-        }
-
-        private void GenericTimer(object sender, EventArgs e)
-        {
-            if (GamingBackgroundCheckBox.IsChecked.HasValue && GamingBackgroundCheckBox.IsChecked.Value)
-            {
-                BackgroundColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 0.2f);
-            }
-            if (GamingLightCheckBox.IsChecked.HasValue && GamingLightCheckBox.IsChecked.Value)
-            {
-                LightColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
-            }
-            if (GamingEnvironmentCheckBox.IsChecked.HasValue && GamingEnvironmentCheckBox.IsChecked.Value)
-            {
-                EnvironmentColorPicker.SelectedColor = akr.WPF.Utilities.ColorUtilities.HsvToRgb(gamingH, 1, 1);
-            }
-
-            gamingH += 1f;
-            if (gamingH > 360f)
-            {
-                gamingH -= 360f;
-            }
-
-            //-------
-            UI_KeepAlive++;
-            if (UI_KeepAlive > 60)
-            {
-                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                InfoUIStateTextBlock.Text = "NG";
-                InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                InfoEVMC4UStateTextBlock.Text = "--";
-
-                //バッファの影響で高速点滅する場合があるので、UI通信が切れた場合は禁止
-                GamingBackgroundCheckBox.IsChecked = false;
-                GamingLightCheckBox.IsChecked = false;
-                GamingEnvironmentCheckBox.IsChecked = false;
-            }
-            else
-            {
-                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                InfoUIStateTextBlock.Text = "OK";
-            }
-        }
-
-        //-----------基本設定----------------
         //===========VRM読み込み===========
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
@@ -581,7 +647,7 @@ namespace WPF_UI
             }
             Console.WriteLine("EVMC4U");
         }
-        private async void EVMC4U_TextChanged(object sender, TextChangedEventArgs e)
+        private void EVMC4U_TextChanged(object sender, TextChangedEventArgs e)
         {
             //ただ転送する(お行儀悪い)
             EVMC4U_Checked(null, null);
@@ -991,7 +1057,6 @@ namespace WPF_UI
             s.PostProcessingCAIntensitySlider_Value = PostProcessingCAIntensitySlider.Value;
             return s;
         }
-
 
     }
 }

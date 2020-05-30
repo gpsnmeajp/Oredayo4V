@@ -57,7 +57,7 @@ namespace UnityMemoryMappedFile
             IsConnected = true;
         }
 
-        public async void ReadThread()
+        public void ReadThread()
         {
             try
             {

@@ -86,7 +86,7 @@ public class Controller : MonoBehaviour
 
     public DateTime startTime = DateTime.Now;
 
-    async void Start()
+    void Start()
     {
         synchronizationContext = SynchronizationContext.Current;
         sedss_server = GetComponent<SEDSS_Server>();
@@ -98,24 +98,30 @@ public class Controller : MonoBehaviour
         server.ReceivedEvent += Server_Received;
         server.Start("Oredayo_UI_Connection");
 
-        await server.SendCommandAsync(new PipeCommands.Hello { startTime = this.startTime });
         Debug.Log(startTime);
 
         Application.logMessageReceived += ApplicationLogHandler;
         Application.logMessageReceivedThreaded += ApplicationLogHandler;
-        Debug.Log("Server started");
+        Debug.Log("PipeServer started");
+
+        synchronizationContext.Post(async (arg) =>
+        {
+            await server.SendCommandAsync(new PipeCommands.Hello { startTime = this.startTime });
+        }, null);
     }
 
-    private async void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         Application.logMessageReceived -= ApplicationLogHandler;
         Application.logMessageReceivedThreaded -= ApplicationLogHandler;
-        await server.SendCommandAsync(new PipeCommands.Bye { });
-
         sedss_server.StopServer();
 
-        server.ReceivedEvent -= Server_Received;
-        server.Stop();
+        synchronizationContext.Post(async (arg) =>
+        {
+            await server.SendCommandAsync(new PipeCommands.Bye { });
+            server.ReceivedEvent -= Server_Received;
+            server.Stop();
+        }, null);
     }
 
     private async void ApplicationLogHandler(string cond, string stack, LogType type)
@@ -142,7 +148,7 @@ public class Controller : MonoBehaviour
         }, null);
     }
 
-    private async void Server_Received(object sender, DataReceivedEventArgs e)
+    private void Server_Received(object sender, DataReceivedEventArgs e)
     {
         synchronizationContext.Post(async (arg) => {
             //-----------システム系----------------
@@ -173,8 +179,9 @@ public class Controller : MonoBehaviour
 
                 //許諾画面を出す
                 if (File.Exists(d.filepath)) {
-                    loader.LoadRequest(d.filepath,(path,bytes)=> {
-                        synchronizationContext.Post(async (args) =>
+                    loader.LoadRequest(d.filepath,(path,bytes)=> 
+                    {
+                        synchronizationContext.Post((args) =>
                         {
                             Debug.Log("Load start");
                             externalReceiver.LoadVRMFromData(bytes);
@@ -588,25 +595,32 @@ public class Controller : MonoBehaviour
 
     float nextTime = 0;
     float lastEVMC4UTime = 0;
-    async void Update()
+    int failCount = 0;
+    void Update()
     {
         //KeepAlive 
         if (Time.time > nextTime)
         {
-            //生きているということだけ送る
-            await server.SendCommandAsync(new PipeCommands.KeepAlive { });
-
-            await server.SendCommandAsync(new PipeCommands.CommunicationStatus
+            synchronizationContext.Post(async (arg) =>
             {
-                EVMC4U = communicationValidator.time != lastEVMC4UTime //通信が行われていれば常に時刻は更新される
-            });
+                await server.SendCommandAsync(new PipeCommands.CyclicStatus
+                {
+                    EVMC4U = failCount<5,
+                    HeadHeight = externalReceiver.HeadPosition.y, //カメラ位置用に送り続ける
+                });
+            }, null);
 
-            await server.SendCommandAsync(new PipeCommands.ResetInfo {
-                HeadHeight = externalReceiver.HeadPosition.y //カメラ位置用に送り続ける
-            });
+            //通信が行われていれば常に時刻は更新される
+            if (communicationValidator.time == lastEVMC4UTime)
+            {
+                failCount++;
+            }
+            else {
+                failCount = 0;
+            }
 
             lastEVMC4UTime = communicationValidator.time;
-            nextTime = Time.time + 1.5f;
+            nextTime = Time.time + 0.5f; //500ms周期
         }
     }
 
