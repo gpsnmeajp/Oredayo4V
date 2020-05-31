@@ -120,6 +120,10 @@ namespace UnityMemoryMappedFile
         {
             public bool OBS { get; set; }
         }
+        public class VirtualWebCamera
+        {
+            public bool Enable { get; set; }
+        }
         public class SEDSSServerControl
         {
             public bool Enable { get; set; }

@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669908}
   - component: {fileID: 534669906}
   - component: {fileID: 534669907}
   m_Layer: 0
@@ -402,6 +403,26 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &534669908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1106d3744ef824496276c8274506b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CaptureDevice: 0
+  ResizeMode: 1
+  Timeout: 1000
+  MirrorMode: 0
+  DoubleBuffering: 1
+  EnableVSync: 0
+  TargetFrameRate: 30
+  HideWarnings: 1
 --- !u!1 &563925792
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +929,7 @@ MonoBehaviour:
   loader: {fileID: 428497894}
   PPSLayer: {fileID: 534669907}
   PPSVolume: {fileID: 767302126}
+  unityCapture: {fileID: 534669908}
   cameraRootLocker: {fileID: 1192415743}
   lightRootLocker: {fileID: 563925794}
   backgroundRootLocker: {fileID: 971430000}

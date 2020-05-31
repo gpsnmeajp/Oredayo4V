@@ -18,7 +18,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 	
-        Title="Oredayo UI v0.1 beta" Height="870" Width="650" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI v0.2 beta" Height="870" Width="650" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
 	<!--        		TextElement.FontFamily="Yu Gothic"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 -->
@@ -32,28 +32,28 @@
 			</StatusBarItem>
 		</StatusBar>
 		<TabControl DockPanel.Dock="Top" AllowDrop="False" Style="{StaticResource MaterialDesignTabControl}">
-			<TabItem  Header="ようこそ" Name="TabWelcome">
+			<TabItem  Header="{DynamicResource Tab_Welcome}" Name="TabWelcome">
 				<ScrollViewer>
 					<StackPanel>
-						<GroupBox Header="ようこそ" BorderThickness="0"  materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+						<GroupBox Header="{DynamicResource Tab_Welcome}" BorderThickness="0"  materialDesign:ColorZoneAssist.Mode="PrimaryDark">
 							<StackPanel>
 								<materialDesign:Card Margin="5,5,5,5">
 									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">1. Oredayoを起動しましょう</TextBlock>
-										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
-										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
-										<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="Oredayoを強制的に再起動する" Click="LaunchOredayo_Click" />
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_LaunchOredayo}"/>
+										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_LaunchOredayo_OK}"/>
+										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_LaunchOredayo_NG}"/>
+										<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="{DynamicResource Tab_Welcome_LaunchOredayo_Restart}" Click="LaunchOredayo_Click" />
 									</DockPanel>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
 									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">2. Waidayoを準備しましょう</TextBlock>
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Waidayo}"/>
 										<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
-											<TabItem  Header="2-1. ダウンロード">
+											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_1}">
 												<Grid>
 													<DockPanel Margin="5,5,5,5">
-														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="waidayoをインストールしましょう！"/>
-														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="Face ID搭載のiPhoneあるいはiPadが必要です"/>
+														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_1}"/>
+														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_2}"/>
 														<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
 															<Grid.ColumnDefinitions>
 																<ColumnDefinition/>
@@ -62,47 +62,47 @@
 															<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
 															<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
 														</Grid>
-														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
 													</DockPanel>
 												</Grid>
 											</TabItem>
-											<TabItem  Header="2-2. 起動">
+											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_2}">
 												<Grid>
 													<DockPanel Margin="5,5,5,5">
-														<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="ホーム画面からwaidayoを起動しましょう"/>
+														<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_2_1}"/>
 														<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
-														<Button DockPanel.Dock="Bottom"  Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5"  Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+														<Button DockPanel.Dock="Bottom"  Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5"  Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
 													</DockPanel>
 												</Grid>
 											</TabItem>
-											<TabItem  Header="2-3. VRMを転送">
+											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_3}">
 												<Grid>
 													<DockPanel Margin="5,5,5,5">
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="VRMファイルをwaidayoに導入します。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="1. 使いたいVRMファイルを「default.vrm」というファイル名にして準備してください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="2. iPhone(iPad)をPCに接続し、iTunesを開いてください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="3. iTunes上でiPhone(iPad)を選択してください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="4. ファイル共有->waidayo を選択してください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="5. 「waidayoの書類」と書かれたファイル一覧に、「default.vrm」を"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="    ドラッグ&amp;ドロップしてください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="6. waidayoを一度終了し、再度起動してください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="　 アバターが変わっていれば転送完了です。"/>
-														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}"  Margin="5,5,5,5" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_1}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_2}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_3}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_4}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_5}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_6}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_7}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_8}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_9}"/>
+														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}"  Margin="5,5,5,5" Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
 													</DockPanel>
 												</Grid>
 											</TabItem>
-											<TabItem  Header="2-4. 設定">
+											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_4}">
 												<Grid>
 													<DockPanel Margin="5,5,5,5">
 														<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="waidayoのメニューを開き"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion IP Addressを以下のいずれかに設定してください"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_1}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_2}"/>
 														<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion Portを39009に設定してください。"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="正常に設定されると、以下の表示が変化します"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="Oredayoが正常に起動していません"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3}"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_4}"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_OK}"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_NG}"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_ER}"/>
 													</DockPanel>
 												</Grid>
 											</TabItem>
@@ -111,18 +111,18 @@
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
 									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">3. VRMを読み込みましょう</TextBlock>
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_LoadVRM}"></TextBlock>
 										<DockPanel Margin="5,5,5,5">
-											<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
-											<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="VRMを読み込む" Click="VRMLoadFileSelectButton_Click" />
-											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
-											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
+											<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="{DynamicResource Tab_Welcome_LoadVRM_1}"/>
+											<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectButton_Click" />
+											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_LoadVRM_OK}"/>
+											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_LoadVRM_NG}"/>
 										</DockPanel>
 									</DockPanel>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
 									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">4. エフェクトを掛けましょう</TextBlock>
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Preset}"></TextBlock>
 										<DockPanel>
 											<Grid>
 												<Grid.ColumnDefinitions>
@@ -133,23 +133,24 @@
 													<RowDefinition />
 													<RowDefinition />
 												</Grid.RowDefinitions>
-												<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="グリーンバック" Click="Preset1_Cliecked"/>
-												<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="SF風透過" Click="Preset2_Cliecked" />
-												<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="エモーショナル透過" Click="Preset3_Cliecked" />
-												<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="黒背景" Click="Preset4_Cliecked" />
+												<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset1}" Click="Preset1_Cliecked"/>
+												<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset2}" Click="Preset2_Cliecked" />
+												<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset3}" Click="Preset3_Cliecked" />
+												<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset4}" Click="Preset4_Cliecked" />
 											</Grid>
 										</DockPanel>
 									</DockPanel>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
 									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">5. ハッシュタグを付けて宣伝しましょう</TextBlock>
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS}"></TextBlock>
 										<DockPanel>
 											<Grid>
 												<StackPanel>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">ハッシュタグは #Oredayo4V</Hyperlink></TextBlock>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">ツイートする (動かないなどの相談はサポートDiscordでお願いします)</Hyperlink></TextBlock>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">サポートDiscordで相談する</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">Tweet</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">HashTag #Oredayo4V</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">Support Discord</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS_DiscordHelp}"/>
 												</StackPanel>
 											</Grid>
 										</DockPanel>
@@ -534,6 +535,24 @@
 											<RowDefinition />
 										</Grid.RowDefinitions>
 										<CheckBox  Foreground="#444444" IsEnabled="False" Name="OBSExternalControl_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_ExternalControl_OBSControl}"  Checked="ExternalControl_Checked"  Unchecked="ExternalControl_Checked" />
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_UnityCapture}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<CheckBox  Foreground="#444444" Name="UnityCaptureEnable_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Content="{DynamicResource Gen_Enable}"  Checked="UnityCaptureEnable_Checked"  Unchecked="UnityCaptureEnable_Checked" />
+										<Button Content="{DynamicResource Gen_Install}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="0" Grid.Row="1" Margin="5,15,5,5" Click="UnityCaptureInstallButton_Clicked" />
+										<Button Content="{DynamicResource Gen_Uninstall}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="1" Grid.Row="1"   Margin="5,15,5,5" Click="UnityCaptureUninstallButton_Clicked" />
 									</Grid>
 								</DockPanel>
 							</materialDesign:Card>

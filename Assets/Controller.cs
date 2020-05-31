@@ -64,6 +64,8 @@ public class Controller : MonoBehaviour
     public PostProcessLayer PPSLayer;
     public PostProcessVolume PPSVolume;
 
+    public UnityCapture unityCapture;
+
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
 
     GameObject backgroundObject;
@@ -406,6 +408,12 @@ public class Controller : MonoBehaviour
             {
                 var d = (PipeCommands.ExternalControl)e.Data;
                 //TODO: OBS連動など
+            }
+            //===========仮想Webカメラ===========
+            else if (e.CommandType == typeof(PipeCommands.VirtualWebCamera))
+            {
+                var d = (PipeCommands.VirtualWebCamera)e.Data;
+                unityCapture.enabled = d.Enable;
             }
 
             //===========SEDSSサーバー===========

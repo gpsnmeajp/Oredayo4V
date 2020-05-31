@@ -4,6 +4,53 @@
 					xmlns:system="clr-namespace:System;assembly=mscorlib"
 					x:Name="Lang_JP"
 					>
+	<system:String x:Key="Tab_Welcome">ようこそ</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayoを起動しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayoは正常に起動しています</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayoを起動してください(再起動してください)</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayoを強制的に再起動する</system:String>
+
+	<system:String x:Key="Tab_Welcome_Waidayo">2. Waidayoを準備しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1">2-1. ダウンロード</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1_1">waidayoをインストールしましょう！</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1_2">Face ID搭載のiPhoneあるいはiPadが必要です</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_2">2-2. 起動</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_2_1">ホーム画面からwaidayoを起動しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3">2-3. VRMを転送</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_1">VRMファイルをwaidayoに導入します。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_2">1. 使いたいVRMファイルを「default.vrm」というファイル名にして準備してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_3">2. iPhone(iPad)をPCに接続し、iTunesを開いてください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_4">3. iTunes上でiPhone(iPad)を選択してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_5">4. ファイル共有->waidayo を選択してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_6">5. 「waidayoの書類」と書かれたファイル一覧に、「default.vrm」を</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">ドラッグ&amp;ドロップしてください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayoを一度終了し、再度起動してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">　 アバターが変わっていれば転送完了です。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 設定</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayoのメニューを開き</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Send Motion IP Addressを以下のいずれかに設定してください</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Send Motion Portを39009に設定してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">正常に設定されると、以下の表示が変化します</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">正常に信号を受け取れています</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">信号が来ていません</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayoが正常に起動していません</system:String>
+
+	<system:String x:Key="Tab_Welcome_LoadVRM">3. VRMを読み込みましょう</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_1">waidayoに読み込んだdefault.vrmを読み込んでください</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_Button">VRMを読み込む</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRMが読み込まれました</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRMを読み込んでください</system:String>
+
+	<system:String x:Key="Tab_Welcome_Preset">4. エフェクトを掛けましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Preset1">グリーンバック</system:String>
+	<system:String x:Key="Tab_Welcome_Preset2">SF風透過</system:String>
+	<system:String x:Key="Tab_Welcome_Preset3">エモーショナル透過</system:String>
+	<system:String x:Key="Tab_Welcome_Preset4">黒背景</system:String>
+
+	<system:String x:Key="Tab_Welcome_SNS">5. ハッシュタグを付けて宣伝しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">質問等はDiscordでのみ受け付けています</system:String>
+
+
 	<system:String x:Key="Tab_BasicSetting">基本</system:String>
 	<system:String x:Key="Tab_Basic_SettingFiles">設定ファイル</system:String>
 	<system:String x:Key="Tab_Basic_QuickConfigSave">クイック設定セーブ</system:String>
@@ -29,10 +76,12 @@
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera">高解像度撮影</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BoneFilter">ボーンなめらか</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BlendShapeFilter">表情・まばたきなめらか</system:String>
+
 	<system:String x:Key="Tab_AdvancedSetting_Window">Window</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_ForceForeground">最前面</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_Transparent">透過</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_WindowBorder">ウィンドウ枠</system:String>
+	
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition">Root位置</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_CameraLock">カメラロック</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_LightLock">ライトロック</system:String>
@@ -40,8 +89,13 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl">外部連携</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl_OBSControl">OBS連動</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">仮想Webカメラ(UnityCapture)</system:String>
+
+
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS サーバー</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">送受信を許可する</system:String>
+	
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS クライアント</system:String>
 
 	<system:String x:Key="Tab_Color1">色</system:String>
@@ -94,6 +148,10 @@
 	<system:String x:Key="Gen_EnvironmentColor">環境光</system:String>
 	<system:String x:Key="Gen_GamingMode">ゲーミングモード</system:String>
 	<system:String x:Key="Gen_Language">言語設定</system:String>
+	<system:String x:Key="Gen_Next">次へ</system:String>
+	<system:String x:Key="Gen_Install">インストール</system:String>
+	<system:String x:Key="Gen_Uninstall">アンインストール</system:String>
+	<system:String x:Key="Gen_Enable">有効</system:String>
 
 
 	<system:String x:Key="PPS_Enable">有効(Enable)</system:String>

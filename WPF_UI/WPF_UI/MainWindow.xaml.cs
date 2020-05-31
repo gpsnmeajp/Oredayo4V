@@ -112,6 +112,7 @@ namespace WPF_UI
                             WindowOption_Checked(null, null);
                             RootPos_Checked(null, null);
                             ExternalControl_Checked(null, null);
+                            UnityCaptureEnable_Checked(null, null);
                             //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
                             BackgroundColorPicker_SelectedColorChanged(null, null);
                             LightColorPicker_SelectedColorChanged(null, null);
@@ -214,6 +215,10 @@ namespace WPF_UI
             }
             WelcomeIPAddressTextBlock.Text = ipList.Trim();
 
+            //クイックセーブを起動時に読み込む
+            if (File.Exists("QuickSetting.json")) {
+                LoadSettingFromFile("QuickSetting.json");
+            }
         }
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -361,6 +366,10 @@ namespace WPF_UI
         private void Preset4_Cliecked(object sender, RoutedEventArgs e)
         {
             LoadSettingFromFile("Preset4.json");
+        }
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
         }
 
         //-----------基本設定----------------
@@ -765,6 +774,54 @@ namespace WPF_UI
             }
             Console.WriteLine("ExternalControl");
         }
+
+        //===========仮想Webカメラ===========
+        private async void UnityCaptureEnable_Checked(object sender, RoutedEventArgs e)
+        {
+            if (client != null)
+            {
+                await client.SendCommandAsync(new PipeCommands.VirtualWebCamera
+                {
+                    Enable = UnityCaptureEnable_CheckBox.IsChecked.Value
+                });
+            }
+            Console.WriteLine("UnityCaptureEnable");
+        }
+
+        private void UnityCaptureInstallButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process proc1 = new System.Diagnostics.Process();
+            proc1.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/DLLInstaller32.EXE";
+            proc1.StartInfo.Arguments = @"/i ..\UnityCaptureFilter\UnityCaptureFilter32bit.dll";
+            proc1.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/";
+            proc1.Start();
+            proc1.WaitForExit();
+
+            System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
+            proc2.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/DLLInstaller64.EXE";
+            proc2.StartInfo.Arguments = @"/i ..\UnityCaptureFilter\UnityCaptureFilter64bit.dll";
+            proc2.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/";
+            proc2.Start();
+            proc2.WaitForExit();
+        }
+
+        private void UnityCaptureUninstallButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process proc1 = new System.Diagnostics.Process();
+            proc1.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/DLLInstaller32.EXE";
+            proc1.StartInfo.Arguments = @"/u ..\UnityCaptureFilter\UnityCaptureFilter32bit.dll";
+            proc1.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/";
+            proc1.Start();
+            proc1.WaitForExit();
+
+            System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
+            proc2.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/DLLInstaller64.EXE";
+            proc2.StartInfo.Arguments = @"/u ..\UnityCaptureFilter\UnityCaptureFilter64bit.dll";
+            proc2.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../DLLInstaller/";
+            proc2.Start();
+            proc2.WaitForExit();
+        }
+
         //===========SEDSSサーバー===========
         private async void SEDSSServer_Checked(object sender, RoutedEventArgs e)
         {
@@ -1016,6 +1073,7 @@ namespace WPF_UI
                 LightRootPosLockCheckBox.IsChecked = s.LightRootPosLockCheckBox_IsChecked_Value;
                 BackgroundRootPosLockCheckBox.IsChecked = s.BackgroundRootPosLockCheckBox_IsChecked_Value;
                 OBSExternalControl_CheckBox.IsChecked = s.OBSExternalControl_CheckBox_IsChecked_Value;
+                UnityCaptureEnable_CheckBox.IsChecked = s.UnityCaptureEnable_CheckBox_IsChecked_Value;
                 SEDSSServerPasswordTextBox.Password = s.SEDSSServerPasswordTextBox_Password;
                 SEDSSServerExchangeFilePathTextBox.Text = s.SEDSSServerExchangeFilePathTextBox_Text;
                 SEDSSClientAddressTextBox.Text = s.SEDSSClientAddressTextBox_Text;
@@ -1101,6 +1159,7 @@ namespace WPF_UI
             s.LightRootPosLockCheckBox_IsChecked_Value = LightRootPosLockCheckBox.IsChecked.Value;
             s.BackgroundRootPosLockCheckBox_IsChecked_Value = BackgroundRootPosLockCheckBox.IsChecked.Value;
             s.OBSExternalControl_CheckBox_IsChecked_Value = OBSExternalControl_CheckBox.IsChecked.Value;
+            s.UnityCaptureEnable_CheckBox_IsChecked_Value = UnityCaptureEnable_CheckBox.IsChecked.Value;
             s.SEDSSServerPasswordTextBox_Password = SEDSSServerPasswordTextBox.Password;
             s.SEDSSServerExchangeFilePathTextBox_Text = SEDSSServerExchangeFilePathTextBox.Text;
             s.SEDSSClientAddressTextBox_Text = SEDSSClientAddressTextBox.Text;
@@ -1140,11 +1199,6 @@ namespace WPF_UI
             s.PostProcessingCAEnableCheckBox_IsChecked_Value = PostProcessingCAEnableCheckBox.IsChecked.Value;
             s.PostProcessingCAIntensitySlider_Value = PostProcessingCAIntensitySlider.Value;
             return s;
-        }
-
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
         }
     }
 }
