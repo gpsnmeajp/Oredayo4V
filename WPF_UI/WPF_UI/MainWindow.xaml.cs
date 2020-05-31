@@ -45,7 +45,9 @@ using System.Windows.Threading;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using System.Reflection;
+
 using MaterialDesignExtensions.Controls;
+using System.Threading;
 
 namespace WPF_UI
 {
@@ -308,7 +310,29 @@ namespace WPF_UI
         {
             try
             {
-                System.Diagnostics.Process.Start(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/Environment/Oredayo.exe");
+                //Unity側を強制終了する
+                System.Diagnostics.Process proc1 = new System.Diagnostics.Process();
+                proc1.StartInfo.UseShellExecute = true;
+                proc1.StartInfo.CreateNoWindow = true;
+                proc1.StartInfo.ErrorDialog = false;
+                proc1.StartInfo.FileName = "taskkill";
+                proc1.StartInfo.Arguments = " /F /IM Oredayo.exe";
+                proc1.StartInfo.WorkingDirectory = "";
+                proc1.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+                proc1.Start();
+
+                Thread.Sleep(3000);
+
+                //Unity側を起動する
+                System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
+                proc2.StartInfo.UseShellExecute = false; //既知のため不要
+                proc2.StartInfo.CreateNoWindow = false;
+                proc2.StartInfo.ErrorDialog = false;
+                proc2.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/Oredayo.exe";
+                proc2.StartInfo.Arguments = "";
+                proc2.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/";
+                proc2.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                proc2.Start();
             }
             catch (Exception ex) {
                 MessageBox.Show(ex.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1096,5 +1120,9 @@ namespace WPF_UI
             return s;
         }
 
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
+        }
     }
 }

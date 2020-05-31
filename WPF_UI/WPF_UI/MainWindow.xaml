@@ -35,114 +35,128 @@
 			<TabItem  Header="ようこそ" Name="TabWelcome">
 				<ScrollViewer>
 					<StackPanel>
-							<GroupBox Header="ようこそ" BorderThickness="0"  materialDesign:ColorZoneAssist.Mode="PrimaryDark">
-								<StackPanel>
-									<materialDesign:Card Margin="5,5,5,5">
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">1. Oredayoを起動しましょう</TextBlock>
-											<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
-											<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
-											<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="Oredayoを再起動する" Click="LaunchOredayo_Click" />
-										</DockPanel>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">2. Waidayoを準備しましょう</TextBlock>
-											<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
-												<TabItem  Header="2-1. ダウンロード">
-													<Grid>
-														<DockPanel Margin="5,5,5,5">
-															<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="waidayoをインストールしましょう！"/>
-															<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="Face ID搭載のiPhoneあるいはiPadが必要です"/>
-															<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
-																<Grid.ColumnDefinitions>
-																	<ColumnDefinition/>
-																	<ColumnDefinition Width="0.4*"/>
-																</Grid.ColumnDefinitions>
-																<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
-																<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
-															</Grid>
-															<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
-														</DockPanel>
-													</Grid>
-												</TabItem>
-												<TabItem  Header="2-2. 起動">
-													<Grid>
-														<DockPanel Margin="5,5,5,5">
-															<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="ホーム画面からwaidayoを起動しましょう"/>
-															<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
-															<Button DockPanel.Dock="Bottom"  Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5"  Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
-														</DockPanel>
-													</Grid>
-												</TabItem>
-												<TabItem  Header="2-3. VRMを転送">
-													<Grid>
-														<DockPanel Margin="5,5,5,5">
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="VRMファイルをwaidayoに導入します。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="1. 使いたいVRMファイルを「default.vrm」というファイル名にして準備してください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="2. iPhone(iPad)をPCに接続し、iTunesを開いてください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="3. iTunes上でiPhone(iPad)を選択してください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="4. ファイル共有->waidayo を選択してください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="5. 「waidayoの書類」と書かれたファイル一覧に、「default.vrm」を"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="    ドラッグ&amp;ドロップしてください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="6. waidayoを一度終了し、再度起動してください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="　 アバターが変わっていれば転送完了です。"/>
-															<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}"  Margin="5,5,5,5" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
-														</DockPanel>
-													</Grid>
-												</TabItem>
-												<TabItem  Header="2-4. 設定">
-													<Grid>
-														<DockPanel Margin="5,5,5,5">
-															<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="waidayoのメニューを開き"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion IP Addressを以下のいずれかに設定してください"/>
-															<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion Portを39009に設定してください。"/>
-															<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="正常に設定されると、以下の表示が変化します"/>
-															<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
-															<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
-															<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="Oredayoが正常に起動していません"/>
-														</DockPanel>
-													</Grid>
-												</TabItem>
-											</TabControl>
-										</DockPanel>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">3. VRMを読み込みましょう</TextBlock>
-											<DockPanel Margin="5,5,5,5">
-												<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
-												<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="VRMを読み込む" Click="VRMLoadFileSelectButton_Click" />
-												<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
-												<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
-											</DockPanel>
-										</DockPanel>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">4. エフェクトを掛けましょう</TextBlock>
-											<DockPanel>
+						<GroupBox Header="ようこそ" BorderThickness="0"  materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+							<StackPanel>
+								<materialDesign:Card Margin="5,5,5,5">
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">1. Oredayoを起動しましょう</TextBlock>
+										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="Oredayoは正常に起動しています"/>
+										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="Oredayoを起動してください(再起動してください)"/>
+										<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="Oredayoを強制的に再起動する" Click="LaunchOredayo_Click" />
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">2. Waidayoを準備しましょう</TextBlock>
+										<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
+											<TabItem  Header="2-1. ダウンロード">
 												<Grid>
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition/>
-														<ColumnDefinition/>
-													</Grid.ColumnDefinitions>
-													<Grid.RowDefinitions>
-														<RowDefinition />
-														<RowDefinition />
-													</Grid.RowDefinitions>
-													<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="グリーンバック" Click="Preset1_Cliecked"/>
-													<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="SF風透過" Click="Preset2_Cliecked" />
-													<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="エモーショナル透過" Click="Preset3_Cliecked" />
-													<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="黒背景" Click="Preset4_Cliecked" />
+													<DockPanel Margin="5,5,5,5">
+														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="waidayoをインストールしましょう！"/>
+														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="Face ID搭載のiPhoneあるいはiPadが必要です"/>
+														<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition/>
+																<ColumnDefinition Width="0.4*"/>
+															</Grid.ColumnDefinitions>
+															<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
+															<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
+														</Grid>
+														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+													</DockPanel>
 												</Grid>
-											</DockPanel>
+											</TabItem>
+											<TabItem  Header="2-2. 起動">
+												<Grid>
+													<DockPanel Margin="5,5,5,5">
+														<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="ホーム画面からwaidayoを起動しましょう"/>
+														<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
+														<Button DockPanel.Dock="Bottom"  Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5"  Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+													</DockPanel>
+												</Grid>
+											</TabItem>
+											<TabItem  Header="2-3. VRMを転送">
+												<Grid>
+													<DockPanel Margin="5,5,5,5">
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="VRMファイルをwaidayoに導入します。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="1. 使いたいVRMファイルを「default.vrm」というファイル名にして準備してください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="2. iPhone(iPad)をPCに接続し、iTunesを開いてください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="3. iTunes上でiPhone(iPad)を選択してください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="4. ファイル共有->waidayo を選択してください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="5. 「waidayoの書類」と書かれたファイル一覧に、「default.vrm」を"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="    ドラッグ&amp;ドロップしてください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="6. waidayoを一度終了し、再度起動してください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="　 アバターが変わっていれば転送完了です。"/>
+														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}"  Margin="5,5,5,5" Content="次へ" Click="WelcomeWaidayoNextButton_Clicked" />
+													</DockPanel>
+												</Grid>
+											</TabItem>
+											<TabItem  Header="2-4. 設定">
+												<Grid>
+													<DockPanel Margin="5,5,5,5">
+														<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="waidayoのメニューを開き"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion IP Addressを以下のいずれかに設定してください"/>
+														<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="Send Motion Portを39009に設定してください。"/>
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="正常に設定されると、以下の表示が変化します"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="正常に信号を受け取れています"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="信号が来ていません"/>
+														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="Oredayoが正常に起動していません"/>
+													</DockPanel>
+												</Grid>
+											</TabItem>
+										</TabControl>
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">3. VRMを読み込みましょう</TextBlock>
+										<DockPanel Margin="5,5,5,5">
+											<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="waidayoに読み込んだdefault.vrmを読み込んでください"/>
+											<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="VRMを読み込む" Click="VRMLoadFileSelectButton_Click" />
+											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="VRMが読み込まれました"/>
+											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="VRMを読み込んでください"/>
 										</DockPanel>
-									</materialDesign:Card>
-								</StackPanel>
-							</GroupBox>
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">4. エフェクトを掛けましょう</TextBlock>
+										<DockPanel>
+											<Grid>
+												<Grid.ColumnDefinitions>
+													<ColumnDefinition/>
+													<ColumnDefinition/>
+												</Grid.ColumnDefinitions>
+												<Grid.RowDefinitions>
+													<RowDefinition />
+													<RowDefinition />
+												</Grid.RowDefinitions>
+												<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="グリーンバック" Click="Preset1_Cliecked"/>
+												<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="SF風透過" Click="Preset2_Cliecked" />
+												<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="エモーショナル透過" Click="Preset3_Cliecked" />
+												<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="黒背景" Click="Preset4_Cliecked" />
+											</Grid>
+										</DockPanel>
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10">5. ハッシュタグを付けて宣伝しましょう</TextBlock>
+										<DockPanel>
+											<Grid>
+												<StackPanel>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">ハッシュタグは #Oredayo4V</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">ツイートする (動かないなどの相談はサポートDiscordでお願いします)</Hyperlink></TextBlock>
+													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">サポートDiscordで相談する</Hyperlink></TextBlock>
+												</StackPanel>
+											</Grid>
+										</DockPanel>
+									</DockPanel>
+								</materialDesign:Card>
+							</StackPanel>
+						</GroupBox>
 					</StackPanel>
 				</ScrollViewer>
 			</TabItem>
@@ -216,34 +230,34 @@
 												<RowDefinition />
 											</Grid.RowDefinitions>
 											<DockPanel Grid.Column="0" Grid.Row="0" >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_X_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_X_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}" DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraRotateXResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="CameraRotateXResetButton_Click" />
-												<Slider VerticalAlignment="Center"  Name="CameraRotateXSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraRotateXSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="0" Grid.Row="1" >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Y_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Y_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraRotateYResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="CameraRotateYResetButton_Click" />
-												<Slider VerticalAlignment="Center"  Name="CameraRotateYSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraRotateYSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="0" Grid.Row="2"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Z_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Z_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraRotateZResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="CameraRotateZResetButton_Click" />
-												<Slider VerticalAlignment="Center"  Name="CameraRotateZSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraRotateZSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="0"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Zoom}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Zoom}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraValue1ResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="CameraValue1ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="CameraValue1Slider"  Value="1.7" Maximum="35" Minimum="0.3"  ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraValue1Slider"  Value="1.7" Maximum="35" Minimum="0.3"  ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="1"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Height}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Height}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraValue2ResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="CameraValue2ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="CameraValue2Slider"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraValue2Slider"  Value="1.4" Maximum="3" Minimum="-1"  ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="2"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_FOV}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_FOV}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="CameraValue3ResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="CameraValue3ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="CameraValue3Slider"  Value="20" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="CameraValue3Slider"  Value="20" Maximum="90" Minimum="1"  ValueChanged="CameraSlider_ValueChanged" />
 											</DockPanel>
 										</Grid>
 									</DockPanel>
@@ -263,34 +277,34 @@
 												<RowDefinition />
 											</Grid.RowDefinitions>
 											<DockPanel Grid.Column="0" Grid.Row="0"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_X_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_X_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="LightRotateXResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightRotateXResetButton_Click" />
-												<Slider VerticalAlignment="Center" Name="LightRotateXSlider"  Value="140" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center" Name="LightRotateXSlider"  Value="140" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="0" Grid.Row="1"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Y_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Y_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="LightRotateYResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightRotateYResetButton_Click" />
-												<Slider VerticalAlignment="Center"  Name="LightRotateYSlider"  Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="LightRotateYSlider"  Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="0" Grid.Row="2"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Z_Rot}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Z_Rot}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Visibility="Hidden" Name="LightRotateZResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightRotateZResetButton_Click" />
-												<Slider VerticalAlignment="Center"  Visibility="Hidden" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Visibility="Hidden" Name="LightRotateZSlider" Grid.Column="1" Grid.Row="2" Value="0" Maximum="180" Minimum="-180" ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="0"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Distance}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"  Text="{DynamicResource Gen_Distance}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="LightValue1ResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightValue1ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="LightValue1Slider"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="LightValue1Slider"  Value="5" Maximum="10" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="1"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Intensity}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Intensity}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="LightValue2ResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightValue2ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="LightValue2Slider"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="LightValue2Slider"  Value="50" Maximum="100" Minimum="0"  ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="2"  >
-												<TextBlock VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Diffusion}"/>
+												<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Diffusion}"/>
 												<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="LightValue3ResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="LightValue3ResetButton_Click"/>
-												<Slider VerticalAlignment="Center"  Name="LightValue3Slider"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
+												<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="LightValue3Slider"  Value="30" Maximum="179" Minimum="1"  ValueChanged="LightSlider_ValueChanged" />
 											</DockPanel>
 											<DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="10,0,10,10">
 												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Gen_Type}" Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
@@ -350,378 +364,403 @@
 			</TabItem>
 			<TabItem  Header="{DynamicResource Tab_BasicSetting}">
 				<ScrollViewer>
+					<GroupBox Header="{DynamicResource Tab_BasicSetting}" BorderThickness="0" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+						<StackPanel>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_Basic_LoadBackground}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<DockPanel Grid.Row="0" >
+											<TextBlock VerticalAlignment="Center" Foreground="#444444"  Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_Path}"/>
+											<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5" Content="{DynamicResource Gen_Remove}" Click="BackgroundObjectRemoveButton_Click"/>
+											<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignToolButton}"   Margin="5,5,5,5" Content="{DynamicResource Gen_Browse}" Click="BackgroundObjectLoadFileSelectButton_Click"/>
+											<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignToolButton}"   Margin="5,5,5,5" Content="{DynamicResource Gen_Load}" Click="BackgroundObjectLoadButton_Click"/>
+											<TextBox VerticalAlignment="Center"  Foreground="#444444" Name="BackgroundObjectPathTextBox" Text="c:\background.png"/>
+										</DockPanel>
+										<TextBlock Grid.Column="0" Grid.Row="1"  Foreground="#444444" Grid.ColumnSpan="5" Text="{DynamicResource Tab_Basic_LoadBackgroundTypes}"/>
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_Basic_BackgroundObjectPosition}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition />
+											<ColumnDefinition />
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<DockPanel Grid.Column="0" Grid.Row="0"  >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_X_Rot}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateXResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateXResetButton_Click" />
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundRotateXSlider"  Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="0" Grid.Row="1"  >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Y_Rot}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateYResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateYResetButton_Click" />
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundRotateYSlider"  Value="-180" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="0" Grid.Row="2"  >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Z_Rot}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateZResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateZResetButton_Click" />
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundRotateZSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="1" Grid.Row="0"  >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"    Text="{DynamicResource Gen_X_Pos}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue1ResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundValue1ResetButton_Click"/>
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundValue1Slider"  Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="1" Grid.Row="1"  >
+											<TextBlock Margin="5,5,5,5"   VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Y_Pos}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue2ResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundValue2ResetButton_Click"/>
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundValue2Slider"   Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="1" Grid.Row="2"  >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Z_Pos}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue3ResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundValue3ResetButton_Click"/>
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundValue3Slider"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" >
+											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Scale}"/>
+											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundScaleResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundScaleResetButton_Click"/>
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundScaleSlider"   Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
 
-					<StackPanel>
-						<materialDesign:Card Margin="5,5,5,5" >
-
-							<GroupBox Header="{DynamicResource Tab_Basic_LoadBackground}" BorderThickness="0">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<DockPanel Grid.Row="0" >
-										<TextBlock VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" Text="{DynamicResource Gen_Path}"/>
-										<Button DockPanel.Dock="Right" HorizontalAlignment="Right"  Margin="5,5,5,5" Content="{DynamicResource Gen_Remove}" Click="BackgroundObjectRemoveButton_Click"/>
-										<Button DockPanel.Dock="Right" HorizontalAlignment="Right"   Margin="5,5,5,5" Content="{DynamicResource Gen_Browse}" Click="BackgroundObjectLoadFileSelectButton_Click"/>
-										<Button DockPanel.Dock="Right" HorizontalAlignment="Right"   Margin="5,5,5,5" Content="{DynamicResource Gen_Load}" Click="BackgroundObjectLoadButton_Click"/>
-										<TextBox VerticalAlignment="Center" Name="BackgroundObjectPathTextBox" Text="c:\background.png"/>
-									</DockPanel>
-									<TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5" Text="{DynamicResource Tab_Basic_LoadBackgroundTypes}"/>
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Tab_Basic_BackgroundObjectPosition}" BorderThickness="0">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition />
-										<ColumnDefinition />
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<DockPanel Grid.Column="0" Grid.Row="0"  >
-										<TextBlock VerticalAlignment="Center"  Text="{DynamicResource Gen_X_Rot}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateXResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateXResetButton_Click" />
-										<Slider VerticalAlignment="Center"  Name="BackgroundRotateXSlider"  Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="0" Grid.Row="1"  >
-										<TextBlock VerticalAlignment="Center"  Text="{DynamicResource Gen_Y_Rot}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateYResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateYResetButton_Click" />
-										<Slider VerticalAlignment="Center"  Name="BackgroundRotateYSlider"  Value="-180" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="0" Grid.Row="2"  >
-										<TextBlock VerticalAlignment="Center"  Text="{DynamicResource Gen_Z_Rot}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundRotateZResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundRotateZResetButton_Click" />
-										<Slider VerticalAlignment="Center"  Name="BackgroundRotateZSlider" Value="0" Maximum="180" Minimum="-180" ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="1" Grid.Row="0"  >
-										<TextBlock VerticalAlignment="Center"   Text="{DynamicResource Gen_X_Pos}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue1ResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundValue1ResetButton_Click"/>
-										<Slider VerticalAlignment="Center"  Name="BackgroundValue1Slider"  Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="1" Grid.Row="1"  >
-										<TextBlock  VerticalAlignment="Center"  Text="{DynamicResource Gen_Y_Pos}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue2ResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundValue2ResetButton_Click"/>
-										<Slider VerticalAlignment="Center"  Name="BackgroundValue2Slider"   Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="1" Grid.Row="2"  >
-										<TextBlock VerticalAlignment="Center"  Text="{DynamicResource Gen_Z_Pos}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue3ResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundValue3ResetButton_Click"/>
-										<Slider VerticalAlignment="Center"  Name="BackgroundValue3Slider"  Value="-1" Maximum="30" Minimum="-30"  ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-									<DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" >
-										<TextBlock VerticalAlignment="Center"  Text="{DynamicResource Gen_Scale}"/>
-										<Button VerticalAlignment="Center"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundScaleResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundScaleResetButton_Click"/>
-										<Slider VerticalAlignment="Center"  Name="BackgroundScaleSlider"   Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
-									</DockPanel>
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-
-					</StackPanel>
+						</StackPanel>
+					</GroupBox>
 				</ScrollViewer>
 
 			</TabItem>
 
 			<TabItem  Header="{DynamicResource Tab_AdvancedSetting}">
 				<ScrollViewer>
+					<GroupBox Header="{DynamicResource Tab_AdvancedSetting}" BorderThickness="0" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
 
-					<StackPanel>
-						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_EVMC4U}" BorderThickness="0">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<DockPanel Grid.Row="0">
-										<Button DockPanel.Dock="Right"  Name="PhotoButton" Margin="5,5,5,5" Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera}" Click="EVMC4U_TakePhotoButton" />
-										<CheckBox DockPanel.Dock="Left" Name="EVMC4UFreezeCheckBox" VerticalAlignment="Center" Margin="5,5,5,5" Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_Freeze}" Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked" />
-									</DockPanel>
-									<DockPanel Grid.Row="1">
-										<TextBox DockPanel.Dock="Right" MinWidth="50"  Name="EVMC4UBoneFilterValueTextBox" Text="0.9" Margin="5,5,5,5" VerticalAlignment="Center"  TextChanged="EVMC4U_TextChanged" />
-										<TextBlock DockPanel.Dock="Right"   VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5,5,5,5" Text="{DynamicResource Gen_FilterValue}"/>
-										<CheckBox DockPanel.Dock="Left"  Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center" Margin="5,5,5,5"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BoneFilter}"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
-									</DockPanel>
-									<DockPanel Grid.Row="2">
-										<TextBox DockPanel.Dock="Right" MinWidth="50"  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.7" Margin="5,5,5,5" VerticalAlignment="Center" TextChanged="EVMC4U_TextChanged" />
-										<TextBlock DockPanel.Dock="Right"  VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5,5,5,5"  Text="{DynamicResource Gen_FilterValue}"/>
-										<CheckBox DockPanel.Dock="Left"   Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center" Margin="5,5,5,5"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BlendShapeFilter}"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
-									</DockPanel>
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_Window}" BorderThickness="0">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<CheckBox Name="WindowOptionForceForegroundCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_ForceForeground}" Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked" />
-									<CheckBox Name="WindowOptionTransparentCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_Transparent}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
-									<CheckBox Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_Window_WindowBorder}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_RootPosition}" BorderThickness="0">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<CheckBox Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_CameraLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
-									<CheckBox Name="LightRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_LightLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
-									<CheckBox Name="BackgroundRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_BackgroundLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_ExternalControl}" BorderThickness="0">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<CheckBox IsEnabled="False" Name="OBSExternalControl_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_ExternalControl_OBSControl}"  Checked="ExternalControl_Checked"  Unchecked="ExternalControl_Checked" />
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}" BorderThickness="0">
-								<Grid>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<DockPanel Grid.Row="0">
-										<CheckBox DockPanel.Dock="Left" Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Margin="5,5,20,5"  Content="{DynamicResource Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive}" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
-										<TextBlock  DockPanel.Dock="Left" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="5,5,5,5" Text="{DynamicResource Gen_EncryptionPassword}"/>
-										<PasswordBox  DockPanel.Dock="Right"  Name="SEDSSServerPasswordTextBox"  Margin="5,5,5,5" VerticalAlignment="Center" />
-									</DockPanel>
-									<DockPanel Grid.Row="1">
-										<TextBlock DockPanel.Dock="Left" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="5,5,5,5" Text="{DynamicResource Gen_ExchangeDataPath}" ></TextBlock>
-										<TextBox DockPanel.Dock="Right" VerticalAlignment="Center" Name="SEDSSServerExchangeFilePathTextBox" Text=""  Margin="5,5,5,5" />
-									</DockPanel>
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-						<materialDesign:Card Margin="5,5,5,5" >
-
-							<GroupBox Header="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}" BorderThickness="0">
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition MinWidth="150"/>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-										<ColumnDefinition/>
-									</Grid.ColumnDefinitions>
-									<Grid.RowDefinitions>
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-										<RowDefinition />
-									</Grid.RowDefinitions>
-									<Button Content="{DynamicResource Gen_Upload}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,5,5,5" Click="SEDSSClientUploadButton_Clicked" />
-									<Button Content="{DynamicResource Gen_Download}" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"  Margin="5,5,5,5" Click="SEDSSClientDownloadButton_Clicked" />
-									<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="0,0,2,0" Text="{DynamicResource Gen_IPAddress}"/>
-									<TextBox Name="SEDSSClientAddressTextBox" Text="127.0.0.1" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
-									<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="0,0,2,0" Text="{DynamicResource Gen_Port}"/>
-									<TextBox Name="SEDSSClientPortTextBox" Text="8000" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
-									<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2" Margin="0,0,2,0"  Text="{DynamicResource Gen_EncryptionPassword}"/>
-									<PasswordBox Name="SEDSSClientPasswordTextBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="2" />
-									<TextBlock  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2" Margin="0,0,2,0" Text="{DynamicResource Gen_ID}"/>
-									<TextBox Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="2" />
-									<TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,2,0"  Text="{DynamicResource Gen_ExchangeDataPath}"/>
-									<TextBox Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="3" />
-								</Grid>
-							</GroupBox>
-						</materialDesign:Card>
-					</StackPanel>
+						<StackPanel>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_EVMC4U}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<DockPanel Grid.Row="0">
+											<Button DockPanel.Dock="Right"  Style="{DynamicResource MaterialDesignFlatButton}"  Name="PhotoButton" Margin="5,5,5,5" Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera}" Click="EVMC4U_TakePhotoButton" />
+											<CheckBox DockPanel.Dock="Left" Foreground="#444444"  Name="EVMC4UFreezeCheckBox" VerticalAlignment="Center" Margin="5,5,5,5" Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_Freeze}" Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked" />
+										</DockPanel>
+										<DockPanel Grid.Row="1">
+											<TextBox DockPanel.Dock="Right" Foreground="#444444"  MinWidth="50"  Name="EVMC4UBoneFilterValueTextBox" Text="0.9" Margin="5,5,5,5" VerticalAlignment="Center"  TextChanged="EVMC4U_TextChanged" />
+											<TextBlock DockPanel.Dock="Right" Foreground="#444444"    VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5,5,5,5" Text="{DynamicResource Gen_FilterValue}"/>
+											<CheckBox DockPanel.Dock="Left" Foreground="#444444"   Name="EVMC4UBoneFilterCheckBox" VerticalAlignment="Center" Margin="5,5,5,5"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BoneFilter}"  Checked="EVMC4U_Checked" Unchecked="EVMC4U_Checked" />
+										</DockPanel>
+										<DockPanel Grid.Row="2">
+											<TextBox DockPanel.Dock="Right" Foreground="#444444"  MinWidth="50"  Name="EVMC4UBlendShapeFilterValueTextBox" Text="0.7" Margin="5,5,5,5" VerticalAlignment="Center" TextChanged="EVMC4U_TextChanged" />
+											<TextBlock DockPanel.Dock="Right" Foreground="#444444"   VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="5,5,5,5"  Text="{DynamicResource Gen_FilterValue}"/>
+											<CheckBox DockPanel.Dock="Left"  Foreground="#444444"   Name="EVMC4UBlendShapeFilterCheckBox" VerticalAlignment="Center" Margin="5,5,5,5"  Content="{DynamicResource Tab_AdvancedSetting_EVMC4U_BlendShapeFilter}"  Checked="EVMC4U_Checked"  Unchecked="EVMC4U_Checked"/>
+										</DockPanel>
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_Window}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<CheckBox Foreground="#444444"  Name="WindowOptionForceForegroundCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_ForceForeground}" Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked" />
+										<CheckBox Foreground="#444444"  Name="WindowOptionTransparentCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_Transparent}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
+										<CheckBox Foreground="#444444"  Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_Window_WindowBorder}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_RootPosition}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<CheckBox Foreground="#444444"  Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_CameraLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+										<CheckBox Foreground="#444444"  Name="LightRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_LightLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+										<CheckBox Foreground="#444444"  Name="BackgroundRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_BackgroundLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_ExternalControl}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<CheckBox  Foreground="#444444" IsEnabled="False" Name="OBSExternalControl_CheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_ExternalControl_OBSControl}"  Checked="ExternalControl_Checked"  Unchecked="ExternalControl_Checked" />
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<DockPanel Grid.Row="0">
+											<CheckBox  Foreground="#444444" DockPanel.Dock="Left" Name="SEDSSServerEnableCheckBox" VerticalAlignment="Center"  Margin="5,5,20,5"  Content="{DynamicResource Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive}" Checked="SEDSSServer_Checked"  Unchecked="SEDSSServer_Checked" />
+											<TextBlock  Foreground="#444444"  DockPanel.Dock="Left" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="5,5,5,5" Text="{DynamicResource Gen_EncryptionPassword}"/>
+											<PasswordBox Foreground="#444444"   DockPanel.Dock="Right"  Name="SEDSSServerPasswordTextBox"  Margin="5,5,5,5" VerticalAlignment="Center" />
+										</DockPanel>
+										<DockPanel Grid.Row="1">
+											<TextBlock Foreground="#444444"  DockPanel.Dock="Left" VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="5,5,5,5" Text="{DynamicResource Gen_ExchangeDataPath}" ></TextBlock>
+											<TextBox  Foreground="#444444" DockPanel.Dock="Right" VerticalAlignment="Center" Name="SEDSSServerExchangeFilePathTextBox" Text=""  Margin="5,5,5,5" />
+										</DockPanel>
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+							<materialDesign:Card Margin="5,5,5,5" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition MinWidth="150"/>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid.RowDefinitions>
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
+											<RowDefinition />
+										</Grid.RowDefinitions>
+										<TextBlock Foreground="#444444"   VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_IPAddress}"/>
+										<TextBox  Foreground="#444444" Name="SEDSSClientAddressTextBox" Text="127.0.0.1" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" />
+										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_Port}"/>
+										<TextBox  Foreground="#444444" Name="SEDSSClientPortTextBox" Text="8000" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="0" />
+										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="5,5,5,5"  Text="{DynamicResource Gen_EncryptionPassword}"/>
+										<PasswordBox Foreground="#444444"  Name="SEDSSClientPasswordTextBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
+										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="5,5,5,5" Text="{DynamicResource Gen_ID}"/>
+										<TextBox  Foreground="#444444" Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
+										<TextBlock Foreground="#444444"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5"  Text="{DynamicResource Gen_ExchangeDataPath}"/>
+										<TextBox  Foreground="#444444" Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" />
+										<Button Content="{DynamicResource Gen_Upload}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,15,5,5" Click="SEDSSClientUploadButton_Clicked" />
+										<Button Content="{DynamicResource Gen_Download}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"  Margin="5,15,5,5" Click="SEDSSClientDownloadButton_Clicked" />
+									</Grid>
+								</DockPanel>
+							</materialDesign:Card>
+						</StackPanel>
+					</GroupBox>
 				</ScrollViewer>
 
 			</TabItem>
 			<TabItem Header="{DynamicResource Tab_Color1}">
 				<ScrollViewer>
+					<GroupBox Header="{DynamicResource Tab_Color1}" BorderThickness="0" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
 
-					<StackPanel>
-						<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
-							<materialDesign:Card Margin="5,5,5,5" >
-								<GroupBox Header="{DynamicResource Gen_BackgroundColor}" BorderThickness="0">
-									<StackPanel>
-										<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="#00FF00"  Width="200" Height="370" />
-										<CheckBox Name="GamingBackgroundCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
-									</StackPanel>
-								</GroupBox>
-							</materialDesign:Card>
-							<materialDesign:Card Margin="5,5,5,5" >
-								<GroupBox Header="{DynamicResource Gen_LightColor}" BorderThickness="0">
-									<StackPanel>
-										<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="#FFFFFF"  Width="200" Height="370" />
-										<CheckBox Name="GamingLightCheckBox" Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
-									</StackPanel>
-								</GroupBox>
+						<StackPanel>
+							<StackPanel DockPanel.Dock="Right" HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Top">
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Gen_BackgroundColor}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+										<Grid  Margin="10,0,10,10">
+											<StackPanel>
+												<Controls:ColorPicker Name="BackgroundColorPicker" SelectedColorChanged="BackgroundColorPicker_SelectedColorChanged" SelectedColor="#00FF00"  Width="200" Height="370" />
+												<CheckBox Name="GamingBackgroundCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
+											</StackPanel>
+										</Grid>
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Gen_LightColor}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+										<Grid  Margin="10,0,10,10">
+											<StackPanel>
+												<Controls:ColorPicker Name="LightColorPicker" SelectedColorChanged="LightColorPicker_SelectedColorChanged" SelectedColor="#FFFFFF"  Width="200" Height="370" />
+												<CheckBox Name="GamingLightCheckBox" Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
+											</StackPanel>
+										</Grid>
+									</DockPanel>
+								</materialDesign:Card>
+							</StackPanel>
+							<materialDesign:Card Margin="5,5,5,5" HorizontalAlignment="Center" >
+								<DockPanel Margin="5,5,5,5">
+									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Gen_EnvironmentColor}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+									<Grid  Margin="10,0,10,10">
+										<StackPanel>
+											<Controls:ColorPicker Name="EnvironmentColorPicker" SelectedColorChanged="EnvironmentColorPicker_SelectedColorChanged" SelectedColor="#363A42"  Width="200" Height="370" />
+											<CheckBox Name="GamingEnvironmentCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
+										</StackPanel>
+									</Grid>
+								</DockPanel>
 							</materialDesign:Card>
 						</StackPanel>
-						<materialDesign:Card Margin="5,5,5,5" HorizontalAlignment="Center" >
-							<GroupBox Header="{DynamicResource Gen_EnvironmentColor}"  BorderThickness="0">
-								<StackPanel>
-									<Controls:ColorPicker Name="EnvironmentColorPicker" SelectedColorChanged="EnvironmentColorPicker_SelectedColorChanged" SelectedColor="#363A42"  Width="200" Height="370" />
-									<CheckBox Name="GamingEnvironmentCheckBox"  Content="{DynamicResource Gen_GamingMode}" Margin="0,5,0,0"/>
-								</StackPanel>
-							</GroupBox>
-						</materialDesign:Card>
-					</StackPanel>
+					</GroupBox>
 				</ScrollViewer>
 
 			</TabItem>
 			<TabItem Header="{DynamicResource Tab_Graphics}">
 				<ScrollViewer>
-
-					<StackPanel>
-						<materialDesign:Card Margin="5,5,5,5" >
-							<GroupBox Header="{DynamicResource Tab_PostProcessingStackV2}" BorderThickness="0" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
-								<StackPanel>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_Anti-aliasing}" BorderThickness="0">
-											<Grid>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="{DynamicResource PPS_Enable}"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_Bloom}" BorderThickness="0">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Threshold}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_DoF}" BorderThickness="0">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_FocusDistance}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingDoFFocusDistanceSlider" Grid.Column="1" Grid.Row="1"  Value="10.0" Maximum="100" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Aperture}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingDoFApertureSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="32.0" Minimum="0.1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="3" Text="{DynamicResource PPS_FocusLength}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingDoFFocusLengthSlider" Grid.Column="1" Grid.Row="3"  Value="1.0" Maximum="300.0" Minimum="1.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="4" Text="{DynamicResource PPS_MaxBlurSize}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingDoFMaxBlurSizeSlider" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"  Grid.Row="4" Value="2" Maximum="4" Minimum="1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_CG}" BorderThickness="0">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Temperature}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Saturation}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingCGSaturationSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Contrast}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingCGContrastSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_Vi}" BorderThickness="0">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingVIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Smoothness}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingVSmoothnessSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Rounded}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingVRoundedSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-									<materialDesign:Card Margin="5,5,5,5" >
-										<GroupBox Header="{DynamicResource PPS_CA}" BorderThickness="0">
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<CheckBox Margin="0,3,3,0" Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
-												<TextBlock Margin="0,3,3,0" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
-												<Slider Margin="0,3,3,0" Name="PostProcessingCAIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
-											</Grid>
-										</GroupBox>
-									</materialDesign:Card>
-								</StackPanel>
-							</GroupBox>
-						</materialDesign:Card>
-					</StackPanel>
+					<GroupBox Header="{DynamicResource Tab_Graphics}" BorderThickness="0" materialDesign:ColorZoneAssist.Mode="PrimaryDark">
+						<StackPanel>
+							<DockPanel Margin="5,5,5,5">
+								<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_PostProcessingStackV2}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+								<Grid  Margin="10,0,10,10">
+									<StackPanel>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_Anti-aliasing}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<CheckBox  Foreground="#444444" Margin="5,5,5,5" Name="PostProcessingAntiAliasingEnableCheckBox" Grid.Column="1" Grid.Row="0" Content="{DynamicResource PPS_Enable}"  Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_Bloom}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<CheckBox  Foreground="#444444" Margin="5,5,5,5" Name="PostProcessingBloomEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingBloomIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="1.0" Maximum="50.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Threshold}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingBloomThresholdSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="2.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_DoF}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<CheckBox  Foreground="#444444" Margin="5,5,5,5" Name="PostProcessingDoFEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<TextBlock  Foreground="#444444" Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_FocusDistance}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingDoFFocusDistanceSlider" Grid.Column="1" Grid.Row="1"  Value="10.0" Maximum="100" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Aperture}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingDoFApertureSlider" Grid.Column="1" Grid.Row="2" Value="1.0" Maximum="32.0" Minimum="0.1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="3" Text="{DynamicResource PPS_FocusLength}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingDoFFocusLengthSlider" Grid.Column="1" Grid.Row="3"  Value="1.0" Maximum="300.0" Minimum="1.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="4" Text="{DynamicResource PPS_MaxBlurSize}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingDoFMaxBlurSizeSlider" Grid.Column="1" IsSnapToTickEnabled="True" TickFrequency="1"  Grid.Row="4" Value="2" Maximum="4" Minimum="1"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_CG}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<CheckBox Foreground="#444444"  Margin="5,5,5,5" Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Temperature}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock  Foreground="#444444" Margin="5,5,5,5" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Saturation}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingCGSaturationSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock  Foreground="#444444" Margin="5,5,5,5" Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Contrast}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingCGContrastSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_Vi}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<CheckBox  Foreground="#444444" Margin="5,5,5,5" Name="PostProcessingVEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingVIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Smoothness}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingVSmoothnessSlider" Grid.Column="1" Grid.Row="2"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="3"  Text="{DynamicResource PPS_Rounded}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingVRoundedSlider" Grid.Column="1" Grid.Row="3"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+										<materialDesign:Card Margin="5,5,5,5" >
+											<DockPanel Margin="5,5,5,5">
+												<TextBlock DockPanel.Dock="Top" Text="{DynamicResource PPS_CA}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+												<Grid  Margin="10,0,10,10">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<CheckBox  Foreground="#444444" Margin="5,5,5,5" Name="PostProcessingCAEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Intensity}"/>
+													<Slider Margin="5,5,5,5" Name="PostProcessingCAIntensitySlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="1.0" Minimum="0.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
+												</Grid>
+											</DockPanel>
+										</materialDesign:Card>
+									</StackPanel>
+								</Grid>
+							</DockPanel>
+						</StackPanel>
+					</GroupBox>
 				</ScrollViewer>
 
 			</TabItem>
