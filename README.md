@@ -1,4 +1,4 @@
-# VMCProtocol対応バストアップ撮影ツール Oredayo
+# VMCProtocol対応バストアップ撮影ツール Oredayo4V
 Waidayo での利用を想定しています。バーチャルモーションキャプチャーなどでも利用可能です。
 
 # [説明書をお読みください(ダウンロードもこちら)](https://github.com/gpsnmeajp/Oredayo/wiki)
