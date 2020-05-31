@@ -308,35 +308,39 @@ namespace WPF_UI
 
         private void LaunchOredayo_Click(object sender, RoutedEventArgs e)
         {
-            try
+            Task.Run(async () =>
             {
-                //Unity側を強制終了する
-                System.Diagnostics.Process proc1 = new System.Diagnostics.Process();
-                proc1.StartInfo.UseShellExecute = true;
-                proc1.StartInfo.CreateNoWindow = true;
-                proc1.StartInfo.ErrorDialog = false;
-                proc1.StartInfo.FileName = "taskkill";
-                proc1.StartInfo.Arguments = " /F /IM Oredayo.exe";
-                proc1.StartInfo.WorkingDirectory = "";
-                proc1.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
-                proc1.Start();
+                try
+                {
+                    //Unity側を強制終了する
+                    System.Diagnostics.Process proc1 = new System.Diagnostics.Process();
+                    proc1.StartInfo.UseShellExecute = true;
+                    proc1.StartInfo.CreateNoWindow = true;
+                    proc1.StartInfo.ErrorDialog = false;
+                    proc1.StartInfo.FileName = "taskkill";
+                    proc1.StartInfo.Arguments = " /F /IM Oredayo.exe";
+                    proc1.StartInfo.WorkingDirectory = "";
+                    proc1.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+                    proc1.Start();
 
-                Thread.Sleep(3000);
+                    await Task.Delay(3000);
 
-                //Unity側を起動する
-                System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
-                proc2.StartInfo.UseShellExecute = false; //既知のため不要
-                proc2.StartInfo.CreateNoWindow = false;
-                proc2.StartInfo.ErrorDialog = false;
-                proc2.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/Oredayo.exe";
-                proc2.StartInfo.Arguments = "";
-                proc2.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/";
-                proc2.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-                proc2.Start();
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+                    //Unity側を起動する
+                    System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
+                    proc2.StartInfo.UseShellExecute = false; //既知のため不要
+                    proc2.StartInfo.CreateNoWindow = false;
+                    proc2.StartInfo.ErrorDialog = false;
+                    proc2.StartInfo.FileName = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/Oredayo.exe";
+                    proc2.StartInfo.Arguments = "";
+                    proc2.StartInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/../Environment/";
+                    proc2.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+                    proc2.Start();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            });
         }
 
         private void Preset1_Cliecked(object sender, RoutedEventArgs e)
@@ -944,100 +948,118 @@ namespace WPF_UI
 
         void LoadSetting(Setting s)
         {
-            //依存関係があるため先に設定する
-            WindowOptionTransparentCheckBox.IsChecked = s.WindowOptionTransparentCheckBox_IsChecked_Value;
+            Dispatcher.Invoke(async () => {
+                //依存関係があるため先に設定する
+                BackgroundColorPicker.SelectedColor = Color.FromArgb(255, 255, 255, 255); //リセット
+                await Task.Delay(10);
 
-            WindowOptionWindowBorderCheckBox.IsChecked = s.WindowOptionWindowBorderCheckBox_IsChecked_Value;
-            WindowOptionForceForegroundCheckBox.IsChecked = s.WindowOptionForceForegroundCheckBox_IsChecked_Value;
+                if (s.WindowOptionTransparentCheckBox_IsChecked_Value)
+                {
+                    WindowOptionTransparentCheckBox.IsChecked = s.WindowOptionTransparentCheckBox_IsChecked_Value;
+                    await Task.Delay(10);
+                }
+                else
+                {
+                    WindowOptionTransparentCheckBox.IsChecked = s.WindowOptionTransparentCheckBox_IsChecked_Value;
+                    await Task.Delay(10);
+                    BackgroundColorPicker.SelectedColor = new Color
+                    {
+                        R = s.BackgroundColorPicker_SelectedColor_R,
+                        G = s.BackgroundColorPicker_SelectedColor_G,
+                        B = s.BackgroundColorPicker_SelectedColor_B,
+                        A = s.BackgroundColorPicker_SelectedColor_A
+                    };
+                    await Task.Delay(10);
+                }
+
+                WindowOptionWindowBorderCheckBox.IsChecked = s.WindowOptionWindowBorderCheckBox_IsChecked_Value;
+                WindowOptionForceForegroundCheckBox.IsChecked = s.WindowOptionForceForegroundCheckBox_IsChecked_Value;
 
 
-            if (s.VRMPathTextBox_Text != "")
-            {
-                VRMPathTextBox.Text = s.VRMPathTextBox_Text;
-            }
-            if (s.BackgroundObjectPathTextBox_Text != "")
-            {
-                BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
-            }
-            CameraRotateXSlider.Value = s.CameraRotateXSlider_Value;
-            CameraRotateYSlider.Value = s.CameraRotateYSlider_Value;
-            CameraRotateZSlider.Value = s.CameraRotateZSlider_Value;
-            CameraValue1Slider.Value = s.CameraValue1Slider_Value;
-            CameraValue2Slider.Value = s.CameraValue2Slider_Value;
-            CameraValue3Slider.Value = s.CameraValue3Slider_Value;
-            LightRotateXSlider.Value = s.LightRotateXSlider_Value;
-            LightRotateYSlider.Value = s.LightRotateYSlider_Value;
-            LightRotateZSlider.Value = s.LightRotateZSlider_Value;
-            LightValue1Slider.Value = s.LightValue1Slider_Value;
-            LightValue2Slider.Value = s.LightValue2Slider_Value;
-            LightValue3Slider.Value = s.LightValue3Slider_Value;
-            LightTypeDirectionalRadioButton.IsChecked = s.LightTypeDirectionalRadioButton_IsChecked_Value;
-            LightTypePointRadioButton.IsChecked = s.LightTypePointRadioButton_IsChecked_Value;
-            LightTypeSpotRadioButton.IsChecked = s.LightTypeSpotRadioButton_IsChecked_Value;
-            BackgroundRotateXSlider.Value = s.BackgroundRotateXSlider_Value;
-            BackgroundRotateYSlider.Value = s.BackgroundRotateYSlider_Value;
-            BackgroundRotateZSlider.Value = s.BackgroundRotateZSlider_Value;
-            BackgroundValue1Slider.Value = s.BackgroundValue1Slider_Value;
-            BackgroundValue2Slider.Value = s.BackgroundValue2Slider_Value;
-            BackgroundValue3Slider.Value = s.BackgroundValue3Slider_Value;
-            BackgroundScaleSlider.Value = s.BackgroundScaleSlider_Value;
-            EVMC4UFreezeCheckBox.IsChecked = s.EVMC4UFreezeCheckBox_IsChecked_Value;
-            EVMC4UBoneFilterCheckBox.IsChecked = s.EVMC4UBoneFilterCheckBox_IsChecked_Value;
-            EVMC4UBlendShapeFilterCheckBox.IsChecked = s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value;
-            EVMC4UBoneFilterValueTextBox.Text = s.EVMC4UBoneFilterValueTextBox_Text;
-            EVMC4UBlendShapeFilterValueTextBox.Text = s.EVMC4UBlendShapeFilterValueTextBox_Text;
-            CameraRootPosLockCheckBox.IsChecked = s.CameraRootPosLockCheckBox_IsChecked_Value;
-            LightRootPosLockCheckBox.IsChecked = s.LightRootPosLockCheckBox_IsChecked_Value;
-            BackgroundRootPosLockCheckBox.IsChecked = s.BackgroundRootPosLockCheckBox_IsChecked_Value;
-            OBSExternalControl_CheckBox.IsChecked = s.OBSExternalControl_CheckBox_IsChecked_Value;
-            SEDSSServerPasswordTextBox.Password = s.SEDSSServerPasswordTextBox_Password;
-            SEDSSServerExchangeFilePathTextBox.Text = s.SEDSSServerExchangeFilePathTextBox_Text;
-            SEDSSClientAddressTextBox.Text = s.SEDSSClientAddressTextBox_Text;
-            SEDSSClientPortTextBox.Text = s.SEDSSClientPortTextBox_Text;
-            SEDSSClientPasswordTextBox.Password = s.SEDSSClientPasswordTextBox_Password;
-            SEDSSClientIDTextBox.Text = s.SEDSSClientIDTextBox_Text;
-            SEDSSClientUploadFilePathTextBox.Text = s.SEDSSClientUploadFilePathTextBox_Text;
-            BackgroundColorPicker.SelectedColor = new Color
-            {
-                R = s.BackgroundColorPicker_SelectedColor_R,
-                G = s.BackgroundColorPicker_SelectedColor_G,
-                B = s.BackgroundColorPicker_SelectedColor_B,
-                A = s.BackgroundColorPicker_SelectedColor_A
-            };
-            LightColorPicker.SelectedColor = new Color
-            {
-                R = s.LightColorPicker_SelectedColor_R,
-                G = s.LightColorPicker_SelectedColor_G,
-                B = s.LightColorPicker_SelectedColor_B,
-                A = s.LightColorPicker_SelectedColor_A,
-            };
+                if (s.VRMPathTextBox_Text != "")
+                {
+                    VRMPathTextBox.Text = s.VRMPathTextBox_Text;
+                }
+                if (s.BackgroundObjectPathTextBox_Text != "")
+                {
+                    BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
+                }
+                CameraRotateXSlider.Value = s.CameraRotateXSlider_Value;
+                CameraRotateYSlider.Value = s.CameraRotateYSlider_Value;
+                CameraRotateZSlider.Value = s.CameraRotateZSlider_Value;
+                CameraValue1Slider.Value = s.CameraValue1Slider_Value;
+                CameraValue2Slider.Value = s.CameraValue2Slider_Value;
+                CameraValue3Slider.Value = s.CameraValue3Slider_Value;
+                LightRotateXSlider.Value = s.LightRotateXSlider_Value;
+                LightRotateYSlider.Value = s.LightRotateYSlider_Value;
+                LightRotateZSlider.Value = s.LightRotateZSlider_Value;
+                LightValue1Slider.Value = s.LightValue1Slider_Value;
+                LightValue2Slider.Value = s.LightValue2Slider_Value;
+                LightValue3Slider.Value = s.LightValue3Slider_Value;
+                LightTypeDirectionalRadioButton.IsChecked = s.LightTypeDirectionalRadioButton_IsChecked_Value;
+                LightTypePointRadioButton.IsChecked = s.LightTypePointRadioButton_IsChecked_Value;
+                LightTypeSpotRadioButton.IsChecked = s.LightTypeSpotRadioButton_IsChecked_Value;
+                BackgroundRotateXSlider.Value = s.BackgroundRotateXSlider_Value;
+                BackgroundRotateYSlider.Value = s.BackgroundRotateYSlider_Value;
+                BackgroundRotateZSlider.Value = s.BackgroundRotateZSlider_Value;
+                BackgroundValue1Slider.Value = s.BackgroundValue1Slider_Value;
+                BackgroundValue2Slider.Value = s.BackgroundValue2Slider_Value;
+                BackgroundValue3Slider.Value = s.BackgroundValue3Slider_Value;
+                BackgroundScaleSlider.Value = s.BackgroundScaleSlider_Value;
+                await Task.Delay(10);
+                EVMC4UFreezeCheckBox.IsChecked = s.EVMC4UFreezeCheckBox_IsChecked_Value;
+                EVMC4UBoneFilterCheckBox.IsChecked = s.EVMC4UBoneFilterCheckBox_IsChecked_Value;
+                EVMC4UBlendShapeFilterCheckBox.IsChecked = s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value;
+                EVMC4UBoneFilterValueTextBox.Text = s.EVMC4UBoneFilterValueTextBox_Text;
+                EVMC4UBlendShapeFilterValueTextBox.Text = s.EVMC4UBlendShapeFilterValueTextBox_Text;
+                CameraRootPosLockCheckBox.IsChecked = s.CameraRootPosLockCheckBox_IsChecked_Value;
+                LightRootPosLockCheckBox.IsChecked = s.LightRootPosLockCheckBox_IsChecked_Value;
+                BackgroundRootPosLockCheckBox.IsChecked = s.BackgroundRootPosLockCheckBox_IsChecked_Value;
+                OBSExternalControl_CheckBox.IsChecked = s.OBSExternalControl_CheckBox_IsChecked_Value;
+                SEDSSServerPasswordTextBox.Password = s.SEDSSServerPasswordTextBox_Password;
+                SEDSSServerExchangeFilePathTextBox.Text = s.SEDSSServerExchangeFilePathTextBox_Text;
+                SEDSSClientAddressTextBox.Text = s.SEDSSClientAddressTextBox_Text;
+                SEDSSClientPortTextBox.Text = s.SEDSSClientPortTextBox_Text;
+                SEDSSClientPasswordTextBox.Password = s.SEDSSClientPasswordTextBox_Password;
+                SEDSSClientIDTextBox.Text = s.SEDSSClientIDTextBox_Text;
+                SEDSSClientUploadFilePathTextBox.Text = s.SEDSSClientUploadFilePathTextBox_Text;
+                await Task.Delay(10);
+                LightColorPicker.SelectedColor = new Color
+                {
+                    R = s.LightColorPicker_SelectedColor_R,
+                    G = s.LightColorPicker_SelectedColor_G,
+                    B = s.LightColorPicker_SelectedColor_B,
+                    A = s.LightColorPicker_SelectedColor_A,
+                };
 
-            EnvironmentColorPicker.SelectedColor = new Color
-            {
-                R = s.EnvironmentColorPicker_SelectedColor_R,
-                G = s.EnvironmentColorPicker_SelectedColor_G,
-                B = s.EnvironmentColorPicker_SelectedColor_B,
-                A = s.EnvironmentColorPicker_SelectedColor_A,
-            };
-            PostProcessingAntiAliasingEnableCheckBox.IsChecked = s.PostProcessingAntiAliasingEnableCheckBox_IsChecked_Value;
-            PostProcessingBloomEnableCheckBox.IsChecked = s.PostProcessingBloomEnableCheckBox_IsChecked_Value;
-            PostProcessingBloomIntensitySlider.Value = s.PostProcessingBloomIntensitySlider_Value;
-            PostProcessingBloomThresholdSlider.Value = s.PostProcessingBloomThresholdSlider_Value;
-            PostProcessingDoFEnableCheckBox.IsChecked = s.PostProcessingDoFEnableCheckBox_IsChecked_Value;
-            PostProcessingDoFFocusDistanceSlider.Value = s.PostProcessingDoFFocusDistanceSlider_Value;
-            PostProcessingDoFApertureSlider.Value = s.PostProcessingDoFApertureSlider_Value;
-            PostProcessingDoFFocusLengthSlider.Value = s.PostProcessingDoFFocusLengthSlider_Value;
-            PostProcessingDoFMaxBlurSizeSlider.Value = s.PostProcessingDoFMaxBlurSizeSlider_Value;
-            PostProcessingCGEnableCheckBox.IsChecked = s.PostProcessingCGEnableCheckBox_IsChecked_Value;
-            PostProcessingCGTemperatureSlider.Value = s.PostProcessingCGTemperatureSlider_Value;
-            PostProcessingCGSaturationSlider.Value = s.PostProcessingCGSaturationSlider_Value;
-            PostProcessingCGContrastSlider.Value = s.PostProcessingCGContrastSlider_Value;
-            PostProcessingVEnableCheckBox.IsChecked = s.PostProcessingVEnableCheckBox_IsChecked_Value;
-            PostProcessingVIntensitySlider.Value = s.PostProcessingVIntensitySlider_Value;
-            PostProcessingVSmoothnessSlider.Value = s.PostProcessingVSmoothnessSlider_Value;
-            PostProcessingVRoundedSlider.Value = s.PostProcessingVRoundedSlider_Value;
-            PostProcessingCAEnableCheckBox.IsChecked = s.PostProcessingCAEnableCheckBox_IsChecked_Value;
-            PostProcessingCAIntensitySlider.Value = s.PostProcessingCAIntensitySlider_Value;
+                EnvironmentColorPicker.SelectedColor = new Color
+                {
+                    R = s.EnvironmentColorPicker_SelectedColor_R,
+                    G = s.EnvironmentColorPicker_SelectedColor_G,
+                    B = s.EnvironmentColorPicker_SelectedColor_B,
+                    A = s.EnvironmentColorPicker_SelectedColor_A,
+                };
+                await Task.Delay(10);
+                PostProcessingAntiAliasingEnableCheckBox.IsChecked = s.PostProcessingAntiAliasingEnableCheckBox_IsChecked_Value;
+                PostProcessingBloomEnableCheckBox.IsChecked = s.PostProcessingBloomEnableCheckBox_IsChecked_Value;
+                PostProcessingBloomIntensitySlider.Value = s.PostProcessingBloomIntensitySlider_Value;
+                PostProcessingBloomThresholdSlider.Value = s.PostProcessingBloomThresholdSlider_Value;
+                PostProcessingDoFEnableCheckBox.IsChecked = s.PostProcessingDoFEnableCheckBox_IsChecked_Value;
+                PostProcessingDoFFocusDistanceSlider.Value = s.PostProcessingDoFFocusDistanceSlider_Value;
+                PostProcessingDoFApertureSlider.Value = s.PostProcessingDoFApertureSlider_Value;
+                PostProcessingDoFFocusLengthSlider.Value = s.PostProcessingDoFFocusLengthSlider_Value;
+                PostProcessingDoFMaxBlurSizeSlider.Value = s.PostProcessingDoFMaxBlurSizeSlider_Value;
+                PostProcessingCGEnableCheckBox.IsChecked = s.PostProcessingCGEnableCheckBox_IsChecked_Value;
+                PostProcessingCGTemperatureSlider.Value = s.PostProcessingCGTemperatureSlider_Value;
+                PostProcessingCGSaturationSlider.Value = s.PostProcessingCGSaturationSlider_Value;
+                PostProcessingCGContrastSlider.Value = s.PostProcessingCGContrastSlider_Value;
+                PostProcessingVEnableCheckBox.IsChecked = s.PostProcessingVEnableCheckBox_IsChecked_Value;
+                PostProcessingVIntensitySlider.Value = s.PostProcessingVIntensitySlider_Value;
+                PostProcessingVSmoothnessSlider.Value = s.PostProcessingVSmoothnessSlider_Value;
+                PostProcessingVRoundedSlider.Value = s.PostProcessingVRoundedSlider_Value;
+                PostProcessingCAEnableCheckBox.IsChecked = s.PostProcessingCAEnableCheckBox_IsChecked_Value;
+                PostProcessingCAIntensitySlider.Value = s.PostProcessingCAIntensitySlider_Value;
+            });
         }
 
         Setting SaveSetting()

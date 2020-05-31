@@ -4,21 +4,26 @@
 					xmlns:system="clr-namespace:System;assembly=mscorlib"
 					x:Name="Lang_JP"
 					>
-	<system:String x:Key="Tab_BasicSetting">基本設定</system:String>
+	<system:String x:Key="Tab_BasicSetting">基本</system:String>
 	<system:String x:Key="Tab_Basic_SettingFiles">設定ファイル</system:String>
 	<system:String x:Key="Tab_Basic_QuickConfigSave">クイック設定セーブ</system:String>
 	<system:String x:Key="Tab_Basic_QuickConfigLoad">クイック設定ロード</system:String>
 	<system:String x:Key="Tab_Basic_ConfigSave">設定セーブ</system:String>
 	<system:String x:Key="Tab_Basic_ConfigLoad">設定ロード</system:String>
+
+	<system:String x:Key="Tab_ModelSetting">モデル</system:String>
 	<system:String x:Key="Tab_Basic_VRMLoading">VRM読み込み</system:String>
 	<system:String x:Key="Tab_Basic_VRMLoadingCaution">※必ず送信側アプリケーションと同じものを読み込んでください。</system:String>
-	<system:String x:Key="Tab_Basic_LoadBackground">背景読み込み</system:String>
-	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">対応拡張子: png, vrm</system:String>
+
 	<system:String x:Key="Tab_Basic_CameraPosition">カメラ位置</system:String>
 	<system:String x:Key="Tab_Basic_LightPosition">ライト位置</system:String>
+
+	<system:String x:Key="Tab_BackgroundSetting">背景</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackground">背景読み込み</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">対応拡張子: png, vrm</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">背景オブジェクト位置</system:String>
 
-	<system:String x:Key="Tab_AdvancedSetting">詳細設定</system:String>
+	<system:String x:Key="Tab_AdvancedSetting">詳細</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_Freeze">フリーズ</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera">高解像度撮影</system:String>
@@ -39,10 +44,10 @@
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">送受信を許可する</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS クライアント</system:String>
 
-	<system:String x:Key="Tab_Color1">色設定1</system:String>
-	<system:String x:Key="Tab_Color2">色設定2</system:String>
+	<system:String x:Key="Tab_Color1">色</system:String>
+	<system:String x:Key="Tab_Color2">色</system:String>
 
-	<system:String x:Key="Tab_Graphics">画質設定</system:String>
+	<system:String x:Key="Tab_Graphics">画質</system:String>
 	<system:String x:Key="Tab_PostProcessingStackV2">PostProcessingStack V2</system:String>
 
 

@@ -503,7 +503,9 @@ public class Controller : MonoBehaviour
             else if (e.CommandType == typeof(PipeCommands.BackgrounColor))
             {
                 var d = (PipeCommands.BackgrounColor)e.Data;
-                windowManagerEx.SetWindowBackgroundTransparent(false, new Color(d.r / 255f, d.g / 255f, d.b / 255f));
+                Color c = new Color(d.r / 255f, d.g / 255f, d.b / 255f);
+                backgroundColor = c;
+                windowManagerEx.SetWindowBackgroundTransparent(false, c);
             }
 
             //===========ライト色===========
