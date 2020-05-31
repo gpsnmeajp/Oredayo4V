@@ -90,7 +90,7 @@
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl">外部連携</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl_OBSControl">OBS連動</system:String>
 
-	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">仮想Webカメラ(UnityCapture)</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">仮想Webカメラ (UnityCapture)</system:String>
 
 
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS サーバー</system:String>

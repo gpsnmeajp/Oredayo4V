@@ -8,6 +8,7 @@ namespace WPF_UI
 {
     class Setting
     {
+        public int LanguageComboBox_SelectedIndex { get; set; }
         public string VRMPathTextBox_Text { get; set; }
         public string BackgroundObjectPathTextBox_Text { get; set; }
         public double CameraRotateXSlider_Value { get; set; }

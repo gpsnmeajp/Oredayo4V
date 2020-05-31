@@ -217,7 +217,9 @@ namespace WPF_UI
 
             //クイックセーブを起動時に読み込む
             if (File.Exists("QuickSetting.json")) {
-                LoadSettingFromFile("QuickSetting.json");
+                Setting s = LoadSettingFromFile("QuickSetting.json");
+                //起動時のみ言語を反映する
+                LanguageComboBox.SelectedIndex = s.LanguageComboBox_SelectedIndex;
             }
         }
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -405,14 +407,17 @@ namespace WPF_UI
             LoadSettingFromFile("QuickSetting.json");
         }
 
-        void LoadSettingFromFile(string path) {
+        Setting LoadSettingFromFile(string path) {
             if (File.Exists(path))
             {
-                LoadSetting(JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false))));
+                Setting s = JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false)));
+                LoadSetting(s);
+                return s;
             }
             else
             {
                 MessageBox.Show("ファイルがありません\n(File not found.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
+                return new Setting();
             }
         }
 
@@ -1041,6 +1046,7 @@ namespace WPF_UI
                 {
                     BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
                 }
+                //LanguageComboBox.SelectedIndex = s.LanguageComboBox_SelectedIndex; //毎回読み込み時には反映しない
                 CameraRotateXSlider.Value = s.CameraRotateXSlider_Value;
                 CameraRotateYSlider.Value = s.CameraRotateYSlider_Value;
                 CameraRotateZSlider.Value = s.CameraRotateZSlider_Value;
@@ -1123,6 +1129,7 @@ namespace WPF_UI
         Setting SaveSetting()
         {
             Setting s = new Setting();
+            s.LanguageComboBox_SelectedIndex = LanguageComboBox.SelectedIndex;
             s.VRMPathTextBox_Text = VRMPathTextBox.Text;
             s.BackgroundObjectPathTextBox_Text = BackgroundObjectPathTextBox.Text;
             s.CameraRotateXSlider_Value = CameraRotateXSlider.Value;

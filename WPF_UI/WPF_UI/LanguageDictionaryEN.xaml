@@ -42,7 +42,7 @@
 	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRM is not loaded.</system:String>
 
 	<system:String x:Key="Tab_Welcome_Preset">4. Effect</system:String>
-	<system:String x:Key="Tab_Welcome_Preset1">Green bacc</system:String>
+	<system:String x:Key="Tab_Welcome_Preset1">Green back</system:String>
 	<system:String x:Key="Tab_Welcome_Preset2">Sci-Fi</system:String>
 	<system:String x:Key="Tab_Welcome_Preset3">Emotional</system:String>
 	<system:String x:Key="Tab_Welcome_Preset4">Black and dark</system:String>
@@ -76,10 +76,12 @@
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera">Hi reso photo</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BoneFilter">Bone motion filter</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BlendShapeFilter">Blend Shape filter</system:String>
+
 	<system:String x:Key="Tab_AdvancedSetting_Window">Window</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_ForceForeground">Force foreground</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_Transparent">Transparent</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_WindowBorder">Window Border</system:String>
+	
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition">Root Position Lock</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_CameraLock">Camera</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_LightLock">Light</system:String>
@@ -87,8 +89,13 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl">External Control</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_ExternalControl_OBSControl">OBS Control</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">Virtual Web Camera (UnityCapture)</system:String>
+
+
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS Server</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">Permit To Send And Receive</system:String>
+	
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS Client</system:String>
 
 	<system:String x:Key="Tab_Color1">Color</system:String>
@@ -142,8 +149,11 @@
 	<system:String x:Key="Gen_GamingMode">Gaming Mode</system:String>
 	<system:String x:Key="Gen_Language">Language Setting</system:String>
 	<system:String x:Key="Gen_Next">Next</system:String>
+	<system:String x:Key="Gen_Install">Install</system:String>
+	<system:String x:Key="Gen_Uninstall">Uninstall</system:String>
+	<system:String x:Key="Gen_Enable">Enable</system:String>
 
-
+	
 	<system:String x:Key="PPS_Enable">Enable</system:String>
 	<system:String x:Key="PPS_Intensity">Intensity</system:String>
 	<system:String x:Key="PPS_Threshold">Threshold</system:String>
