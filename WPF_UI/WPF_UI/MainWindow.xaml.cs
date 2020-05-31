@@ -851,6 +851,7 @@ namespace WPF_UI
                     }
                 }
                 SEDSSServerPasswordTextBox.IsEnabled = !SEDSSServerEnableCheckBox.IsChecked.Value;
+                SEDSSServerExchangeFilePathTextBox.IsEnabled = !SEDSSServerEnableCheckBox.IsChecked.Value;
             }
 
             if (client != null)
