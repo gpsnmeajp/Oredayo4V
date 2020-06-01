@@ -16,7 +16,7 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_1">waidayo를 설치해봅시다!</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_2">Face ID 를 사용가능한 iPhone 혹은 iPad 가 필요합니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_2">2-2. 실행</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_2_1">waidayo어플을 실행시켜주세요</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_2_1">waidayo 어플리케이션을 실행시켜주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3">2-3. VRM 전송</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_1">VRM 파일을 Waidayo에 넣어주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_2">1. 사용할 VRM 파일의 이름을 "default.vrm"으로 설정해주세요.</system:String>
@@ -25,7 +25,7 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_5">4. 왼쪽의 메뉴에서 파일 공유를 선택하신뒤->waidayo를 눌러주세요</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_6">5. "default.vrm" 파일을 "waidayo의 도큐멘트" 에 넣어주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">-</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayo 어플을 재시작해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayo 어플리케이션을 재시작해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 설정</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
@@ -44,9 +44,9 @@
 
 	<system:String x:Key="Tab_Welcome_Preset">4. 효과</system:String>
 	<system:String x:Key="Tab_Welcome_Preset1">그린스크린</system:String>
-	<system:String x:Key="Tab_Welcome_Preset2">공상과학</system:String>
-	<system:String x:Key="Tab_Welcome_Preset3">느낌있게</system:String>
-	<system:String x:Key="Tab_Welcome_Preset4">어둡게</system:String>
+	<system:String x:Key="Tab_Welcome_Preset2">공상과학 (Sci-Fi)</system:String>
+	<system:String x:Key="Tab_Welcome_Preset3">정서적 (Emotional)</system:String>
+	<system:String x:Key="Tab_Welcome_Preset4"검고 어둡게</system:String>
 
 	<system:String x:Key="Tab_Welcome_SNS">5. PR</system:String>
 	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">질문사항들은 Discord로 전달받고있습니다.</system:String>
@@ -83,7 +83,7 @@
 	<system:String x:Key="Tab_AdvancedSetting_Window_Transparent">창을 투명하게</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_Window_WindowBorder">창 테두리 제거</system:String>
 
-	<system:String x:Key="Tab_AdvancedSetting_RootPosition">기본 위치 잠금</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition">위치 고정 (체크박스를 해제해주세요)</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_CameraLock">카메라</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_LightLock">광원</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_RootPosition_BackgroundLock">배경 오브젝트</system:String>
@@ -99,8 +99,8 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS 클라이언트</system:String>
 
-	<system:String x:Key="Tab_Color1">색</system:String>
-	<system:String x:Key="Tab_Color2">색</system:String>
+	<system:String x:Key="Tab_Color1">색 조정</system:String>
+	<system:String x:Key="Tab_Color2">색 조정</system:String>
 
 	<system:String x:Key="Tab_Graphics">그래픽</system:String>
 	<system:String x:Key="Tab_PostProcessingStackV2">PostProcessingStack V2</system:String>
@@ -137,10 +137,10 @@
 	<system:String x:Key="Gen_Remove">제거</system:String>
 	<system:String x:Key="Gen_Browse">찾아보기</system:String>
 	<system:String x:Key="Gen_Load">불러오기</system:String>
-	<system:String x:Key="Gen_Path">패치:</system:String>
+	<system:String x:Key="Gen_Path">경로:</system:String>
 	<system:String x:Key="Gen_FilterValue">필터:</system:String>
 	<system:String x:Key="Gen_EncryptionPassword">비밀번호:</system:String>
-	<system:String x:Key="Gen_ExchangeDataPath">데이터 패치 교환:</system:String>
+	<system:String x:Key="Gen_ExchangeDataPath">데이터 교환 경로:</system:String>
 	<system:String x:Key="Gen_Upload">업로드</system:String>
 	<system:String x:Key="Gen_Download">다운로드</system:String>
 	<system:String x:Key="Gen_ID">ID</system:String>
