@@ -1,0 +1,179 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WPF_UI"
+					xmlns:system="clr-namespace:System;assembly=mscorlib"
+					x:Name="Lang_KO"
+					>
+
+	<system:String x:Key="Tab_Welcome">환영합니다</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayo를 실행해주세요</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayo가 작동되고있습니다.</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayo를 재시작 해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayo를 재시작</system:String>
+
+	<system:String x:Key="Tab_Welcome_Waidayo">2. Waidayo를 설정합니다</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1">2-1. 설치</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1_1">waidayo를 설치해봅시다!</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_1_2">Face ID 를 사용가능한 iPhone 혹은 iPad 가 필요합니다.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_2">2-2. 실행</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_2_1">waidayo어플을 실행시켜주세요</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3">2-3. VRM 전송</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_1">VRM 파일을 Waidayo에 넣어주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_2">1. 사용할 VRM 파일의 이름을 "default.vrm"으로 설정해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_3">2. iPhone/iPad를 컴퓨터에 연결하고 iTunes를 실행합니다.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_4">3. iTunes에서 연결된 기기를선택해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_5">4. 왼쪽의 메뉴에서 파일 공유를 선택하신뒤->waidayo를 눌러주세요</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_6">5. "default.vrm" 파일을 "waidayo의 도큐멘트" 에 넣어주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">-</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayo 어플을 재시작해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 설정</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">"Send Motion IP Address"을 아래와 같이 설정해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을 39009으로 설정해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">하단의 상태를 확인해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo의 신호가 양호합니다.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">Waidayo의 신호를 찾을수없습니다.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayo가 실행중이지 않습니다.</system:String>
+
+	<system:String x:Key="Tab_Welcome_LoadVRM">3. VRM 불러오기</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_1">Waidayo 와 같은 VRM file을 불러와주세요</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_Button">VRM 불러오기</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRM 을 정상적으로 불러왔습니다.</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRM 을 불러올수 없습니다.</system:String>
+
+	<system:String x:Key="Tab_Welcome_Preset">4. 효과</system:String>
+	<system:String x:Key="Tab_Welcome_Preset1">그린스크린</system:String>
+	<system:String x:Key="Tab_Welcome_Preset2">공상과학</system:String>
+	<system:String x:Key="Tab_Welcome_Preset3">느낌있게</system:String>
+	<system:String x:Key="Tab_Welcome_Preset4">어둡게</system:String>
+
+	<system:String x:Key="Tab_Welcome_SNS">5. PR</system:String>
+	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">질문사항들은 Discord로 전달받고있습니다.</system:String>
+
+
+	<system:String x:Key="Tab_BasicSetting">기본</system:String>
+	<system:String x:Key="Tab_Basic_SettingFiles">설정</system:String>
+	<system:String x:Key="Tab_Basic_QuickConfigSave">빠르게 저장하기</system:String>
+	<system:String x:Key="Tab_Basic_QuickConfigLoad">빠르게 불러오기</system:String>
+	<system:String x:Key="Tab_Basic_ConfigSave">저장</system:String>
+	<system:String x:Key="Tab_Basic_ConfigLoad">불러오기</system:String>
+
+	<system:String x:Key="Tab_ModelSetting">모델</system:String>
+	<system:String x:Key="Tab_Basic_VRMLoading">VRM</system:String>
+	<system:String x:Key="Tab_Basic_VRMLoadingCaution">※주의사항: 사용하고계신 모델과 같은 모델 파일을 불러와주세요.</system:String>
+
+	<system:String x:Key="Tab_Basic_CameraPosition">카메라 위치</system:String>
+	<system:String x:Key="Tab_Basic_LightPosition">광원 위치</system:String>
+
+	<system:String x:Key="Tab_BackgroundSetting">배경</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackground">배경 오브젝트</system:String>
+	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">확장자: png, vrm</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">배경 오브젝트 위치</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting">고급설정</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_Freeze">가만히</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_HighResolutionPhotoCamera">고해상도 사진</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BoneFilter">Bone Motion 필터</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_BlendShapeFilter">Blend Shape 필터</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_Window">창</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_ForceForeground">창을 최상단으로 고정</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_Transparent">창을 투명하게</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_Window_WindowBorder">창 테두리 제거</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition">기본 위치 잠금</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_CameraLock">카메라</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_LightLock">광원</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_RootPosition_BackgroundLock">배경 오브젝트</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_ExternalControl">외부 제어</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_ExternalControl_OBSControl">OBS 제어</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">가상 웹 카메라 (Unity캡쳐)</system:String>
+
+
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS 서버</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">송신 및 수신 허용</system:String>
+
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS 클라이언트</system:String>
+
+	<system:String x:Key="Tab_Color1">색</system:String>
+	<system:String x:Key="Tab_Color2">색</system:String>
+
+	<system:String x:Key="Tab_Graphics">그래픽</system:String>
+	<system:String x:Key="Tab_PostProcessingStackV2">PostProcessingStack V2</system:String>
+
+
+	<system:String x:Key="Gen_X_Rot">X 축 회전</system:String>
+	<system:String x:Key="Gen_Y_Rot">Y 축 회전</system:String>
+	<system:String x:Key="Gen_Z_Rot">Z 축 회전</system:String>
+	<system:String x:Key="Gen_X_Pos">X 축 이동</system:String>
+	<system:String x:Key="Gen_Y_Pos">Y 축 이동</system:String>
+	<system:String x:Key="Gen_Z_Pos">Z 축 이동</system:String>
+	<system:String x:Key="Gen_Reset">초기화</system:String>
+	<system:String x:Key="Gen_Scale">크기</system:String>
+	<system:String x:Key="Gen_Distance">거리</system:String>
+	<system:String x:Key="Gen_Zoom">확대</system:String>
+	<system:String x:Key="Gen_Intensity">강도</system:String>
+	<system:String x:Key="Gen_Diffusion">확산</system:String>
+	<system:String x:Key="Gen_Directional">Directional</system:String>
+	<system:String x:Key="Gen_Point">Point</system:String>
+	<system:String x:Key="Gen_Spot">Spot</system:String>
+	<system:String x:Key="Gen_Type">타입</system:String>
+	<system:String x:Key="Gen_Height">높이</system:String>
+	<system:String x:Key="Gen_FOV">시야</system:String>
+	<system:String x:Key="Gen_Information">시스템 정보</system:String>
+	<system:String x:Key="Gen_Port">포트</system:String>
+	<system:String x:Key="Gen_EVMC4UPort">EVMC4U 포트</system:String>
+	<system:String x:Key="Gen_SEDSSPort">SEDSS 포트</system:String>
+	<system:String x:Key="Gen_UICommunicationStatus">UI 기본 상태</system:String>
+	<system:String x:Key="Gen_EVMC4UReceiveStatus">EVMC4U 기본 상태</system:String>
+	<system:String x:Key="Gen_Communication">연락</system:String>
+	<system:String x:Key="Gen_Status">상태</system:String>
+	<system:String x:Key="Gen_IPAddress">IP 주소</system:String>
+
+	<system:String x:Key="Gen_Remove">제거</system:String>
+	<system:String x:Key="Gen_Browse">찾아보기</system:String>
+	<system:String x:Key="Gen_Load">불러오기</system:String>
+	<system:String x:Key="Gen_Path">패치:</system:String>
+	<system:String x:Key="Gen_FilterValue">필터:</system:String>
+	<system:String x:Key="Gen_EncryptionPassword">비밀번호:</system:String>
+	<system:String x:Key="Gen_ExchangeDataPath">데이터 패치 교환:</system:String>
+	<system:String x:Key="Gen_Upload">업로드</system:String>
+	<system:String x:Key="Gen_Download">다운로드</system:String>
+	<system:String x:Key="Gen_ID">ID</system:String>
+	<system:String x:Key="Gen_BackgroundColor">배경색</system:String>
+	<system:String x:Key="Gen_LightColor">광원색</system:String>
+	<system:String x:Key="Gen_EnvironmentColor">환경색</system:String>
+	<system:String x:Key="Gen_GamingMode">게임 모드</system:String>
+	<system:String x:Key="Gen_Language">언어 설정</system:String>
+	<system:String x:Key="Gen_Next">다음</system:String>
+	<system:String x:Key="Gen_Install">설치</system:String>
+	<system:String x:Key="Gen_Uninstall">삭제</system:String>
+	<system:String x:Key="Gen_Enable">사용</system:String>
+
+
+	<system:String x:Key="PPS_Enable">사용</system:String>
+	<system:String x:Key="PPS_Intensity">강도</system:String>
+	<system:String x:Key="PPS_Threshold">임계값</system:String>
+	<system:String x:Key="PPS_Anti-aliasing">안티-앨리어싱 (PPS)</system:String>
+	<system:String x:Key="PPS_Bloom">블룸</system:String>
+	<system:String x:Key="PPS_DoF">심도</system:String>
+	<system:String x:Key="PPS_CG">색 보정</system:String>
+	<system:String x:Key="PPS_Vi">비네트 효과</system:String>
+	<system:String x:Key="PPS_CA">색수차</system:String>
+
+	<system:String x:Key="PPS_FocusDistance">초점 거리</system:String>
+	<system:String x:Key="PPS_Aperture">조리개</system:String>
+	<system:String x:Key="PPS_FocusLength">초점 길이</system:String>
+	<system:String x:Key="PPS_MaxBlurSize">최대 흐릿함 수치</system:String>
+	<system:String x:Key="PPS_Temperature">온도</system:String>
+	<system:String x:Key="PPS_Saturation">채도</system:String>
+	<system:String x:Key="PPS_Contrast">대비</system:String>
+	<system:String x:Key="PPS_Smoothness">매끄럽게</system:String>
+	<system:String x:Key="PPS_Rounded">둥글게</system:String>
+
+
+</ResourceDictionary>

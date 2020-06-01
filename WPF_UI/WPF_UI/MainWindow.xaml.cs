@@ -77,6 +77,7 @@ namespace WPF_UI
 
             Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
             Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
+            Application.Current.Resources.MergedDictionaries.Remove(dics[2]); //KO
 
             Application.Current.Resources.MergedDictionaries.Add(dics[0]); //JP
         }
@@ -383,8 +384,9 @@ namespace WPF_UI
             {
                 Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
                 Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
+                Application.Current.Resources.MergedDictionaries.Remove(dics[2]); //KO
 
-                Application.Current.Resources.MergedDictionaries.Add(dics[LanguageComboBox.SelectedIndex]); //JP
+                Application.Current.Resources.MergedDictionaries.Add(dics[LanguageComboBox.SelectedIndex]);
             }
         }
         //===========設定読み込み==========
