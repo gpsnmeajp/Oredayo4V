@@ -50,7 +50,6 @@
 	<system:String x:Key="Tab_Welcome_SNS">5. ハッシュタグを付けて宣伝しましょう</system:String>
 	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">質問等はDiscordでのみ受け付けています</system:String>
 
-
 	<system:String x:Key="Tab_BasicSetting">基本</system:String>
 	<system:String x:Key="Tab_Basic_SettingFiles">設定ファイル</system:String>
 	<system:String x:Key="Tab_Basic_QuickConfigSave">クイック設定セーブ</system:String>

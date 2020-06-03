@@ -146,12 +146,15 @@
 										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS}"></TextBlock>
 										<DockPanel>
 											<Grid>
-												<StackPanel>
+												<DockPanel>
+													<StackPanel  DockPanel.Dock="Left">
 													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">Tweet</Hyperlink></TextBlock>
 													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">HashTag #Oredayo4V</Hyperlink></TextBlock>
 													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">Support Discord</Hyperlink></TextBlock>
 													<TextBlock Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS_DiscordHelp}"/>
-												</StackPanel>
+													</StackPanel>
+													<Image DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10,10,10,10" Source="Resources/vmpc_logo_128x128.png" MaxWidth="128" />
+												</DockPanel>
 											</Grid>
 										</DockPanel>
 									</DockPanel>
