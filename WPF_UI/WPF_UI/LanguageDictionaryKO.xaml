@@ -46,7 +46,7 @@
 	<system:String x:Key="Tab_Welcome_Preset1">그린스크린</system:String>
 	<system:String x:Key="Tab_Welcome_Preset2">공상과학 (Sci-Fi)</system:String>
 	<system:String x:Key="Tab_Welcome_Preset3">정서적 (Emotional)</system:String>
-	<system:String x:Key="Tab_Welcome_Preset4"검고 어둡게</system:String>
+	<system:String x:Key="Tab_Welcome_Preset4">검고 어둡게</system:String>
 
 	<system:String x:Key="Tab_Welcome_SNS">5. PR</system:String>
 	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">질문사항들은 Discord로 전달받고있습니다.</system:String>
