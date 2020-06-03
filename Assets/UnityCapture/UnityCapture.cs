@@ -66,7 +66,9 @@ public class UnityCapture : MonoBehaviour
 
     void OnDestroy()
     {
-        CaptureInterface.Close();
+        if (CaptureInterface != null) {
+            CaptureInterface.Close();
+        }
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)

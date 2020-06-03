@@ -191,6 +191,7 @@ namespace UnityMemoryMappedFile
             public float CAIntensity { get; set; }
         }
 
+        public class VRMLicenceCheck{}
 
 
         //From Unity
@@ -209,6 +210,10 @@ namespace UnityMemoryMappedFile
         {
             public bool EVMC4U { get; set; }
             public float HeadHeight { get; set; }
+        }
+        public class VRMLicenceAnser
+        {
+            public bool Agree { get; set; }
         }
     }
 }

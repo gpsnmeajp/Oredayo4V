@@ -86,7 +86,7 @@ namespace WPF_UI
 
         private void Client_Received(object sender, DataReceivedEventArgs e)
         {
-            Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(async () => {
                 UI_KeepAlive = 0; //何らか受信した
 
                 if (e.CommandType == typeof(PipeCommands.Hello))
@@ -186,6 +186,17 @@ namespace WPF_UI
                         BackgroundValue2Slider.Value = d.HeadHeight;
                     }
                     cameraResetHeight = d.HeadHeight;
+                }
+                else if (e.CommandType == typeof(PipeCommands.VRMLicenceCheck))
+                {
+                    //エラーダイアログ処理
+                    var d = (PipeCommands.VRMLicenceCheck)e.Data;
+                    var result = MessageBox.Show("このVRMライセンスに同意しますか？\nDo you agree with this VRM license?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    await client.SendCommandAsync(new PipeCommands.VRMLicenceAnser
+                    {
+                        Agree = result == MessageBoxResult.Yes,
+                    });
                 }
             });
         }

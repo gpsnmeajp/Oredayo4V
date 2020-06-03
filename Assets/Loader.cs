@@ -11,6 +11,10 @@ public class Loader : MonoBehaviour
 {
     public Canvas m_canvas;
     public GameObject m_modalWindowPrefab;
+    private VRMPreviewUI modalUI = null;
+    private Action<string, byte[]> callbackHandler = null;
+    private byte[] VRMdata = null;
+    private string VRMpath = null;
 
     public void LoadRequest(string path, Action<string, byte[]> callback) {
         byte[] bytes = File.ReadAllBytes(path);
@@ -23,16 +27,32 @@ public class Loader : MonoBehaviour
         var modalLocale = modalObject.GetComponentInChildren<VRMPreviewLocale>();
         modalLocale.SetLocale("ja");
 
-        var modalUI = modalObject.GetComponentInChildren<VRMPreviewUI>();
+        if (modalUI != null)
+        {
+            modalUI.destroyMe();
+            modalUI = null;
+        }
+
+        modalUI = modalObject.GetComponentInChildren<VRMPreviewUI>();
         modalUI.setMeta(meta);
         modalUI.setLoadable(true);
-        modalUI.m_ok.onClick.AddListener(()=> {
-            Debug.Log("Licence Agreed");
-            callback?.Invoke(path, bytes);
-        });
 
-        modalUI.m_cancel.onClick.AddListener(() => {
-            Debug.Log("Licence disagreed");
-        });
+        callbackHandler = callback;
+        VRMdata = bytes;
+        VRMpath = path;
+    }
+
+    public void Agree()
+    {
+        modalUI.destroyMe();
+        modalUI = null;
+
+        callbackHandler?.Invoke(VRMpath, VRMdata);
+    }
+
+    public void DisAgree()
+    {
+        modalUI.destroyMe();
+        modalUI = null;
     }
 }

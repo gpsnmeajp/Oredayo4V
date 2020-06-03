@@ -173,8 +173,21 @@ public class Controller : MonoBehaviour
                 Debug.Log(">Bye");
             }
             //-----------基本設定----------------
+            //===========VRMライセンス応答===========
+            if (e.CommandType == typeof(PipeCommands.VRMLicenceAnser))
+            {
+                var d = (PipeCommands.VRMLicenceAnser)e.Data;
+                if (d.Agree)
+                {
+                    loader.Agree();
+                }
+                else {
+                    loader.DisAgree();
+                }
+            }
+
             //===========VRM読み込み===========
-            if (e.CommandType == typeof(PipeCommands.LoadVRM))
+            else if (e.CommandType == typeof(PipeCommands.LoadVRM))
             {
                 var d = (PipeCommands.LoadVRM)e.Data;
                 Debug.Log("LoadVRM: " + d.filepath);
@@ -189,6 +202,9 @@ public class Controller : MonoBehaviour
                             externalReceiver.LoadVRMFromData(bytes);
                         }, null);
                     });
+
+                    //許諾応答要求を出す
+                    await server.SendCommandAsync(new PipeCommands.VRMLicenceCheck{});
                 }
             }
 
@@ -239,6 +255,8 @@ public class Controller : MonoBehaviour
                                     vrmImporter.ShowMeshes();
                                 });
                             });
+                            //許諾応答要求を出す
+                            await server.SendCommandAsync(new PipeCommands.VRMLicenceCheck { });
                         }
                         else
                         {
