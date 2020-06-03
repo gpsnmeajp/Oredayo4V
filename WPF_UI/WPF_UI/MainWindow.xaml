@@ -503,7 +503,7 @@
 										</Grid.RowDefinitions>
 										<CheckBox Foreground="#444444"  Name="WindowOptionForceForegroundCheckBox" VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_ForceForeground}" Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked" />
 										<CheckBox Foreground="#444444"  Name="WindowOptionTransparentCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_Window_Transparent}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
-										<CheckBox Foreground="#444444"  Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_Window_WindowBorder}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
+										<CheckBox Foreground="#444444" IsChecked="True"  Name="WindowOptionWindowBorderCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"   Content="{DynamicResource Tab_AdvancedSetting_Window_WindowBorder}"  Checked="WindowOption_Checked"  Unchecked="WindowOption_Checked"  />
 									</Grid>
 								</DockPanel>
 							</materialDesign:Card>
@@ -737,6 +737,7 @@
 														<RowDefinition />
 													</Grid.RowDefinitions>
 													<CheckBox Foreground="#444444"  Margin="5,5,5,5" Name="PostProcessingCGEnableCheckBox"  Grid.Column="0" Grid.Row="0" Content="{DynamicResource PPS_Enable}" Grid.ColumnSpan="2" Checked="PostProcessingStackSlider_Checked" Unchecked="PostProcessingStackSlider_Checked" />
+													<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Name="PostProcessingCGResetButton" Margin="5,5,5,5"  Content="{DynamicResource Gen_Reset}" Click="PostProcessingCGResetButton_Click" />
 													<TextBlock Foreground="#444444"  Margin="5,5,5,5" Grid.Column="0" Grid.Row="1" Text="{DynamicResource PPS_Temperature}"/>
 													<Slider Margin="5,5,5,5" Name="PostProcessingCGTemperatureSlider" Grid.Column="1" Grid.Row="1"  Value="0.0" Maximum="100.0" Minimum="-100.0"  ValueChanged="PostProcessingStackSlider_ValueChanged" />
 													<TextBlock  Foreground="#444444" Margin="5,5,5,5" Grid.Column="0" Grid.Row="2" Text="{DynamicResource PPS_Saturation}"/>

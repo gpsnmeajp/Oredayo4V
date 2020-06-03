@@ -740,12 +740,12 @@ namespace WPF_UI
             {
                 if (WindowOptionTransparentCheckBox.IsChecked.Value)
                 {
-                    WindowOptionWindowBorderCheckBox.IsChecked = true;
+                    WindowOptionWindowBorderCheckBox.IsChecked = false;
                 }
 
                 await client.SendCommandAsync(new PipeCommands.WindowControl
                 {
-                    NoBorder = WindowOptionWindowBorderCheckBox.IsChecked.Value,
+                    NoBorder = !WindowOptionWindowBorderCheckBox.IsChecked.Value,
                     ForceForeground = WindowOptionForceForegroundCheckBox.IsChecked.Value,
                     Transparent = WindowOptionTransparentCheckBox.IsChecked.Value,
                 });
@@ -1011,6 +1011,13 @@ namespace WPF_UI
             PostProcessingStackSlider_Checked(null, null);
         }
 
+        private void PostProcessingCGResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            PostProcessingCGTemperatureSlider.Value = 0f;
+            PostProcessingCGSaturationSlider.Value = 0f;
+            PostProcessingCGContrastSlider.Value = 0f;
+        }
+
         void LoadSetting(Setting s)
         {
             Dispatcher.Invoke(async () => {
@@ -1037,7 +1044,7 @@ namespace WPF_UI
                     await Task.Delay(10);
                 }
 
-                WindowOptionWindowBorderCheckBox.IsChecked = s.WindowOptionWindowBorderCheckBox_IsChecked_Value;
+                WindowOptionWindowBorderCheckBox.IsChecked = !s.WindowOptionWindowBorderCheckBox_IsChecked_Value; //反転
                 WindowOptionForceForegroundCheckBox.IsChecked = s.WindowOptionForceForegroundCheckBox_IsChecked_Value;
 
 
@@ -1126,6 +1133,11 @@ namespace WPF_UI
                 PostProcessingVRoundedSlider.Value = s.PostProcessingVRoundedSlider_Value;
                 PostProcessingCAEnableCheckBox.IsChecked = s.PostProcessingCAEnableCheckBox_IsChecked_Value;
                 PostProcessingCAIntensitySlider.Value = s.PostProcessingCAIntensitySlider_Value;
+
+                //ゲーミングは強制的にオフ
+                GamingBackgroundCheckBox.IsChecked = false;
+                GamingLightCheckBox.IsChecked = false;
+                GamingEnvironmentCheckBox.IsChecked = false;
             });
         }
 
@@ -1162,7 +1174,7 @@ namespace WPF_UI
             s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value = EVMC4UBlendShapeFilterCheckBox.IsChecked.Value;
             s.EVMC4UBoneFilterValueTextBox_Text = EVMC4UBoneFilterValueTextBox.Text;
             s.EVMC4UBlendShapeFilterValueTextBox_Text = EVMC4UBlendShapeFilterValueTextBox.Text;
-            s.WindowOptionWindowBorderCheckBox_IsChecked_Value = WindowOptionWindowBorderCheckBox.IsChecked.Value;
+            s.WindowOptionWindowBorderCheckBox_IsChecked_Value = !WindowOptionWindowBorderCheckBox.IsChecked.Value; //反転
             s.WindowOptionForceForegroundCheckBox_IsChecked_Value = WindowOptionForceForegroundCheckBox.IsChecked.Value;
             s.WindowOptionTransparentCheckBox_IsChecked_Value = WindowOptionTransparentCheckBox.IsChecked.Value;
             s.CameraRootPosLockCheckBox_IsChecked_Value = CameraRootPosLockCheckBox.IsChecked.Value;
@@ -1208,7 +1220,11 @@ namespace WPF_UI
             s.PostProcessingVRoundedSlider_Value = PostProcessingVRoundedSlider.Value;
             s.PostProcessingCAEnableCheckBox_IsChecked_Value = PostProcessingCAEnableCheckBox.IsChecked.Value;
             s.PostProcessingCAIntensitySlider_Value = PostProcessingCAIntensitySlider.Value;
+
+            //ゲーミングは保存しない
             return s;
         }
+
+
     }
 }
