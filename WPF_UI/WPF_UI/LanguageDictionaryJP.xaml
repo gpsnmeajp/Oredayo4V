@@ -41,7 +41,7 @@
 	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRMが読み込まれました</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRMを読み込んでください</system:String>
 
-	<system:String x:Key="Tab_Welcome_Preset">4. エフェクトを掛けましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Preset">4. 見た目の変化を試してみましょう</system:String>
 	<system:String x:Key="Tab_Welcome_Preset1">グリーンバック</system:String>
 	<system:String x:Key="Tab_Welcome_Preset2">SF風透過</system:String>
 	<system:String x:Key="Tab_Welcome_Preset3">エモーショナル透過</system:String>
