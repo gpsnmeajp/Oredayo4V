@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,10 @@ namespace WPF_UI
         public double BackgroundValue2Slider_Value { get; set; }
         public double BackgroundValue3Slider_Value { get; set; }
         public double BackgroundScaleSlider_Value { get; set; }
+        [DefaultValue(true)]
+        public bool EVMC4UEnableCheckBox_IsChecked_Value { get; set; }
+        [DefaultValue(39540)]
+        public string EVMC4UPortTextBox_Text { get; set; }
         public bool EVMC4UFreezeCheckBox_IsChecked_Value { get; set; }
         public bool EVMC4UBoneFilterCheckBox_IsChecked_Value { get; set; }
         public bool EVMC4UBlendShapeFilterCheckBox_IsChecked_Value { get; set; }

@@ -91,6 +91,8 @@ namespace UnityMemoryMappedFile
         //★詳細設定
         public class EVMC4UControl
         {
+            public bool Enable { get; set; }
+            public int Port { get; set; }
             public bool Freeze { get; set; }
             public bool BoneFilterEnable { get; set; }
             public float BoneFilterValue { get; set; }

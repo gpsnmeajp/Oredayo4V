@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using akr.Unity.Windows;
@@ -95,6 +96,9 @@ public class Controller : MonoBehaviour
         sedss_server.SetPassword(null);
         sedss_client = GetComponent<SEDSS_Client>();
         sedss_client.SetPassword(null);
+
+        var uosc = externalReceiver.gameObject.GetComponent<uOSC.uOscServer>();
+        uosc.enabled = false; //初期はオフにしておくことで起動時のポートを反映する
 
         server = new MemoryMappedFileServer();
         server.ReceivedEvent += Server_Received;
@@ -386,6 +390,13 @@ public class Controller : MonoBehaviour
             else if (e.CommandType == typeof(PipeCommands.EVMC4UControl))
             {
                 var d = (PipeCommands.EVMC4UControl)e.Data;
+
+                var uosc = externalReceiver.gameObject.GetComponent<uOSC.uOscServer>();
+                //uOSCのポートを書き換え
+                FieldInfo fieldInfo = typeof(uOSC.uOscServer).GetField("port", BindingFlags.NonPublic | BindingFlags.Instance);
+                fieldInfo.SetValue(uosc,d.Port);
+                uosc.enabled = d.Enable;
+
                 externalReceiver.Freeze = d.Freeze;
                 externalReceiver.BoneFilter = d.BoneFilterValue;
                 externalReceiver.BonePositionFilterEnable = d.BoneFilterEnable;

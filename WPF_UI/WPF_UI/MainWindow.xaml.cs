@@ -104,12 +104,12 @@ namespace WPF_UI
                         Dispatcher.Invoke(() =>
                         {
                             //デフォルト値送信
+                            EVMC4U_Checked(null, null);
                             VRMLoadButton_Click(null, null);
                             BackgroundObjectLoadButton_Click(null, null);
                             CameraSlider_ValueChanged(null, null);
                             LightSlider_ValueChanged(null, null);
                             BackgroundSlider_ValueChanged(null, null);
-                            EVMC4U_Checked(null, null);
                             WindowOption_Checked(null, null);
                             RootPos_Checked(null, null);
                             ExternalControl_Checked(null, null);
@@ -423,7 +423,9 @@ namespace WPF_UI
         Setting LoadSettingFromFile(string path) {
             if (File.Exists(path))
             {
-                Setting s = JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false)));
+                Setting s = JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false)),new JsonSerializerSettings {
+                    DefaultValueHandling = DefaultValueHandling.Populate //デフォルト値を使用する
+                });
                 LoadSetting(s);
                 return s;
             }
@@ -705,9 +707,11 @@ namespace WPF_UI
         //===========EVMC4U===========
         float BoneFilter = 1f;
         float BlendShapeFilter = 1f;
+        int Port = 0;
         private async void EVMC4U_Checked(object sender, RoutedEventArgs e)
         {
             float tmp = 0f;
+            int tmpInt = 0;
             if (EVMC4UBoneFilterValueTextBox != null && float.TryParse(EVMC4UBoneFilterValueTextBox.Text, out tmp))
             {
                 BoneFilter = tmp;
@@ -716,11 +720,28 @@ namespace WPF_UI
             {
                 BlendShapeFilter = tmp;
             }
+            if (EVMC4UPortTextBox != null && int.TryParse(EVMC4UPortTextBox.Text, out tmpInt))
+            {
+                Port = tmpInt;
+            }
+
+            if (EVMC4UEnableCheckBox != null && EVMC4UPortTextBox != null) {
+                EVMC4UPortTextBox.IsEnabled = !EVMC4UEnableCheckBox.IsChecked.Value;
+
+                //有効なときだけ反映する
+                if (EVMC4UPortTextBlock != null && WelcomePortTextBlock != null && EVMC4UEnableCheckBox.IsChecked.Value)
+                {
+                    EVMC4UPortTextBlock.Text = Port.ToString();
+                    WelcomePortTextBlock.Text = " "+Port.ToString();
+                }
+            }
 
             if (client != null)
             {
                 await client.SendCommandAsync(new PipeCommands.EVMC4UControl
                 {
+                    Enable = EVMC4UEnableCheckBox.IsChecked.Value,
+                    Port = Port,
                     Freeze = EVMC4UFreezeCheckBox.IsChecked.Value,
                     BoneFilterEnable = EVMC4UBoneFilterCheckBox.IsChecked.Value,
                     BlendShapeFilterEnable = EVMC4UBlendShapeFilterCheckBox.IsChecked.Value,
@@ -1091,6 +1112,7 @@ namespace WPF_UI
                 BackgroundValue3Slider.Value = s.BackgroundValue3Slider_Value;
                 BackgroundScaleSlider.Value = s.BackgroundScaleSlider_Value;
                 await Task.Delay(10);
+                EVMC4UPortTextBox.Text = s.EVMC4UPortTextBox_Text;
                 EVMC4UFreezeCheckBox.IsChecked = s.EVMC4UFreezeCheckBox_IsChecked_Value;
                 EVMC4UBoneFilterCheckBox.IsChecked = s.EVMC4UBoneFilterCheckBox_IsChecked_Value;
                 EVMC4UBlendShapeFilterCheckBox.IsChecked = s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value;
@@ -1149,6 +1171,11 @@ namespace WPF_UI
                 GamingBackgroundCheckBox.IsChecked = false;
                 GamingLightCheckBox.IsChecked = false;
                 GamingEnvironmentCheckBox.IsChecked = false;
+
+                //ポート反映
+                EVMC4UEnableCheckBox.IsChecked = false; //設定有効化のため一旦切る
+                await Task.Delay(500);
+                EVMC4UEnableCheckBox.IsChecked = s.EVMC4UEnableCheckBox_IsChecked_Value;
             });
         }
 
@@ -1180,6 +1207,8 @@ namespace WPF_UI
             s.BackgroundValue2Slider_Value = BackgroundValue2Slider.Value;
             s.BackgroundValue3Slider_Value = BackgroundValue3Slider.Value;
             s.BackgroundScaleSlider_Value = BackgroundScaleSlider.Value;
+            s.EVMC4UEnableCheckBox_IsChecked_Value = EVMC4UEnableCheckBox.IsChecked.Value;
+            s.EVMC4UPortTextBox_Text = EVMC4UPortTextBox.Text;
             s.EVMC4UFreezeCheckBox_IsChecked_Value = EVMC4UFreezeCheckBox.IsChecked.Value;
             s.EVMC4UBoneFilterCheckBox_IsChecked_Value = EVMC4UBoneFilterCheckBox.IsChecked.Value;
             s.EVMC4UBlendShapeFilterCheckBox_IsChecked_Value = EVMC4UBlendShapeFilterCheckBox.IsChecked.Value;
