@@ -29,7 +29,7 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. Configuration</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">Open waidayo's menu</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Set "Send Motion IP Address" below one.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Set "Send Motion Port" to 39009.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Set "Send Motion Port" to 39540.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">Please see below status.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo signal is OK.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">No waidayo signal detected.</system:String>

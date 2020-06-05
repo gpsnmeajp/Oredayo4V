@@ -29,7 +29,7 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 設定</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayoのメニューを開き</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Send Motion IP Addressを以下のいずれかに設定してください</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Send Motion Portを39009に設定してください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Send Motion Portを39540に設定してください。</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">正常に設定されると、以下の表示が変化します</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">正常に信号を受け取れています</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">信号が来ていません</system:String>

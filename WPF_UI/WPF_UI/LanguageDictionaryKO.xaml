@@ -30,7 +30,7 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 설정</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">"Send Motion IP Address"을 아래와 같이 설정해주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을 39009으로 설정해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을 39540으로 설정해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">하단의 상태를 확인해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo의 신호가 양호합니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">Waidayo의 신호를 찾을수없습니다.</system:String>
