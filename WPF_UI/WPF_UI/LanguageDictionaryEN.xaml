@@ -70,6 +70,8 @@
 	<system:String x:Key="Tab_Basic_LoadBackground">Background Object</system:String>
 	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">Extensions: png, vrm</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">Background Object Position</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">Capture Window</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">Target title</system:String>
 
 	<system:String x:Key="Tab_AdvancedSetting">Advanced</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>

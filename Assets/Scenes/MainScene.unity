@@ -1022,6 +1022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: uWC Window Object
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013424883394, guid: 2f55dbed71ab1a849aebe5c717f1de9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000011764941622, guid: 2f55dbed71ab1a849aebe5c717f1de9d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -71,7 +71,9 @@
 	<system:String x:Key="Tab_Basic_LoadBackground">배경 오브젝트</system:String>
 	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">확장자: png, vrm</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">배경 오브젝트 위치</system:String>
-
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">Capture Window</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">Target title</system:String>
+	
 	<system:String x:Key="Tab_AdvancedSetting">고급설정</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_Freeze">가만히</system:String>
