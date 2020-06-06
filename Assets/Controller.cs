@@ -67,6 +67,8 @@ public class Controller : MonoBehaviour
 
     public UnityCapture unityCapture;
 
+    public uWindowCapture.UwcWindowTexture uWC;
+
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
 
     GameObject backgroundObject;
@@ -221,6 +223,8 @@ public class Controller : MonoBehaviour
                 //TODO: 背景読み込み処理
                 if (d.filepath != null && d.filepath != "")
                 {
+                    uWC.gameObject.SetActive(false);
+
                     //VRMの場合
                     if (d.filepath.ToLower().EndsWith(".vrm"))
                     {
@@ -390,28 +394,59 @@ public class Controller : MonoBehaviour
                 var d = (PipeCommands.BackgroundObjectControl)e.Data;
                 lastBackgroundPos = d;
 
-                if (backgroundObject != null)
+                uWC.partialWindowTitle = d.windowTtitle;
+                if (d.windowCapture)
                 {
+                    if (!uWC.gameObject.activeSelf) {
+                        uWC.gameObject.SetActive(true);
+                        if (backgroundObject != null) {
+                            Destroy(backgroundObject);
+                            backgroundObject = null;
+                        }
+                    }
+
                     if (d.cameraTaget)
                     {
                         //カメラターゲット時は、カメラアームに
-                        backgroundObject.transform.SetParent(cameraArm, false);
+                        uWC.transform.SetParent(cameraArm, false);
                     }
                     else
                     {
                         //そうでないときは独立した位置に
-                        backgroundObject.transform.SetParent(rootLockerTransform, false);
+                        uWC.transform.SetParent(rootLockerTransform, false);
                     }
 
-                    backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
-                    backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+                    uWC.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
+                    uWC.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+                    uWC.scalePer1000Pixel = d.scale;
+                }
+                else {
+                    uWC.gameObject.SetActive(false);
 
-                    if (bgtexture != null)
+                    if (backgroundObject != null)
                     {
-                        backgroundObject.transform.localScale = new Vector3(d.scale, d.scale* (float)bgtexture.height / (float)bgtexture.width, d.scale);
-                    }
-                    else {
-                        backgroundObject.transform.localScale = new Vector3(d.scale, d.scale, d.scale);
+                        if (d.cameraTaget)
+                        {
+                            //カメラターゲット時は、カメラアームに
+                            backgroundObject.transform.SetParent(cameraArm, false);
+                        }
+                        else
+                        {
+                            //そうでないときは独立した位置に
+                            backgroundObject.transform.SetParent(rootLockerTransform, false);
+                        }
+
+                        backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
+                        backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
+
+                        if (bgtexture != null)
+                        {
+                            backgroundObject.transform.localScale = new Vector3(d.scale, d.scale * (float)bgtexture.height / (float)bgtexture.width, d.scale);
+                        }
+                        else
+                        {
+                            backgroundObject.transform.localScale = new Vector3(d.scale, d.scale, d.scale);
+                        }
                     }
                 }
             }

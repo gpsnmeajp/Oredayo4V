@@ -671,6 +671,9 @@ namespace WPF_UI
                     scale = (float)BackgroundScaleSlider.Value,
 
                     cameraTaget = BackgroundCameraTagetCheckBox.IsChecked.Value,
+
+                    windowCapture = BackgroundWindowCaptureCheckBox.IsChecked.Value,
+                    windowTtitle = BackgroundWindowTitleTextBox.Text,
                 });
             }
 
@@ -678,6 +681,12 @@ namespace WPF_UI
 
         }
         private void BackgroundChecked(object sender, RoutedEventArgs e)
+        {
+            //ただ転送する(お行儀悪い)
+            BackgroundSlider_ValueChanged(null, null);
+        }
+
+        private void Background_TextChanged(object sender, TextChangedEventArgs e)
         {
             //ただ転送する(お行儀悪い)
             BackgroundSlider_ValueChanged(null, null);
@@ -1127,6 +1136,9 @@ namespace WPF_UI
                 BackgroundValue3Slider.Value = s.BackgroundValue3Slider_Value;
                 BackgroundScaleSlider.Value = s.BackgroundScaleSlider_Value;
                 BackgroundCameraTagetCheckBox.IsChecked = s.BackgroundCameraTagetCheckBox_IsChecked_Value;
+                BackgroundWindowCaptureCheckBox.IsChecked = s.BackgroundWindowCaptureCheckBox_IsChecked_Value;
+                BackgroundWindowTitleTextBox.Text = s.BackgroundWindowTitleTextBox_Text;
+
                 await Task.Delay(10);
                 EVMC4UPortTextBox.Text = s.EVMC4UPortTextBox_Text;
                 EVMC4UFreezeCheckBox.IsChecked = s.EVMC4UFreezeCheckBox_IsChecked_Value;
@@ -1192,8 +1204,6 @@ namespace WPF_UI
                 EVMC4UEnableCheckBox.IsChecked = false; //設定有効化のため一旦切る
                 await Task.Delay(500);
                 EVMC4UEnableCheckBox.IsChecked = s.EVMC4UEnableCheckBox_IsChecked_Value;
-
-                Reload();
             });
         }
 
@@ -1226,6 +1236,9 @@ namespace WPF_UI
             s.BackgroundValue3Slider_Value = BackgroundValue3Slider.Value;
             s.BackgroundScaleSlider_Value = BackgroundScaleSlider.Value;
             s.BackgroundCameraTagetCheckBox_IsChecked_Value = BackgroundCameraTagetCheckBox.IsChecked.Value;
+            s.BackgroundWindowCaptureCheckBox_IsChecked_Value = BackgroundWindowCaptureCheckBox.IsChecked.Value;
+            s.BackgroundWindowTitleTextBox_Text = BackgroundWindowTitleTextBox.Text;
+
             s.EVMC4UEnableCheckBox_IsChecked_Value = EVMC4UEnableCheckBox.IsChecked.Value;
             s.EVMC4UPortTextBox_Text = EVMC4UPortTextBox.Text;
             s.EVMC4UFreezeCheckBox_IsChecked_Value = EVMC4UFreezeCheckBox.IsChecked.Value;

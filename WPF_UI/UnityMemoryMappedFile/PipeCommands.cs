@@ -87,6 +87,8 @@ namespace UnityMemoryMappedFile
             public float Pz { get; set; }
             public float scale { get; set; }
             public bool cameraTaget { get; set; }
+            public bool windowCapture { get; set; }
+            public string windowTtitle { get; set; }
         }
 
         //★詳細設定

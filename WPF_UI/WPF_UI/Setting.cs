@@ -37,6 +37,8 @@ namespace WPF_UI
 
         [DefaultValue(true)]
         public bool BackgroundCameraTagetCheckBox_IsChecked_Value { get; set; }
+        public bool BackgroundWindowCaptureCheckBox_IsChecked_Value { get; set; }
+        public string BackgroundWindowTitleTextBox_Text { get; set; }
 
         [DefaultValue(true)]
         public bool EVMC4UEnableCheckBox_IsChecked_Value { get; set; }

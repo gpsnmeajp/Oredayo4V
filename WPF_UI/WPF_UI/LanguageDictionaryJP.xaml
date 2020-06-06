@@ -69,6 +69,8 @@
 	<system:String x:Key="Tab_Basic_LoadBackground">背景読み込み</system:String>
 	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">対応拡張子: png, vrm</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">背景オブジェクト位置</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">ウィンドウキャプチャ</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">対象タイトル</system:String>
 
 	<system:String x:Key="Tab_AdvancedSetting">詳細</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>

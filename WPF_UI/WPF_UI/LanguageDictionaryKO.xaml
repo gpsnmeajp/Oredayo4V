@@ -154,6 +154,7 @@
 	<system:String x:Key="Gen_Install">설치</system:String>
 	<system:String x:Key="Gen_Uninstall">삭제</system:String>
 	<system:String x:Key="Gen_Enable">사용</system:String>
+	<system:String x:Key="Gen_CameraTarget">Based on camera</system:String>
 
 
 	<system:String x:Key="PPS_Enable">사용</system:String>

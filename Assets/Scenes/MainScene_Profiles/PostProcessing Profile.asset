@@ -33,7 +33,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   gradingMode:
     overrideState: 0
     value: 1
@@ -71,7 +71,7 @@ MonoBehaviour:
     value: 1
   temperature:
     overrideState: 1
-    value: 0
+    value: -58.252426
   tint:
     overrideState: 0
     value: -43
@@ -83,7 +83,7 @@ MonoBehaviour:
     value: 0
   saturation:
     overrideState: 1
-    value: 0
+    value: 45.954693
   brightness:
     overrideState: 0
     value: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     value: 5
   contrast:
     overrideState: 1
-    value: 0
+    value: -0.64724916
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -1344,13 +1344,13 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   intensity:
     overrideState: 1
-    value: 1
+    value: 13.621359
   threshold:
     overrideState: 1
-    value: 1
+    value: 1.1682848
   softKnee:
     overrideState: 0
     value: 0.5
@@ -1391,14 +1391,14 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   spectralLut:
     overrideState: 0
     value: {fileID: 0}
     defaultState: 1
   intensity:
     overrideState: 1
-    value: 0
+    value: 0.1503006
   fastMode:
     overrideState: 0
     value: 0
@@ -1417,7 +1417,7 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   mode:
     overrideState: 0
     value: 0
@@ -1429,13 +1429,13 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0
+    value: 0.46278316
   smoothness:
     overrideState: 1
-    value: 0.01
+    value: 0.26213592
   roundness:
     overrideState: 1
-    value: 0
+    value: 0.7281553
   rounded:
     overrideState: 0
     value: 0
@@ -1464,13 +1464,13 @@ MonoBehaviour:
     value: 0
   focusDistance:
     overrideState: 1
-    value: 10
+    value: 0
   aperture:
     overrideState: 1
-    value: 1
+    value: 0.1
   focalLength:
     overrideState: 1
     value: 1
   kernelSize:
     overrideState: 1
-    value: 1
+    value: 0

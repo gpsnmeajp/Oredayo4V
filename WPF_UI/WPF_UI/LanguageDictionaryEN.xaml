@@ -153,8 +153,9 @@
 	<system:String x:Key="Gen_Install">Install</system:String>
 	<system:String x:Key="Gen_Uninstall">Uninstall</system:String>
 	<system:String x:Key="Gen_Enable">Enable</system:String>
+	<system:String x:Key="Gen_CameraTarget">Based on camera</system:String>
 
-	
+
 	<system:String x:Key="PPS_Enable">Enable</system:String>
 	<system:String x:Key="PPS_Intensity">Intensity</system:String>
 	<system:String x:Key="PPS_Threshold">Threshold</system:String>
