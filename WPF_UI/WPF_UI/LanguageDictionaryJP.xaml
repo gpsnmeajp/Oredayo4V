@@ -152,6 +152,7 @@
 	<system:String x:Key="Gen_Install">インストール</system:String>
 	<system:String x:Key="Gen_Uninstall">アンインストール</system:String>
 	<system:String x:Key="Gen_Enable">有効</system:String>
+	<system:String x:Key="Gen_CameraTarget">カメラを基準にする</system:String>
 
 
 	<system:String x:Key="PPS_Enable">有効(Enable)</system:String>

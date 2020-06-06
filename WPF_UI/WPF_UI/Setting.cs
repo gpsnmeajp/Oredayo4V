@@ -34,6 +34,10 @@ namespace WPF_UI
         public double BackgroundValue2Slider_Value { get; set; }
         public double BackgroundValue3Slider_Value { get; set; }
         public double BackgroundScaleSlider_Value { get; set; }
+
+        [DefaultValue(true)]
+        public bool BackgroundCameraTagetCheckBox_IsChecked_Value { get; set; }
+
         [DefaultValue(true)]
         public bool EVMC4UEnableCheckBox_IsChecked_Value { get; set; }
         [DefaultValue(39540)]

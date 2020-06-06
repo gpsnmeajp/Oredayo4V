@@ -249,8 +249,18 @@ public class Controller : MonoBehaviour
                                     //最後に設定されていた位置に設定
                                     if (lastBackgroundPos != null)
                                     {
+                                        if (lastBackgroundPos.cameraTaget)
+                                        {
+                                            //カメラターゲット時は、カメラアームに
+                                            backgroundObject.transform.SetParent(cameraArm, false);
+                                        }
+                                        else {
+                                            //そうでないときは独立した位置に
+                                            backgroundObject.transform.SetParent(rootLockerTransform, false);
+                                        }
                                         backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
                                         backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
+                                        backgroundObject.transform.localScale = new Vector3(lastBackgroundPos.scale, lastBackgroundPos.scale, lastBackgroundPos.scale);
                                     }
                                     //その下にモデルをぶら下げる
                                     Model.transform.SetParent(backgroundObject.transform, false);
@@ -280,6 +290,16 @@ public class Controller : MonoBehaviour
                             //最後に設定されていた位置に設定
                             if (lastBackgroundPos != null)
                             {
+                                if (lastBackgroundPos.cameraTaget)
+                                {
+                                    //カメラターゲット時は、カメラアームに
+                                    backgroundObject.transform.SetParent(cameraArm, false);
+                                }
+                                else
+                                {
+                                    //そうでないときは独立した位置に
+                                    backgroundObject.transform.SetParent(rootLockerTransform, false);
+                                }
                                 backgroundObject.transform.localPosition = new Vector3(lastBackgroundPos.Px, lastBackgroundPos.Py, lastBackgroundPos.Pz);
                                 backgroundObject.transform.localRotation = Quaternion.Euler(lastBackgroundPos.Rx, lastBackgroundPos.Ry, lastBackgroundPos.Rz);
                             }
@@ -372,6 +392,17 @@ public class Controller : MonoBehaviour
 
                 if (backgroundObject != null)
                 {
+                    if (d.cameraTaget)
+                    {
+                        //カメラターゲット時は、カメラアームに
+                        backgroundObject.transform.SetParent(cameraArm, false);
+                    }
+                    else
+                    {
+                        //そうでないときは独立した位置に
+                        backgroundObject.transform.SetParent(rootLockerTransform, false);
+                    }
+
                     backgroundObject.transform.localPosition = new Vector3(d.Px, d.Py, d.Pz);
                     backgroundObject.transform.localRotation = Quaternion.Euler(d.Rx, d.Ry, d.Rz);
 
@@ -679,7 +710,7 @@ public class Controller : MonoBehaviour
                 bgtexture.filterMode = FilterMode.Trilinear;
                 renderer.material.mainTexture = bgtexture;
 
-                backgroundObject.transform.localScale = new Vector3(1f, (float)bgtexture.height/ (float)bgtexture.width, 0);
+                backgroundObject.transform.localScale = new Vector3(lastBackgroundPos.scale, lastBackgroundPos.scale * (float)bgtexture.height / (float)bgtexture.width, lastBackgroundPos.scale);
             }
         }
     }

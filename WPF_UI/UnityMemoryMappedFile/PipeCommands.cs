@@ -86,6 +86,7 @@ namespace UnityMemoryMappedFile
             public float Py { get; set; }
             public float Pz { get; set; }
             public float scale { get; set; }
+            public bool cameraTaget { get; set; }
         }
 
         //★詳細設定

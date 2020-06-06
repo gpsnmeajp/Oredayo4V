@@ -84,6 +84,29 @@ namespace WPF_UI
 
         //-----------システム系----------------
 
+        private void Reload() {
+            Dispatcher.Invoke(() =>
+            {
+                //デフォルト値送信
+                EVMC4U_Checked(null, null);
+                VRMLoadButton_Click(null, null);
+                BackgroundObjectLoadButton_Click(null, null);
+                CameraSlider_ValueChanged(null, null);
+                LightSlider_ValueChanged(null, null);
+                //BackgroundSlider_ValueChanged(null, null);
+                BackgroundChecked(null, null);
+                WindowOption_Checked(null, null);
+                RootPos_Checked(null, null);
+                ExternalControl_Checked(null, null);
+                UnityCaptureEnable_Checked(null, null);
+                //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
+                BackgroundColorPicker_SelectedColorChanged(null, null);
+                LightColorPicker_SelectedColorChanged(null, null);
+                EnvironmentColorPicker_SelectedColorChanged(null, null);
+                PostProcessingStackSlider_Checked(null, null);
+            });
+        }
+
         private void Client_Received(object sender, DataReceivedEventArgs e)
         {
             Dispatcher.Invoke(async () => {
@@ -101,25 +124,7 @@ namespace WPF_UI
                         Console.WriteLine(">Hello");
                         Console.WriteLine(lastStartTime);
 
-                        Dispatcher.Invoke(() =>
-                        {
-                            //デフォルト値送信
-                            EVMC4U_Checked(null, null);
-                            VRMLoadButton_Click(null, null);
-                            BackgroundObjectLoadButton_Click(null, null);
-                            CameraSlider_ValueChanged(null, null);
-                            LightSlider_ValueChanged(null, null);
-                            BackgroundSlider_ValueChanged(null, null);
-                            WindowOption_Checked(null, null);
-                            RootPos_Checked(null, null);
-                            ExternalControl_Checked(null, null);
-                            UnityCaptureEnable_Checked(null, null);
-                            //SEDSSServer_Checked(null, null); //SEDSSサーバーは起動時同期しない
-                            BackgroundColorPicker_SelectedColorChanged(null, null);
-                            LightColorPicker_SelectedColorChanged(null, null);
-                            EnvironmentColorPicker_SelectedColorChanged(null, null);
-                            PostProcessingStackSlider_Checked(null, null);
-                        });
+                        Reload();
                     }
                 }
                 else if (e.CommandType == typeof(PipeCommands.Bye))
@@ -499,6 +504,7 @@ namespace WPF_UI
         private async void BackgroundObjectLoadButton_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+            BackgroundChecked(null, null);
             Console.WriteLine("BackgroundObjectLoadButton_Click");
         }
 
@@ -514,6 +520,7 @@ namespace WPF_UI
             {
                 BackgroundObjectPathTextBox.Text = dlg.FileName;
                 await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+                BackgroundChecked(null,null);
                 Console.WriteLine("BackgroundObjectLoadFileSelectButton_Click");
             }
         }
@@ -662,10 +669,18 @@ namespace WPF_UI
                     Pz = (float)BackgroundValue3Slider.Value,
 
                     scale = (float)BackgroundScaleSlider.Value,
+
+                    cameraTaget = BackgroundCameraTagetCheckBox.IsChecked.Value,
                 });
             }
+
             Console.WriteLine("BackgroundSlider");
 
+        }
+        private void BackgroundChecked(object sender, RoutedEventArgs e)
+        {
+            //ただ転送する(お行儀悪い)
+            BackgroundSlider_ValueChanged(null, null);
         }
 
         private void BackgroundRotateXResetButton_Click(object sender, RoutedEventArgs e)
@@ -690,7 +705,7 @@ namespace WPF_UI
 
         private void BackgroundValue2ResetButton_Click(object sender, RoutedEventArgs e)
         {
-            BackgroundValue2Slider.Value = 1.4f;
+            BackgroundValue2Slider.Value = 0f;
         }
 
         private void BackgroundValue3ResetButton_Click(object sender, RoutedEventArgs e)
@@ -1111,6 +1126,7 @@ namespace WPF_UI
                 BackgroundValue2Slider.Value = s.BackgroundValue2Slider_Value;
                 BackgroundValue3Slider.Value = s.BackgroundValue3Slider_Value;
                 BackgroundScaleSlider.Value = s.BackgroundScaleSlider_Value;
+                BackgroundCameraTagetCheckBox.IsChecked = s.BackgroundCameraTagetCheckBox_IsChecked_Value;
                 await Task.Delay(10);
                 EVMC4UPortTextBox.Text = s.EVMC4UPortTextBox_Text;
                 EVMC4UFreezeCheckBox.IsChecked = s.EVMC4UFreezeCheckBox_IsChecked_Value;
@@ -1176,6 +1192,8 @@ namespace WPF_UI
                 EVMC4UEnableCheckBox.IsChecked = false; //設定有効化のため一旦切る
                 await Task.Delay(500);
                 EVMC4UEnableCheckBox.IsChecked = s.EVMC4UEnableCheckBox_IsChecked_Value;
+
+                Reload();
             });
         }
 
@@ -1207,6 +1225,7 @@ namespace WPF_UI
             s.BackgroundValue2Slider_Value = BackgroundValue2Slider.Value;
             s.BackgroundValue3Slider_Value = BackgroundValue3Slider.Value;
             s.BackgroundScaleSlider_Value = BackgroundScaleSlider.Value;
+            s.BackgroundCameraTagetCheckBox_IsChecked_Value = BackgroundCameraTagetCheckBox.IsChecked.Value;
             s.EVMC4UEnableCheckBox_IsChecked_Value = EVMC4UEnableCheckBox.IsChecked.Value;
             s.EVMC4UPortTextBox_Text = EVMC4UPortTextBox.Text;
             s.EVMC4UFreezeCheckBox_IsChecked_Value = EVMC4UFreezeCheckBox.IsChecked.Value;
@@ -1264,7 +1283,6 @@ namespace WPF_UI
             //ゲーミングは保存しない
             return s;
         }
-
 
     }
 }

@@ -451,6 +451,7 @@
 											<RowDefinition />
 											<RowDefinition />
 											<RowDefinition />
+											<RowDefinition />
 										</Grid.RowDefinitions>
 										<DockPanel Grid.Column="0" Grid.Row="0"  >
 											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_X_Rot}"/>
@@ -475,7 +476,7 @@
 										<DockPanel Grid.Column="1" Grid.Row="1"  >
 											<TextBlock Margin="5,5,5,5"   VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Y_Pos}"/>
 											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundValue2ResetButton" Margin="5,5,5,5"    Content="{DynamicResource Gen_Reset}" Click="BackgroundValue2ResetButton_Click"/>
-											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundValue2Slider"   Value="1.4" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
+											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundValue2Slider"   Value="0" Maximum="10" Minimum="-10"  ValueChanged="BackgroundSlider_ValueChanged" />
 										</DockPanel>
 										<DockPanel Grid.Column="1" Grid.Row="2"  >
 											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Z_Pos}"/>
@@ -486,6 +487,9 @@
 											<TextBlock Margin="5,5,5,5"  VerticalAlignment="Center" Foreground="#444444"   Text="{DynamicResource Gen_Scale}"/>
 											<Button VerticalAlignment="Center" Style="{DynamicResource MaterialDesignToolButton}"  DockPanel.Dock="Right" HorizontalAlignment="Right" Name="BackgroundScaleResetButton" Margin="5,5,5,5"   Content="{DynamicResource Gen_Reset}" Click="BackgroundScaleResetButton_Click"/>
 											<Slider Margin="5,5,5,5"  VerticalAlignment="Center"  Name="BackgroundScaleSlider"   Value="1" Maximum="10" Minimum="0"  ValueChanged="BackgroundSlider_ValueChanged" />
+										</DockPanel>
+										<DockPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" >
+											<CheckBox DockPanel.Dock="Left" Foreground="#444444" IsChecked="True"  Name="BackgroundCameraTagetCheckBox" VerticalAlignment="Center" Margin="5,5,5,5" Content="{DynamicResource Gen_CameraTarget}" Checked="BackgroundChecked"  Unchecked="BackgroundChecked" />
 										</DockPanel>
 									</Grid>
 								</DockPanel>
