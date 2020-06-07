@@ -91,26 +91,29 @@
 													</DockPanel>
 												</Grid>
 											</TabItem>
-											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_4}">
-												<Grid>
-													<DockPanel Margin="5,5,5,5">
-														<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_1}"/>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_2}"/>
-														<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
-														<DockPanel DockPanel.Dock="Top">
-															<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3}"/>
-															<TextBlock Name="WelcomePortTextBlock" VerticalAlignment="Center" Foreground="#333333" Text="39540"/>
-															<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3_2}"/>
-														</DockPanel>
-														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_4}"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_OK}"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_NG}"/>
-														<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_ER}"/>
-													</DockPanel>
-												</Grid>
-											</TabItem>
 										</TabControl>
+									</DockPanel>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<DockPanel Margin="5,5,5,5">
+										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Waidayo_2_4}"></TextBlock>
+										<DockPanel Margin="5,5,5,5">
+											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_0}"/>
+											<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Top" Content="{DynamicResource Tab_Welcome_Waidayo_2_4_AutoConfig}" Click="AutoConfig_Click" />
+											<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
+											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_1}"/>
+											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_2}"/>
+											<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
+											<DockPanel DockPanel.Dock="Top">
+												<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3}"/>
+												<TextBlock Name="WelcomePortTextBlock" VerticalAlignment="Center" Foreground="#333333" Text="39540"/>
+												<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3_2}"/>
+											</DockPanel>
+											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_4}"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_OK}"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_NG}"/>
+											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_ER}"/>
+										</DockPanel>
 									</DockPanel>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >

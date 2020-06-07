@@ -179,8 +179,36 @@ public class Controller : MonoBehaviour
                 Debug.Log(">Bye");
             }
             //-----------基本設定----------------
+            //===========探索===========
+            else if (e.CommandType == typeof(PipeCommands.DiscoverRequest))
+            {
+                var d = (PipeCommands.DiscoverRequest)e.Data;
+
+                //探索開始
+                var req = GetComponent<EasyDeviceDiscoveryProtocolClient.Requester>();
+                req.StartDiscover(() =>
+                {
+                    //次のデバイスに更新されないうちに取得しておく
+                    string ip = req.responseIpAddress;
+                    int port = req.responseServicePort;
+                    string name = req.deivceName;
+                    int found = req.foundDevices;
+
+                    //探索完了
+                    synchronizationContext.Post(async (a) =>
+                    {
+                        await server.SendCommandAsync(new PipeCommands.DiscoverResponse {
+                            ip = ip,
+                            port = port,
+                            name = name,
+                            found = found,
+                        });
+                    },null);
+                });
+            }
+
             //===========VRMライセンス応答===========
-            if (e.CommandType == typeof(PipeCommands.VRMLicenceAnser))
+            else if (e.CommandType == typeof(PipeCommands.VRMLicenceAnser))
             {
                 var d = (PipeCommands.VRMLicenceAnser)e.Data;
                 if (d.Agree)

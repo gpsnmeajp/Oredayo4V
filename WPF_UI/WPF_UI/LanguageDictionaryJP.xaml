@@ -27,6 +27,10 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayoを一度終了し、再度起動してください。</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">　 アバターが変わっていれば転送完了です。</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 設定</system:String>
+
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">自動設定を試し、うまく動かない場合は、以下の手順に従ってください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">自動設定</system:String>
+
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayoのメニューを開き</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Send Motion IP Addressを以下のいずれかに設定してください</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Send Motion Portを</system:String>

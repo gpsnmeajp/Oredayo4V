@@ -367,6 +367,11 @@ namespace WPF_UI
             });
         }
 
+        private async void AutoConfig_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.DiscoverRequest { });
+        }
+
         private void Preset1_Cliecked(object sender, RoutedEventArgs e)
         {
             LoadSettingFromFile("Preset1.json");

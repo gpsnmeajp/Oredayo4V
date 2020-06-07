@@ -198,6 +198,7 @@ namespace UnityMemoryMappedFile
 
         public class VRMLicenceCheck{}
 
+        public class DiscoverRequest {}
 
         //From Unity
         public class LogMessage
@@ -220,5 +221,13 @@ namespace UnityMemoryMappedFile
         {
             public bool Agree { get; set; }
         }
+
+        public class DiscoverResponse {
+            public string name { get; set; }
+            public string ip { get; set; }
+            public int port { get; set; }
+            public int found { get; set; }
+        }
+
     }
 }

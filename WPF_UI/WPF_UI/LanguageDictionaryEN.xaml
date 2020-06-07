@@ -27,6 +27,10 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. Restart your waidayo app.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. Configuration</system:String>
+
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">If Auto set won't work, please below setting manually.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">Auto set</system:String>
+
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">Open waidayo's menu</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Set "Send Motion IP Address" below one.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Set "Send Motion Port" to </system:String>
