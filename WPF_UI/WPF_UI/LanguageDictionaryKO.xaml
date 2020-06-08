@@ -29,8 +29,8 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 설정</system:String>
 
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">If Auto set won't work, please below setting manually.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">Auto set</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">만약 자동설정이 정상적으로 진행되지않는경우 아래의 메뉴얼을 따라와주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig"자동설정</system:String>
 
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">"Send Motion IP Address"을 아래와 같이 설정해주세요.</system:String>
@@ -75,8 +75,8 @@
 	<system:String x:Key="Tab_Basic_LoadBackground">배경 오브젝트</system:String>
 	<system:String x:Key="Tab_Basic_LoadBackgroundTypes">확장자: png, vrm</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">배경 오브젝트 위치</system:String>
-	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">Capture Window</system:String>
-	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">Target title</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">윈도우 창 캡쳐</system:String>
+	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">응용프로그램 이름</system:String>
 	
 	<system:String x:Key="Tab_AdvancedSetting">고급설정</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
