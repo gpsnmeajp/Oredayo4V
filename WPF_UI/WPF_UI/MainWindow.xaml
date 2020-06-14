@@ -18,7 +18,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 	
-        Title="Oredayo UI v0.4 beta" Height="870" Width="650" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Oredayo UI v0.5 beta" Height="870" Width="650" Closed="Window_Closed" Loaded="Window_Loaded" Closing="Window_Closing" KeyDown="Windows_KeyDown">
 	<!--        		TextElement.FontFamily="Yu Gothic"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 -->

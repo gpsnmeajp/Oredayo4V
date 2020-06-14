@@ -90,10 +90,6 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">仮想Webカメラ (UnityCapture)</system:String>
 
-
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS サーバー</system:String>
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">送受信を許可する</system:String>
-
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS クライアント</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_FromWaidayo">←waidayo設定画面にあります</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_RestartWaidayo">うまくいかないときは、waidayoを再起動してみてください</system:String>

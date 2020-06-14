@@ -6,8 +6,6 @@
 
 	<system:String x:Key="Tab_Welcome">Welcome</system:String>
 	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Start Oredayo4V</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayo4V is running.</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Please restart Oredayo4V.</system:String>
 	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Force restart Oredayo4V</system:String>
 
 	<system:String x:Key="Tab_Welcome_Waidayo">2. Setup waidayo</system:String>
@@ -26,26 +24,19 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. Restart your waidayo app.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Connect to waidayo</system:String>
 
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Connect to waidayo</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">If Auto set won't work, please try setting manually.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">Auto set</system:String>
-
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">Open waidayo's menu</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Set "Send Motion IP Address" below one.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Set "Send Motion Port" to </system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3_2">.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">Please see below status.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo signal is OK.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">No waidayo signal detected.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayo is not runnning.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_DS">EVMC4U Disabled.</system:String>
 
 	<system:String x:Key="Tab_Welcome_LoadVRM">3. Load VRM</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_1">Please load VRM file same as waidayo</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_2">Send Avator to waidayo</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_Button">Load VRM</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRM is loaded.</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRM is not loaded.</system:String>
 
 	<system:String x:Key="Tab_Welcome_Preset">4. Effect</system:String>
 	<system:String x:Key="Tab_Welcome_Preset1">Green back</system:String>
@@ -55,7 +46,6 @@
 
 	<system:String x:Key="Tab_Welcome_SNS">5. PR</system:String>
 	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">Question only anser in Discord.</system:String>
-
 
 	<system:String x:Key="Tab_BasicSetting">Basic</system:String>
 	<system:String x:Key="Tab_Basic_SettingFiles">Configuration</system:String>
@@ -100,11 +90,10 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">Virtual Web Camera (UnityCapture)</system:String>
 
-
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS Server</system:String>
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">Permit To Send And Receive</system:String>
-	
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS Client</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_FromWaidayo">← See waidayo's setting screen</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_RestartWaidayo">If it dosen't work, please restart waidayo app.</system:String>
+
 
 	<system:String x:Key="Tab_Color1">Color</system:String>
 	<system:String x:Key="Tab_Color2">Color</system:String>
@@ -164,6 +153,9 @@
 
 	<system:String x:Key="Gen_AutoSetup">Auto</system:String>
 	<system:String x:Key="Gen_ManualSetup">Manual</system:String>
+	<system:String x:Key="Gen_Avatar_PIN_Code">Avatar PIN Code</system:String>
+	<system:String x:Key="Gen_SendToWaidayo">Send to waidayo</system:String>
+	<system:String x:Key="Gen_ReceiveFromWaidayo">Get from waidayo</system:String>
 
 	<system:String x:Key="PPS_Enable">Enable</system:String>
 	<system:String x:Key="PPS_Intensity">Intensity</system:String>
@@ -187,22 +179,3 @@
 
 
 </ResourceDictionary>
-<!--
-	<system:String x:Key="">
-	</system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	<system:String x:Key=""></system:String>
-	-->

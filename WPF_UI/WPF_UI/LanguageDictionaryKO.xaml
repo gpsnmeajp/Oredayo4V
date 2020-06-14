@@ -2,13 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WPF_UI"
 					xmlns:system="clr-namespace:System;assembly=mscorlib"
-					x:Name="Lang_KO"
-					>
+					x:Name="Lang_KO">
 
 	<system:String x:Key="Tab_Welcome">환영합니다</system:String>
 	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayo4V를 실행해주세요</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayo4V가 작동되고있습니다.</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayo4V를 재시작 해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayo4V를 재시작</system:String>
 
 	<system:String x:Key="Tab_Welcome_Waidayo">2. waidayo를 설정합니다</system:String>
@@ -27,26 +24,19 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayo 어플리케이션을 재시작해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Connect to waidayo</system:String>
 
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Connect to waidayo</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">If Auto set won't work, please try setting manually.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">자동설정</system:String>
-
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">"Send Motion IP Address"을 아래와 같이 설정해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3_2">으로 설정해주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">하단의 상태를 확인해주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo의 신호가 양호합니다.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">Waidayo의 신호를 찾을수없습니다.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayo가 실행중이지 않습니다.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_DS">EVMC4U Disabled.</system:String>
 
 	<system:String x:Key="Tab_Welcome_LoadVRM">3. VRM 불러오기</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_1">Waidayo 와 같은 VRM file을 불러와주세요</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_2">Send Avator to waidayo</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_Button">VRM 불러오기</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRM 을 정상적으로 불러왔습니다.</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRM 을 불러올수 없습니다.</system:String>
 
 	<system:String x:Key="Tab_Welcome_Preset">4. 효과</system:String>
 	<system:String x:Key="Tab_Welcome_Preset1">그린스크린</system:String>
@@ -56,7 +46,6 @@
 
 	<system:String x:Key="Tab_Welcome_SNS">5. PR</system:String>
 	<system:String x:Key="Tab_Welcome_SNS_DiscordHelp">질문사항들은 Discord로 전달받고있습니다.</system:String>
-
 
 	<system:String x:Key="Tab_BasicSetting">기본</system:String>
 	<system:String x:Key="Tab_Basic_SettingFiles">설정</system:String>
@@ -101,12 +90,11 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_UnityCapture">가상 웹 카메라 (Unity캡쳐)</system:String>
 
-
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS 서버</system:String>
-	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">송신 및 수신 허용</system:String>
-
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS 클라이언트</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_FromWaidayo">← See waidayo's setting screen</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_RestartWaidayo">If it dosen't work, please restart waidayo app.</system:String>
 
+	
 	<system:String x:Key="Tab_Color1">색 조정</system:String>
 	<system:String x:Key="Tab_Color2">색 조정</system:String>
 
@@ -165,7 +153,9 @@
 
 	<system:String x:Key="Gen_AutoSetup">Auto</system:String>
 	<system:String x:Key="Gen_ManualSetup">Manual</system:String>
-
+	<system:String x:Key="Gen_Avatar_PIN_Code">Avatar PIN Code</system:String>
+	<system:String x:Key="Gen_SendToWaidayo">Send to waidayo</system:String>
+	<system:String x:Key="Gen_ReceiveFromWaidayo">Get from waidayo</system:String>
 
 	<system:String x:Key="PPS_Enable">사용</system:String>
 	<system:String x:Key="PPS_Intensity">강도</system:String>

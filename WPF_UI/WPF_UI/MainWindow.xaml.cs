@@ -72,31 +72,56 @@ namespace WPF_UI
         private bool FoundOnce = false; //接続されたか
         private int DiscoverTimer = 0;
 
+        private void Windows_KeyDown(object sender, KeyEventArgs e)
+        {
+            /*
+            //デバッグ用言語切替
+            if (e.Key == Key.A)
+            {
+                SetLangDict(0);
+            }
+            if (e.Key == Key.S)
+            {
+                SetLangDict(1);
+            }
+            if (e.Key == Key.D)
+            {
+                SetLangDict(2);
+            }
+            */
+        }
 
         System.Windows.Media.Color ToWPFColor(System.Drawing.Color c)
         {
             return System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B);
         }
 
-        public MainWindow()
+        void SetLangDict(int num)
         {
-            InitializeComponent();
-
-            if (dics == null) {
-                dics = new ResourceDictionary[Application.Current.Resources.MergedDictionaries.Count];
-                Application.Current.Resources.MergedDictionaries.CopyTo(dics, 0);
-            }
-
             Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
             Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
             Application.Current.Resources.MergedDictionaries.Remove(dics[2]); //KO
 
-            Application.Current.Resources.MergedDictionaries.Add(dics[0]); //JP
+            Application.Current.Resources.MergedDictionaries.Add(dics[num]); //JP
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            if (dics == null)
+            {
+                dics = new ResourceDictionary[Application.Current.Resources.MergedDictionaries.Count];
+                Application.Current.Resources.MergedDictionaries.CopyTo(dics, 0);
+            }
+
+            SetLangDict(0);//JP
         }
 
         //-----------システム系----------------
 
-        private void Reload() {
+        private void Reload()
+        {
             Dispatcher.Invoke(async () =>
             {
                 //デフォルト値送信
@@ -189,7 +214,8 @@ namespace WPF_UI
                             Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightPink));
                             Welcome2Expander.IsExpanded = true;
                         }
-                        else {
+                        else
+                        {
                             Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
                             Welcome2Expander.IsExpanded = true;
                         }
@@ -245,7 +271,8 @@ namespace WPF_UI
                     {
                         SEDSS_Client_Card.Background = new SolidColorBrush(Color.FromArgb(255, 219, 255, 223));
                     }
-                    else {
+                    else
+                    {
                         SEDSS_Client_Card.Background = new SolidColorBrush(Color.FromArgb(255, 255, 235, 235));
                     }
                 }
@@ -264,7 +291,8 @@ namespace WPF_UI
                     DefaultValueHandling = DefaultValueHandling.Populate //デフォルト値を使用する
                 });
             }
-            else {
+            else
+            {
                 commonSetting = new Common();
                 SaveCommonSetting();
             }
@@ -322,16 +350,19 @@ namespace WPF_UI
             //IPアドレス取得
             IPAddress[] ips = Dns.GetHostAddresses(Dns.GetHostName());
             string ipList = "";
-            foreach (var ip in ips) {
+            foreach (var ip in ips)
+            {
                 //IPv4のみ
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) { 
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
                     ipList += ip.ToString() + "\n";
                 }
             }
             WelcomeIPAddressTextBlock.Text = ipList.Trim();
 
             //クイックセーブを起動時に読み込む
-            if (File.Exists("QuickSetting.json")) {
+            if (File.Exists("QuickSetting.json"))
+            {
                 Setting s = LoadSettingFromFile("QuickSetting.json");
                 //起動時のみ言語を反映する
                 LanguageComboBox.SelectedIndex = s.LanguageComboBox_SelectedIndex;
@@ -381,7 +412,8 @@ namespace WPF_UI
             */
 
             //3秒おきに探索
-            if (FoundOnce == false && DiscoverTimer>3*30) {
+            if (FoundOnce == false && DiscoverTimer > 3 * 30)
+            {
                 Console.WriteLine("AutoDiscoverRequest");
                 Task.Run(async () =>
                 {
@@ -513,13 +545,10 @@ namespace WPF_UI
             //言語切替
             if (dics != null)
             {
-                Application.Current.Resources.MergedDictionaries.Remove(dics[0]); //JP
-                Application.Current.Resources.MergedDictionaries.Remove(dics[1]); //EN
-                Application.Current.Resources.MergedDictionaries.Remove(dics[2]); //KO
-
-                Application.Current.Resources.MergedDictionaries.Add(dics[LanguageComboBox.SelectedIndex]);
+                SetLangDict(LanguageComboBox.SelectedIndex);
             }
         }
+
         //===========設定読み込み==========
 
         private void QuickSaveButton_Click(object sender, RoutedEventArgs e)
@@ -540,10 +569,12 @@ namespace WPF_UI
             LoadSettingFromFile("QuickSetting.json");
         }
 
-        Setting LoadSettingFromFile(string path) {
+        Setting LoadSettingFromFile(string path)
+        {
             if (File.Exists(path))
             {
-                Setting s = JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false)),new JsonSerializerSettings {
+                Setting s = JsonConvert.DeserializeObject<Setting>(File.ReadAllText(path, new UTF8Encoding(false)), new JsonSerializerSettings
+                {
                     DefaultValueHandling = DefaultValueHandling.Populate //デフォルト値を使用する
                 });
                 LoadSetting(s);
@@ -637,7 +668,7 @@ namespace WPF_UI
             {
                 BackgroundObjectPathTextBox.Text = dlg.FileName;
                 await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = false });
-                BackgroundChecked(null,null);
+                BackgroundChecked(null, null);
                 Console.WriteLine("BackgroundObjectLoadFileSelectButton_Click");
             }
         }
@@ -866,14 +897,15 @@ namespace WPF_UI
                 Port = tmpInt;
             }
 
-            if (EVMC4UEnableCheckBox != null && EVMC4UPortTextBox != null) {
+            if (EVMC4UEnableCheckBox != null && EVMC4UPortTextBox != null)
+            {
                 EVMC4UPortTextBox.IsEnabled = !EVMC4UEnableCheckBox.IsChecked.Value;
 
                 //有効なときだけ反映する
                 if (EVMC4UPortTextBlock != null && WelcomePortTextBlock != null && EVMC4UEnableCheckBox.IsChecked.Value)
                 {
                     EVMC4UPortTextBlock.Text = Port.ToString();
-                    WelcomePortTextBlock.Text = " "+Port.ToString();
+                    WelcomePortTextBlock.Text = " " + Port.ToString();
                 }
             }
 
