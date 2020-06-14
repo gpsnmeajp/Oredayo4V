@@ -73,7 +73,7 @@ public class Controller : MonoBehaviour
 
     GameObject backgroundObject;
 
-    SEDSS_Server sedss_server;
+    //SEDSS_Server sedss_server;
     SEDSS_Client sedss_client;
     MemoryMappedFileServer server;
 
@@ -96,8 +96,8 @@ public class Controller : MonoBehaviour
     void Start()
     {
         synchronizationContext = SynchronizationContext.Current;
-        sedss_server = GetComponent<SEDSS_Server>();
-        sedss_server.SetPassword(null);
+        //sedss_server = GetComponent<SEDSS_Server>();
+        //sedss_server.SetPassword(null);
         sedss_client = GetComponent<SEDSS_Client>();
         sedss_client.SetPassword(null);
 
@@ -124,7 +124,7 @@ public class Controller : MonoBehaviour
     {
         Application.logMessageReceived -= ApplicationLogHandler;
         Application.logMessageReceivedThreaded -= ApplicationLogHandler;
-        sedss_server.StopServer();
+        //sedss_server.StopServer();
 
         synchronizationContext.Post(async (arg) =>
         {
@@ -200,6 +200,7 @@ public class Controller : MonoBehaviour
                     //探索完了
                     synchronizationContext.Post(async (a) =>
                     {
+                        Debug.Log("DiscoverResponse");
                         await server.SendCommandAsync(new PipeCommands.DiscoverResponse {
                             ip = ip,
                             port = port,
@@ -544,6 +545,7 @@ public class Controller : MonoBehaviour
             }
 
             //===========SEDSSサーバー===========
+            /*
             else if (e.CommandType == typeof(PipeCommands.SEDSSServerControl))
             {
                 var d = (PipeCommands.SEDSSServerControl)e.Data;
@@ -582,6 +584,7 @@ public class Controller : MonoBehaviour
                     }
                 };
             }
+            */
 
             //===========SEDSSクライアント===========
             else if (e.CommandType == typeof(PipeCommands.SEDSSClientRequestCommand))
@@ -601,9 +604,18 @@ public class Controller : MonoBehaviour
                         sedss_client.Download(d.ID, (bytes, id) => {
                             Debug.Log("[SEDSS Client] ダウンロード完了");
                             externalReceiver.LoadVRMFromData(bytes);
+
+                            synchronizationContext.Post(async (a) =>
+                            {
+                                await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = true });
+                            }, null);
                         }, (err, id) =>
                         {
                             Debug.LogError("[SEDSS Client] ダウンロード失敗(通信異常,パスワード誤り)");
+                            synchronizationContext.Post(async (a) =>
+                            {
+                                await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                            }, null);
                         });
                     }
                     else if (d.RequestType == PipeCommands.SEDSS_RequestType.Upload)
@@ -614,22 +626,42 @@ public class Controller : MonoBehaviour
                             sedss_client.Upload(data, d.ID, (id) =>
                             {
                                 Debug.Log("[SEDSS Client] アップロード完了");
+                                synchronizationContext.Post(async (a) =>
+                                {
+                                    await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = true });
+                                }, null);
                             }, (err, id) =>
                             {
                                 Debug.LogError("[SEDSS Client] アップロード失敗(通信異常,パスワード誤り)");
+                                synchronizationContext.Post(async (a) =>
+                                {
+                                    await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                                }, null);
                             });
                         }
                         else {
                             Debug.LogError("アップロードファイルが存在しません");
+                            synchronizationContext.Post(async (a) =>
+                            {
+                                await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                            }, null);
                         }
                     }
                     else
                     {
                         Debug.LogError("不正なリクエスト");
+                        synchronizationContext.Post(async (a) =>
+                        {
+                            await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                        }, null);
                     }
                 }
                 else {
                     Debug.LogError("不正なポート番号");
+                    synchronizationContext.Post(async (a) =>
+                    {
+                        await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                    }, null);
                 }
             }
 
@@ -732,7 +764,7 @@ public class Controller : MonoBehaviour
 
     float nextTime = 0;
     float lastEVMC4UTime = 0;
-    int failCount = 0;
+    int failCount = int.MaxValue;
     void Update()
     {
         //KeepAlive 
@@ -750,7 +782,9 @@ public class Controller : MonoBehaviour
             //通信が行われていれば常に時刻は更新される
             if (communicationValidator.time == lastEVMC4UTime)
             {
-                failCount++;
+                if (failCount < int.MaxValue) {
+                    failCount++;
+                }
             }
             else {
                 failCount = 0;

@@ -466,7 +466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563925792}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3646533, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 170076735}
@@ -882,7 +882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192415741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3646533, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 534669905}
@@ -913,7 +913,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1421948527}
   - component: {fileID: 1421948526}
-  - component: {fileID: 1421948528}
   - component: {fileID: 1421948529}
   - component: {fileID: 1421948530}
   - component: {fileID: 1421948531}
@@ -968,20 +967,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1421948528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1421948525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbc892bed9538e4a9068f541512e194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  domain: '*'
-  port: 39008
 --- !u!114 &1421948529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,6 +1013,7 @@ MonoBehaviour:
   deivceName: Oredayo4V
   servicePort: 39540
   responseIpAddress: 
+  responseProtocolVersion: 0
   foundDevices: 0
   responseDeviceName: 
   responseServicePort: 0

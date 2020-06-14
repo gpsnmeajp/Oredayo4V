@@ -133,12 +133,14 @@ namespace UnityMemoryMappedFile
         {
             public bool Enable { get; set; }
         }
+        /*
         public class SEDSSServerControl
         {
             public bool Enable { get; set; }
             public string Password { get; set; }
             public string ExchangeFilePath { get; set; }
         }
+        */
         public class SEDSSClientRequestCommand
         {
             public SEDSS_RequestType RequestType { get; set; }
@@ -233,6 +235,10 @@ namespace UnityMemoryMappedFile
             public string ip { get; set; }
             public int port { get; set; }
             public int found { get; set; }
+        }
+        public class SEDSSResult
+        {
+            public bool ok { get; set; }
         }
 
     }

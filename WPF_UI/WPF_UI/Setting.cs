@@ -57,6 +57,7 @@ namespace WPF_UI
         public bool BackgroundRootPosLockCheckBox_IsChecked_Value { get; set; }
         public bool OBSExternalControl_CheckBox_IsChecked_Value { get; set; }
         public bool UnityCaptureEnable_CheckBox_IsChecked_Value { get; set; }
+/*
         public string SEDSSServerPasswordTextBox_Password { get; set; }
         public string SEDSSServerExchangeFilePathTextBox_Text { get; set; }
         public string SEDSSClientAddressTextBox_Text { get; set; }
@@ -64,6 +65,7 @@ namespace WPF_UI
         public string SEDSSClientPasswordTextBox_Password { get; set; }
         public string SEDSSClientIDTextBox_Text { get; set; }
         public string SEDSSClientUploadFilePathTextBox_Text { get; set; }
+*/
         public byte BackgroundColorPicker_SelectedColor_R { get; set; }
         public byte BackgroundColorPicker_SelectedColor_G { get; set; }
         public byte BackgroundColorPicker_SelectedColor_B { get; set; }

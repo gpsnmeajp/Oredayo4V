@@ -38,45 +38,118 @@
 						<GroupBox Header="{DynamicResource Tab_Welcome}" BorderThickness="0"  materialDesign:ColorZoneAssist.Mode="PrimaryDark">
 							<StackPanel>
 								<materialDesign:Card Margin="5,5,5,5">
-									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_LaunchOredayo}"/>
-										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsRunningTextBlock"  TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_LaunchOredayo_OK}"/>
-										<TextBlock Margin="5,5,5,5" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeOredayoIsNotRunningTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_LaunchOredayo_NG}"/>
-										<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="{DynamicResource Tab_Welcome_LaunchOredayo_Restart}" Click="LaunchOredayo_Click" />
-									</DockPanel>
+									<Expander Name="Welcome1Expander" Header="{DynamicResource Tab_Welcome_LaunchOredayo}" Foreground="#333333" IsExpanded="True" Expanded="WelcomeExpanded" Collapsed="WelcomeExpanded">
+										<DockPanel Margin="5,5,5,5">
+											<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Bottom" Content="{DynamicResource Tab_Welcome_LaunchOredayo_Restart}" Click="LaunchOredayo_Click" />
+										</DockPanel>
+									</Expander>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
-									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Waidayo}"/>
-										<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
-											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_1}">
-												<Grid>
-													<DockPanel Margin="5,5,5,5">
-														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_1}"/>
-														<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_2}"/>
-														<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
-															<Grid.ColumnDefinitions>
-																<ColumnDefinition/>
-																<ColumnDefinition Width="0.4*"/>
-															</Grid.ColumnDefinitions>
-															<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
-															<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
-														</Grid>
-														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
+									<Expander Name="Welcome2Expander" Header="{DynamicResource Tab_Welcome_Waidayo}" Foreground="#333333" IsExpanded="True" Expanded="WelcomeExpanded" Collapsed="WelcomeExpanded">
+										<DockPanel Margin="5,5,5,5">
+											<TabControl DockPanel.Dock="Top" Name="WelcomeWaidayoTabControl" Background="LightYellow">
+												<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_1}">
+													<Grid>
+														<DockPanel Margin="5,5,5,5">
+															<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_1}"/>
+															<TextBlock DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_1_2}"/>
+															<Grid DockPanel.Dock="Top" HorizontalAlignment="Center" MaxWidth="400">
+																<Grid.ColumnDefinitions>
+																	<ColumnDefinition/>
+																	<ColumnDefinition Width="0.4*"/>
+																</Grid.ColumnDefinitions>
+																<Image Grid.Column="0" Source="Resources/waidayo_logo.png" />
+																<Image Grid.Column="1" Source="Resources/waidayo_qr.png" />
+															</Grid>
+															<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}" Margin="3,3,3,3" Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
+														</DockPanel>
+													</Grid>
+												</TabItem>
+												<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_2}">
+													<Grid>
+														<DockPanel Margin="5,5,5,5">
+															<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_2_1}"/>
+															<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
+														</DockPanel>
+													</Grid>
+												</TabItem>
+												<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_4}">
+													<Grid>
+														<DockPanel Margin="5,5,5,5">
+															<TabControl DockPanel.Dock="Top" Background="LightYellow">
+																<TabItem  Header="{DynamicResource Gen_AutoSetup}">
+																	<DockPanel Margin="5,5,5,5">
+																		<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_0}"/>
+																		<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Top" Content="{DynamicResource Tab_Welcome_Waidayo_2_4_AutoConfig}" Click="AutoConfig_Click" />
+																	</DockPanel>
+																</TabItem>
+																<TabItem  Header="{DynamicResource Gen_ManualSetup}">
+																	<DockPanel Margin="5,5,5,5">
+																		<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
+																		<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_1}"/>
+																		<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_2}"/>
+																		<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
+																		<DockPanel DockPanel.Dock="Top">
+																			<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3}"/>
+																			<TextBlock Name="WelcomePortTextBlock" VerticalAlignment="Center" Foreground="#333333" Text="39540"/>
+																			<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3_2}"/>
+																		</DockPanel>
+																	</DockPanel>
+																</TabItem>
+															</TabControl>
+														</DockPanel>
+													</Grid>
+												</TabItem>
+											</TabControl>
+										</DockPanel>
+									</Expander>
+								</materialDesign:Card>
+								<materialDesign:Card Margin="5,5,5,5" >
+									<Expander Name="Welcome3Expander" Header="{DynamicResource Tab_Welcome_LoadVRM}" Foreground="#333333" IsExpanded="True" Expanded="WelcomeExpanded" Collapsed="WelcomeExpanded">
+										<DockPanel>
+											<TabControl DockPanel.Dock="Top" Background="LightYellow">
+												<TabItem  Header="{DynamicResource Gen_AutoSetup}">
+													<DockPanel Margin="5,5,5,5" DockPanel.Dock="Top">
+														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top">
+															<DockPanel Margin="5,5,5,5">
+																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectButton_Click" />
+															</DockPanel>
+														</materialDesign:Card>
+														<materialDesign:Card Margin="5,5,5,5" Name="SEDSS_Client_Card">
+															<DockPanel Margin="5,5,5,5">
+																<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_Welcome_LoadVRM_2}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
+																<Grid  Margin="10,0,10,10">
+																	<Grid.ColumnDefinitions>
+																		<ColumnDefinition MinWidth="150"/>
+																		<ColumnDefinition/>
+																		<ColumnDefinition/>
+																		<ColumnDefinition/>
+																	</Grid.ColumnDefinitions>
+																	<Grid.RowDefinitions>
+																		<RowDefinition />
+																		<RowDefinition />
+																		<RowDefinition />
+																		<RowDefinition />
+																		<RowDefinition />
+																	</Grid.RowDefinitions>
+																	<TextBlock Foreground="#444444"   VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_IPAddress}"/>
+																	<TextBox  Foreground="#444444" Name="SEDSSClientAddressTextBox" Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" />
+																	<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_Port}"/>
+																	<TextBox  Foreground="#444444" Name="SEDSSClientPortTextBox" Text="8000" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="0" />
+																	<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="5,5,5,5"  Text="{DynamicResource Gen_Avatar_PIN_Code}"/>
+																	<TextBox Foreground="#444444"  Name="SEDSSClientPasswordTextBox" Text="" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
+																	<TextBlock Foreground="DarkGray"   Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,5,5,5" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Client_FromWaidayo}"/>
+																	<TextBlock Foreground="#444444"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5"  Text="{DynamicResource Gen_Path}"/>
+																	<TextBox  Foreground="#444444" Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" />
+																	<Button Content="{DynamicResource Gen_SendToWaidayo}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,15,5,5" Click="SEDSSClientUploadButton_Clicked" />
+																	<Button Content="{DynamicResource Gen_ReceiveFromWaidayo}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"  Margin="5,15,5,5" Click="SEDSSClientDownloadButton_Clicked" />
+																	<TextBlock Foreground="DarkGray" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Client_RestartWaidayo}" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Margin="5,15,5,5" VerticalAlignment="Center" HorizontalAlignment="Center" />
+																</Grid>
+															</DockPanel>
+														</materialDesign:Card>
 													</DockPanel>
-												</Grid>
-											</TabItem>
-											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_2}">
-												<Grid>
-													<DockPanel Margin="5,5,5,5">
-														<TextBlock  DockPanel.Dock="Top" VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_2_1}"/>
-														<Image DockPanel.Dock="Top" Source="Resources/waidayo_icon.png" MaxWidth="150" />
-														<Button DockPanel.Dock="Bottom"  Style="{DynamicResource MaterialDesignToolButton}" Margin="5,5,5,5"  Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
-													</DockPanel>
-												</Grid>
-											</TabItem>
-											<TabItem  Header="{DynamicResource Tab_Welcome_Waidayo_2_3}">
-												<Grid>
+												</TabItem>
+												<TabItem  Header="{DynamicResource Gen_ManualSetup}">
 													<DockPanel Margin="5,5,5,5">
 														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_1}"/>
 														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_2}"/>
@@ -87,66 +160,41 @@
 														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_7}"/>
 														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_8}"/>
 														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_3_9}"/>
-														<Button DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignToolButton}"  Margin="5,5,5,5" Content="{DynamicResource Gen_Next}" Click="WelcomeWaidayoNextButton_Clicked" />
+														<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text=""/>
+														<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="{DynamicResource Tab_Welcome_LoadVRM_1}"/>
+														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top">
+															<DockPanel Margin="5,5,5,5">
+																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectButton_Click" />
+															</DockPanel>
+														</materialDesign:Card>
 													</DockPanel>
+												</TabItem>
+											</TabControl>
+										</DockPanel>
+									</Expander>
+								</materialDesign:Card>
+
+								<materialDesign:Card Margin="5,5,5,5" >
+									<Expander Name="Welcome4Expander" Header="{DynamicResource Tab_Welcome_Preset}" Foreground="#333333" IsExpanded="True" Expanded="WelcomeExpanded" Collapsed="WelcomeExpanded">
+										<DockPanel Margin="5,5,5,5">
+											<DockPanel>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition/>
+													</Grid.ColumnDefinitions>
+													<Grid.RowDefinitions>
+														<RowDefinition />
+														<RowDefinition />
+													</Grid.RowDefinitions>
+													<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset1}" Click="Preset1_Cliecked"/>
+													<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset2}" Click="Preset2_Cliecked" />
+													<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset3}" Click="Preset3_Cliecked" />
+													<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset4}" Click="Preset4_Cliecked" />
 												</Grid>
-											</TabItem>
-										</TabControl>
-									</DockPanel>
-								</materialDesign:Card>
-								<materialDesign:Card Margin="5,5,5,5" >
-									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Waidayo_2_4}"></TextBlock>
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_0}"/>
-											<Button Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Top" Content="{DynamicResource Tab_Welcome_Waidayo_2_4_AutoConfig}" Click="AutoConfig_Click" />
-											<Image DockPanel.Dock="Top" Source="Resources/ipset.png" MaxWidth="300" />
-											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_1}"/>
-											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_2}"/>
-											<TextBlock DockPanel.Dock="Top"  Name="WelcomeIPAddressTextBlock" Foreground="#333333" VerticalAlignment="Center" Text="..."/>
-											<DockPanel DockPanel.Dock="Top">
-												<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3}"/>
-												<TextBlock Name="WelcomePortTextBlock" VerticalAlignment="Center" Foreground="#333333" Text="39540"/>
-												<TextBlock VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_3_2}"/>
 											</DockPanel>
-											<TextBlock DockPanel.Dock="Top"  VerticalAlignment="Center" Foreground="#333333" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_4}"/>
-											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_OK}"/>
-											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotReceived" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_NG}"/>
-											<TextBlock DockPanel.Dock="Bottom" Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" Name="WelcomeWaidayoIsNotRunning" TextAlignment="Center" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_Waidayo_2_4_ER}"/>
 										</DockPanel>
-									</DockPanel>
-								</materialDesign:Card>
-								<materialDesign:Card Margin="5,5,5,5" >
-									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_LoadVRM}"></TextBlock>
-										<DockPanel Margin="5,5,5,5">
-											<TextBlock Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333" DockPanel.Dock="Top" Text="{DynamicResource Tab_Welcome_LoadVRM_1}"/>
-											<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectButton_Click" />
-											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightGreen" Text="{DynamicResource Tab_Welcome_LoadVRM_OK}"/>
-											<TextBlock  Style="{DynamicResource MaterialDesignCaptionTextBlock}" Foreground="#333333"  Name="WelcomeVRMisNotLoadedTextBlock" TextAlignment="Center" DockPanel.Dock="Top" VerticalAlignment="Center" Background="LightPink" Text="{DynamicResource Tab_Welcome_LoadVRM_NG}"/>
-										</DockPanel>
-									</DockPanel>
-								</materialDesign:Card>
-								<materialDesign:Card Margin="5,5,5,5" >
-									<DockPanel Margin="5,5,5,5">
-										<TextBlock DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_Preset}"></TextBlock>
-										<DockPanel>
-											<Grid>
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition/>
-													<ColumnDefinition/>
-												</Grid.ColumnDefinitions>
-												<Grid.RowDefinitions>
-													<RowDefinition />
-													<RowDefinition />
-												</Grid.RowDefinitions>
-												<Button Grid.Column="0" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset1}" Click="Preset1_Cliecked"/>
-												<Button Grid.Column="1" Grid.Row="0"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset2}" Click="Preset2_Cliecked" />
-												<Button Grid.Column="0" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset3}" Click="Preset3_Cliecked" />
-												<Button Grid.Column="1" Grid.Row="1"  Style="{StaticResource MaterialDesignRaisedAccentButton}"  Foreground="#444444" Margin="5,5,5,5" Content="{DynamicResource Tab_Welcome_Preset4}" Click="Preset4_Cliecked" />
-											</Grid>
-										</DockPanel>
-									</DockPanel>
+									</Expander>
 								</materialDesign:Card>
 								<materialDesign:Card Margin="5,5,5,5" >
 									<DockPanel Margin="5,5,5,5">
@@ -155,10 +203,10 @@
 											<Grid>
 												<DockPanel>
 													<StackPanel  DockPanel.Dock="Left">
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">Tweet</Hyperlink></TextBlock>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">HashTag #Oredayo4V</Hyperlink></TextBlock>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">Support Discord</Hyperlink></TextBlock>
-													<TextBlock Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS_DiscordHelp}"/>
+														<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/intent/tweet?hashtags=Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">Tweet</Hyperlink></TextBlock>
+														<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://twitter.com/search?q=%23Oredayo4V" RequestNavigate="Hyperlink_RequestNavigate">HashTag #Oredayo4V</Hyperlink></TextBlock>
+														<TextBlock Foreground="#333333" Margin="10,10,10,10"><Hyperlink NavigateUri="https://discord.com/invite/nGapSR7" RequestNavigate="Hyperlink_RequestNavigate">Support Discord</Hyperlink></TextBlock>
+														<TextBlock Foreground="#333333" Margin="10,10,10,10" Text="{DynamicResource Tab_Welcome_SNS_DiscordHelp}"/>
 													</StackPanel>
 													<Image DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="10,10,10,10" Source="Resources/vmpc_logo_128x128.png" MaxWidth="128" />
 												</DockPanel>
@@ -230,14 +278,16 @@
 												<TextBlock Margin="0,0,30,0" DockPanel.Dock="Right" Foreground="#444444" HorizontalAlignment="Right" Text="39008"/>
 												<TextBlock Foreground="#444444" Text="{DynamicResource Gen_SEDSSPort}"/>
 											</DockPanel>
+											<!--
 											<DockPanel Grid.Column="1" Grid.Row="0"  Margin="5,5,5,5">
-												<TextBlock DockPanel.Dock="Right" Width="50" Foreground="#444444" HorizontalAlignment="Right" Name="InfoEVMC4UStateTextBlock"  Background="Gray">--</TextBlock>
+												<TextBlock DockPanel.Dock="Right" Width="50" Foreground="#444444" HorizontalAlignment="Right" Name="InfoEVMC4UStateTextBlock"  Background="Gray">-</TextBlock>
 												<TextBlock Foreground="#444444" Text="{DynamicResource Gen_EVMC4UReceiveStatus}"/>
 											</DockPanel>
 											<DockPanel Grid.Column="1" Grid.Row="1"  Margin="5,5,5,5">
-												<TextBlock DockPanel.Dock="Right" Width="50" Foreground="#444444" HorizontalAlignment="Right" Name="InfoUIStateTextBlock" Background="Gray">--</TextBlock>
+												<TextBlock DockPanel.Dock="Right" Width="50" Foreground="#444444" HorizontalAlignment="Right" Name="InfoUIStateTextBlock" Background="Gray">-</TextBlock>
 												<TextBlock Foreground="#444444" Text="{DynamicResource Gen_UICommunicationStatus}"/>
 											</DockPanel>
+											-->
 										</Grid>
 									</DockPanel>
 								</materialDesign:Card>
@@ -585,6 +635,7 @@
 									</Grid>
 								</DockPanel>
 							</materialDesign:Card>
+							<!--
 							<materialDesign:Card Margin="5,5,5,5" >
 								<DockPanel Margin="5,5,5,5">
 									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Server}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
@@ -605,37 +656,7 @@
 									</Grid>
 								</DockPanel>
 							</materialDesign:Card>
-							<materialDesign:Card Margin="5,5,5,5" >
-								<DockPanel Margin="5,5,5,5">
-									<TextBlock DockPanel.Dock="Top" Text="{DynamicResource Tab_AdvancedSetting_SEDSS_Client}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Foreground="#333333" Margin="10,10,10,10"/>
-									<Grid  Margin="10,0,10,10">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition MinWidth="150"/>
-											<ColumnDefinition/>
-											<ColumnDefinition/>
-											<ColumnDefinition/>
-										</Grid.ColumnDefinitions>
-										<Grid.RowDefinitions>
-											<RowDefinition />
-											<RowDefinition />
-											<RowDefinition />
-											<RowDefinition />
-										</Grid.RowDefinitions>
-										<TextBlock Foreground="#444444"   VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_IPAddress}"/>
-										<TextBox  Foreground="#444444" Name="SEDSSClientAddressTextBox" Text="127.0.0.1" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0" />
-										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="0" Margin="5,5,5,5" Text="{DynamicResource Gen_Port}"/>
-										<TextBox  Foreground="#444444" Name="SEDSSClientPortTextBox" Text="8000" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="0" />
-										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1" Margin="5,5,5,5"  Text="{DynamicResource Gen_EncryptionPassword}"/>
-										<PasswordBox Foreground="#444444"  Name="SEDSSClientPasswordTextBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="1" />
-										<TextBlock  Foreground="#444444"  VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Margin="5,5,5,5" Text="{DynamicResource Gen_ID}"/>
-										<TextBox  Foreground="#444444" Name="SEDSSClientIDTextBox" Text="" VerticalAlignment="Center"  Grid.Column="3" Grid.Row="1" />
-										<TextBlock Foreground="#444444"  Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5,5,5,5"  Text="{DynamicResource Gen_ExchangeDataPath}"/>
-										<TextBox  Foreground="#444444" Name="SEDSSClientUploadFilePathTextBox" Text="" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" />
-										<Button Content="{DynamicResource Gen_Upload}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,15,5,5" Click="SEDSSClientUploadButton_Clicked" />
-										<Button Content="{DynamicResource Gen_Download}"  Style="{DynamicResource MaterialDesignFlatButton}" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"  Margin="5,15,5,5" Click="SEDSSClientDownloadButton_Clicked" />
-									</Grid>
-								</DockPanel>
-							</materialDesign:Card>
+							-->
 						</StackPanel>
 					</GroupBox>
 				</ScrollViewer>

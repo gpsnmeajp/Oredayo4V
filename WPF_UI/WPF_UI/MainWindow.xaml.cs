@@ -48,6 +48,7 @@ using System.Reflection;
 
 using MaterialDesignExtensions.Controls;
 using System.Threading;
+//using System.Drawing;
 
 namespace WPF_UI
 {
@@ -68,6 +69,14 @@ namespace WPF_UI
 
         private Common commonSetting = null;
 
+        private bool FoundOnce = false; //接続されたか
+        private int DiscoverTimer = 0;
+
+
+        System.Windows.Media.Color ToWPFColor(System.Drawing.Color c)
+        {
+            return System.Windows.Media.Color.FromArgb(c.A, c.R, c.G, c.B);
+        }
 
         public MainWindow()
         {
@@ -138,7 +147,7 @@ namespace WPF_UI
                 else if (e.CommandType == typeof(PipeCommands.Bye))
                 {
                     //Unity側終了処理
-                    this.Close();
+                    //this.Close();
                     Console.WriteLine(">Bye");
                 }
                 else if (e.CommandType == typeof(PipeCommands.LogMessage))
@@ -175,34 +184,20 @@ namespace WPF_UI
                     var d = (PipeCommands.CyclicStatus)e.Data;
                     if (!d.EVMC4U)
                     {
-                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                        InfoEVMC4UStateTextBlock.Text = "NG";
-
                         if (EVMC4UEnableCheckBox != null && !EVMC4UEnableCheckBox.IsChecked.Value)
                         {
-                            WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
-                            WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
-                            WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
-                            WelcomeWaidayoIsDisable.Visibility = Visibility.Visible;
+                            Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightPink));
+                            Welcome2Expander.IsExpanded = true;
                         }
                         else {
-                            WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
-                            WelcomeWaidayoIsNotReceived.Visibility = Visibility.Visible;
-                            WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
-                            WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
+                            Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
+                            Welcome2Expander.IsExpanded = true;
                         }
                     }
                     else
                     {
-                        InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                        InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                        InfoEVMC4UStateTextBlock.Text = "OK";
-
-                        WelcomeWaidayoIsReceived.Visibility = Visibility.Visible;
-                        WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
-                        WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
-                        WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
+                        Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightGreen));
+                        Welcome2Expander.IsExpanded = false;
                     }
 
                     //前回と値が違うときは合わせる(VRM読み込み時)
@@ -225,7 +220,8 @@ namespace WPF_UI
                             Agree = true,
                         });
                     }
-                    else {
+                    else
+                    {
                         var result = MessageBox.Show("このVRMライセンスに同意しますか？\nDo you agree with this VRM license?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         await client.SendCommandAsync(new PipeCommands.VRMLicenceAnser
@@ -234,6 +230,27 @@ namespace WPF_UI
                         });
                     }
                 }
+                else if (e.CommandType == typeof(PipeCommands.DiscoverResponse))
+                {
+                    //エラーダイアログ処理
+                    var d = (PipeCommands.DiscoverResponse)e.Data;
+                    SEDSSClientAddressTextBox.Text = d.ip;
+                    FoundOnce = true;
+                }
+                else if (e.CommandType == typeof(PipeCommands.SEDSSResult))
+                {
+                    //エラーダイアログ処理
+                    var d = (PipeCommands.SEDSSResult)e.Data;
+                    if (d.ok)
+                    {
+                        SEDSS_Client_Card.Background = new SolidColorBrush(Color.FromArgb(255, 219, 255, 223));
+                    }
+                    else {
+                        SEDSS_Client_Card.Background = new SolidColorBrush(Color.FromArgb(255, 255, 235, 235));
+                    }
+                }
+
+
             });
         }
         private void LoadCommonSetting()
@@ -279,8 +296,14 @@ namespace WPF_UI
 
                 //初回起動を済ませた
                 commonSetting.Initialized = true;
+
                 SaveCommonSetting();
             }
+
+            //SEDSS設定読み込み
+            SEDSSClientAddressTextBox.Text = commonSetting.SEDSSClientAddressTextBox_Text;
+            SEDSSClientPortTextBox.Text = commonSetting.SEDSSClientPortTextBox_Text;
+            SEDSSClientPasswordTextBox.Text = commonSetting.SEDSSClientPasswordTextBox_Password;
 
             //通信をトライ開始
             client = new MemoryMappedFileClient();
@@ -346,56 +369,54 @@ namespace WPF_UI
                 gamingH -= 360f;
             }
 
+            /*
             //身長が一定以上で読み込み成功と判定する
             if (cameraResetHeight > 0.1f)
             {
-                WelcomeVRMisLoadedTextBlock.Visibility = Visibility.Visible;
-                WelcomeVRMisNotLoadedTextBlock.Visibility = Visibility.Collapsed;
+                Welcome3Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightGreen));
             }
             else {
-                WelcomeVRMisLoadedTextBlock.Visibility = Visibility.Collapsed;
-                WelcomeVRMisNotLoadedTextBlock.Visibility = Visibility.Visible;
+                Welcome3Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
             }
+            */
+
+            //3秒おきに探索
+            if (FoundOnce == false && DiscoverTimer>3*30) {
+                Console.WriteLine("AutoDiscoverRequest");
+                Task.Run(async () =>
+                {
+                    await client.SendCommandAsync(new PipeCommands.DiscoverRequest { });
+                });
+                DiscoverTimer = 0;
+            }
+            DiscoverTimer++;
 
             //-------
+            //2秒間反応がない
             if (UI_KeepAlive > 60)
             {
-                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                InfoUIStateTextBlock.Text = "NG";
-
                 //ようこそ画面
-                WelcomeOredayoIsRunningTextBlock.Visibility = Visibility.Collapsed;
-                WelcomeOredayoIsNotRunningTextBlock.Visibility = Visibility.Visible;
-
-                WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
-                WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
-                WelcomeWaidayoIsNotRunning.Visibility = Visibility.Visible;
-                WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
-
-                InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
-                InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-                InfoEVMC4UStateTextBlock.Text = "--";
+                Welcome1Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
+                Welcome2Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
+                Welcome3Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
+                Welcome1Expander.IsExpanded = true;
+                Welcome2Expander.IsExpanded = true;
 
                 //バッファの影響で高速点滅する場合があるので、UI通信が切れた場合は禁止
                 GamingBackgroundCheckBox.IsChecked = false;
                 GamingLightCheckBox.IsChecked = false;
                 GamingEnvironmentCheckBox.IsChecked = false;
+
+                //通信できていないなら探索リセット
+                FoundOnce = false;
             }
             else
             {
                 UI_KeepAlive++;
 
-                InfoUIStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(0, 255, 0));
-                InfoUIStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
-                InfoUIStateTextBlock.Text = "OK";
-
                 //ようこそ画面
-                WelcomeOredayoIsRunningTextBlock.Visibility = Visibility.Visible;
-                WelcomeOredayoIsNotRunningTextBlock.Visibility = Visibility.Collapsed;
-
-                WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
-
+                Welcome1Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightGreen));
+                Welcome1Expander.IsExpanded = false;
             }
         }
 
@@ -453,6 +474,11 @@ namespace WPF_UI
 
         private async void AutoConfig_Click(object sender, RoutedEventArgs e)
         {
+            if (EVMC4UPortTextBox.Text == "")
+            {
+                EVMC4UPortTextBox.Text = "39540";
+            }
+            EVMC4UEnableCheckBox.IsChecked = true;
             await client.SendCommandAsync(new PipeCommands.DiscoverRequest { });
         }
 
@@ -570,6 +596,7 @@ namespace WPF_UI
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
+            SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
             Console.WriteLine("VRMLoadButton_Click");
         }
 
@@ -585,6 +612,7 @@ namespace WPF_UI
             {
                 VRMPathTextBox.Text = dlg.FileName;
                 await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
+                SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
                 Console.WriteLine("VRMLoadFileSelectButton_Click");
             }
         }
@@ -975,6 +1003,7 @@ namespace WPF_UI
         }
 
         //===========SEDSSサーバー===========
+        /*
         private async void SEDSSServer_Checked(object sender, RoutedEventArgs e)
         {
             if (SEDSSServerEnableCheckBox != null)
@@ -1012,13 +1041,14 @@ namespace WPF_UI
             }
             Console.WriteLine("SEDSSServer");
         }
+        */
 
         //===========SEDSSクライアント===========
         private async void SEDSSClientUploadButton_Clicked(object sender, RoutedEventArgs e)
         {
             if (client != null)
             {
-                if (SEDSSClientPasswordTextBox.Password.Length < 4)
+                if (SEDSSClientPasswordTextBox.Text.Length < 4)
                 {
                     MessageBox.Show("暗号化パスワードが短すぎます\n(Password is too short.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -1033,18 +1063,24 @@ namespace WPF_UI
                     RequestType = PipeCommands.SEDSS_RequestType.Upload,
                     Address = SEDSSClientAddressTextBox.Text,
                     Port = SEDSSClientPortTextBox.Text,
-                    Password = SEDSSClientPasswordTextBox.Password,
-                    ID = SEDSSClientIDTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Text,
+                    ID = "",
                     UploadFilePath = SEDSSClientUploadFilePathTextBox.Text,
                 });
             }
             Console.WriteLine("SEDSSClient Upload");
+
+            //保存
+            commonSetting.SEDSSClientAddressTextBox_Text = SEDSSClientAddressTextBox.Text;
+            commonSetting.SEDSSClientPortTextBox_Text = SEDSSClientPortTextBox.Text;
+            commonSetting.SEDSSClientPasswordTextBox_Password = SEDSSClientPasswordTextBox.Text;
+            SaveCommonSetting();
         }
         private async void SEDSSClientDownloadButton_Clicked(object sender, RoutedEventArgs e)
         {
             if (client != null)
             {
-                if (SEDSSClientPasswordTextBox.Password.Length < 4)
+                if (SEDSSClientPasswordTextBox.Text.Length < 4)
                 {
                     MessageBox.Show("暗号化パスワードが短すぎます\n(Password is too short.)", "Oredayo UI", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
@@ -1059,12 +1095,18 @@ namespace WPF_UI
                     RequestType = PipeCommands.SEDSS_RequestType.Downdload,
                     Address = SEDSSClientAddressTextBox.Text,
                     Port = SEDSSClientPortTextBox.Text,
-                    Password = SEDSSClientPasswordTextBox.Password,
-                    ID = SEDSSClientIDTextBox.Text,
+                    Password = SEDSSClientPasswordTextBox.Text,
+                    ID = "",
                     UploadFilePath = "",
                 });
             }
             Console.WriteLine("SEDSSClient Download");
+
+            //保存
+            commonSetting.SEDSSClientAddressTextBox_Text = SEDSSClientAddressTextBox.Text;
+            commonSetting.SEDSSClientPortTextBox_Text = SEDSSClientPortTextBox.Text;
+            commonSetting.SEDSSClientPasswordTextBox_Password = SEDSSClientPasswordTextBox.Text;
+            SaveCommonSetting();
         }
         //-----------色設定----------------
         //===========背景色===========
@@ -1196,6 +1238,7 @@ namespace WPF_UI
                 if (s.VRMPathTextBox_Text != "")
                 {
                     VRMPathTextBox.Text = s.VRMPathTextBox_Text;
+                    SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
 
                     //自動読み込み
                     await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true });
@@ -1246,13 +1289,13 @@ namespace WPF_UI
                 BackgroundRootPosLockCheckBox.IsChecked = s.BackgroundRootPosLockCheckBox_IsChecked_Value;
                 OBSExternalControl_CheckBox.IsChecked = s.OBSExternalControl_CheckBox_IsChecked_Value;
                 UnityCaptureEnable_CheckBox.IsChecked = s.UnityCaptureEnable_CheckBox_IsChecked_Value;
-                SEDSSServerPasswordTextBox.Password = s.SEDSSServerPasswordTextBox_Password;
-                SEDSSServerExchangeFilePathTextBox.Text = s.SEDSSServerExchangeFilePathTextBox_Text;
-                SEDSSClientAddressTextBox.Text = s.SEDSSClientAddressTextBox_Text;
-                SEDSSClientPortTextBox.Text = s.SEDSSClientPortTextBox_Text;
-                SEDSSClientPasswordTextBox.Password = s.SEDSSClientPasswordTextBox_Password;
-                SEDSSClientIDTextBox.Text = s.SEDSSClientIDTextBox_Text;
-                SEDSSClientUploadFilePathTextBox.Text = s.SEDSSClientUploadFilePathTextBox_Text;
+                //SEDSSServerPasswordTextBox.Password = s.SEDSSServerPasswordTextBox_Password;
+                //SEDSSServerExchangeFilePathTextBox.Text = s.SEDSSServerExchangeFilePathTextBox_Text;
+                //SEDSSClientAddressTextBox.Text = s.SEDSSClientAddressTextBox_Text;
+                //SEDSSClientPortTextBox.Text = s.SEDSSClientPortTextBox_Text;
+                //SEDSSClientPasswordTextBox.Text = s.SEDSSClientPasswordTextBox_Password;
+                //SEDSSClientIDTextBox.Text = s.SEDSSClientIDTextBox_Text;
+                //SEDSSClientUploadFilePathTextBox.Text = s.SEDSSClientUploadFilePathTextBox_Text;
                 await Task.Delay(10);
                 LightColorPicker.SelectedColor = new Color
                 {
@@ -1349,13 +1392,13 @@ namespace WPF_UI
             s.BackgroundRootPosLockCheckBox_IsChecked_Value = BackgroundRootPosLockCheckBox.IsChecked.Value;
             s.OBSExternalControl_CheckBox_IsChecked_Value = OBSExternalControl_CheckBox.IsChecked.Value;
             s.UnityCaptureEnable_CheckBox_IsChecked_Value = UnityCaptureEnable_CheckBox.IsChecked.Value;
-            s.SEDSSServerPasswordTextBox_Password = SEDSSServerPasswordTextBox.Password;
-            s.SEDSSServerExchangeFilePathTextBox_Text = SEDSSServerExchangeFilePathTextBox.Text;
-            s.SEDSSClientAddressTextBox_Text = SEDSSClientAddressTextBox.Text;
-            s.SEDSSClientPortTextBox_Text = SEDSSClientPortTextBox.Text;
-            s.SEDSSClientPasswordTextBox_Password = SEDSSClientPasswordTextBox.Password;
-            s.SEDSSClientIDTextBox_Text = SEDSSClientIDTextBox.Text;
-            s.SEDSSClientUploadFilePathTextBox_Text = SEDSSClientUploadFilePathTextBox.Text;
+            //s.SEDSSServerPasswordTextBox_Password = SEDSSServerPasswordTextBox.Password;
+            //s.SEDSSServerExchangeFilePathTextBox_Text = SEDSSServerExchangeFilePathTextBox.Text;
+            //s.SEDSSClientAddressTextBox_Text = SEDSSClientAddressTextBox.Text;
+            //s.SEDSSClientPortTextBox_Text = SEDSSClientPortTextBox.Text;
+            //s.SEDSSClientPasswordTextBox_Password = SEDSSClientPasswordTextBox.Text;
+            //s.SEDSSClientIDTextBox_Text = SEDSSClientIDTextBox.Text;
+            //s.SEDSSClientUploadFilePathTextBox_Text = SEDSSClientUploadFilePathTextBox.Text;
             s.BackgroundColorPicker_SelectedColor_R = BackgroundColorPicker.SelectedColor.Value.R;
             s.BackgroundColorPicker_SelectedColor_G = BackgroundColorPicker.SelectedColor.Value.G;
             s.BackgroundColorPicker_SelectedColor_B = BackgroundColorPicker.SelectedColor.Value.B;

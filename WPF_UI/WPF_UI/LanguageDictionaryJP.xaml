@@ -5,12 +5,10 @@
 					x:Name="Lang_JP"
 					>
 	<system:String x:Key="Tab_Welcome">ようこそ</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayoを起動しましょう</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayoは正常に起動しています</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayoを起動してください(再起動してください)</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayoを強制的に再起動する</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayo4Vを起動しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayo4Vを強制的に再起動する</system:String>
 
-	<system:String x:Key="Tab_Welcome_Waidayo">2. Waidayoを準備しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo">2. waidayoを準備しましょう</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1">2-1. ダウンロード</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_1">waidayoをインストールしましょう！</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_2">Face ID搭載のiPhoneあるいはiPadが必要です</system:String>
@@ -26,25 +24,19 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">ドラッグ&amp;ドロップしてください。</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayoを一度終了し、再度起動してください。</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">　 アバターが変わっていれば転送完了です。</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 設定</system:String>
 
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">自動設定を試し、うまく動かない場合は、以下の手順に従ってください。</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Waidayoと接続しましょう</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">自動設定を試し、うまく動かない場合は手動設定を試してください</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">自動設定</system:String>
-
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayoのメニューを開き</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">Send Motion IP Addressを以下のいずれかに設定してください</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">Send Motion Portを</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3_2">に設定してください。</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">正常に設定されると、以下の表示が変化します</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">正常に信号を受け取れています</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">信号が来ていません</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayoが正常に起動していません</system:String>
 
 	<system:String x:Key="Tab_Welcome_LoadVRM">3. VRMを読み込みましょう</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_1">waidayoに読み込んだdefault.vrmを読み込んでください</system:String>
+	<system:String x:Key="Tab_Welcome_LoadVRM_2">waidayoにアバターを送る</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_Button">VRMを読み込む</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_OK">VRMが読み込まれました</system:String>
-	<system:String x:Key="Tab_Welcome_LoadVRM_NG">VRMを読み込んでください</system:String>
 
 	<system:String x:Key="Tab_Welcome_Preset">4. 見た目の変化を試してみましょう</system:String>
 	<system:String x:Key="Tab_Welcome_Preset1">グリーンバック</system:String>
@@ -101,8 +93,10 @@
 
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server">SEDSS サーバー</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Server_PermitToSendAndReceive">送受信を許可する</system:String>
-	
+
 	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client">SEDSS クライアント</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_FromWaidayo">←waidayo設定画面にあります</system:String>
+	<system:String x:Key="Tab_AdvancedSetting_SEDSS_Client_RestartWaidayo">うまくいかないときは、waidayoを再起動してみてください</system:String>
 
 	<system:String x:Key="Tab_Color1">色</system:String>
 	<system:String x:Key="Tab_Color2">色</system:String>
@@ -159,6 +153,12 @@
 	<system:String x:Key="Gen_Uninstall">アンインストール</system:String>
 	<system:String x:Key="Gen_Enable">有効</system:String>
 	<system:String x:Key="Gen_CameraTarget">カメラを基準にする</system:String>
+
+	<system:String x:Key="Gen_AutoSetup">自動設定</system:String>
+	<system:String x:Key="Gen_ManualSetup">手動設定</system:String>
+	<system:String x:Key="Gen_Avatar_PIN_Code">Avatar PIN Code</system:String>
+	<system:String x:Key="Gen_SendToWaidayo">waidayoに送る</system:String>
+	<system:String x:Key="Gen_ReceiveFromWaidayo">waidayoから受け取る</system:String>
 
 
 	<system:String x:Key="PPS_Enable">有効(Enable)</system:String>

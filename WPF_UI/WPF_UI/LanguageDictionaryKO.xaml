@@ -6,19 +6,19 @@
 					>
 
 	<system:String x:Key="Tab_Welcome">환영합니다</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayo를 실행해주세요</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayo가 작동되고있습니다.</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayo를 재시작 해주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayo를 재시작</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo">1. Oredayo4V를 실행해주세요</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_OK">Oredayo4V가 작동되고있습니다.</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_NG">Oredayo4V를 재시작 해주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_LaunchOredayo_Restart">Oredayo4V를 재시작</system:String>
 
-	<system:String x:Key="Tab_Welcome_Waidayo">2. Waidayo를 설정합니다</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo">2. waidayo를 설정합니다</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1">2-1. 설치</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_1">waidayo를 설치해봅시다!</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_1_2">Face ID 를 사용가능한 iPhone 혹은 iPad 가 필요합니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_2">2-2. 실행</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_2_1">waidayo 어플리케이션을 실행시켜주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_3">2-3. VRM 전송</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_3_1">VRM 파일을 Waidayo에 넣어주세요.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3">3. VRM 전송</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_3_1">VRM 파일을 waidayo에 넣어주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_2">1. 사용할 VRM 파일의 이름을 "default.vrm"으로 설정해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_3">2. iPhone/iPad를 컴퓨터에 연결하고 iTunes를 실행합니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_4">3. iTunes에서 연결된 기기를선택해주세요.</system:String>
@@ -27,19 +27,20 @@
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_7">-</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_8">6. waidayo 어플리케이션을 재시작해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_3_9">-</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-4. 설정</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4">2-3. Connect to waidayo</system:String>
 
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">만약 자동설정이 정상적으로 진행되지않는경우 아래의 메뉴얼을 따라와주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig"자동설정</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_0">If Auto set won't work, please try setting manually.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_AutoConfig">자동설정</system:String>
 
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_1">waidayo의 메뉴를 열어주세요</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_2">"Send Motion IP Address"을 아래와 같이 설정해주세요.</system:String>
-	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을 </system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3">"Send Motion Port"을</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_3_2">으로 설정해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_4">하단의 상태를 확인해주세요.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_OK">Waidayo의 신호가 양호합니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_NG">Waidayo의 신호를 찾을수없습니다.</system:String>
 	<system:String x:Key="Tab_Welcome_Waidayo_2_4_ER">Oredayo가 실행중이지 않습니다.</system:String>
+	<system:String x:Key="Tab_Welcome_Waidayo_2_4_DS">EVMC4U Disabled.</system:String>
 
 	<system:String x:Key="Tab_Welcome_LoadVRM">3. VRM 불러오기</system:String>
 	<system:String x:Key="Tab_Welcome_LoadVRM_1">Waidayo 와 같은 VRM file을 불러와주세요</system:String>
@@ -77,7 +78,7 @@
 	<system:String x:Key="Tab_Basic_BackgroundObjectPosition">배경 오브젝트 위치</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectWindowCapture">윈도우 창 캡쳐</system:String>
 	<system:String x:Key="Tab_Basic_BackgroundObjectWindowTitle">응용프로그램 이름</system:String>
-	
+
 	<system:String x:Key="Tab_AdvancedSetting">고급설정</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U">EVMC4U</system:String>
 	<system:String x:Key="Tab_AdvancedSetting_EVMC4U_Freeze">가만히</system:String>
@@ -161,6 +162,9 @@
 	<system:String x:Key="Gen_Uninstall">삭제</system:String>
 	<system:String x:Key="Gen_Enable">사용</system:String>
 	<system:String x:Key="Gen_CameraTarget">Based on camera</system:String>
+
+	<system:String x:Key="Gen_AutoSetup">Auto</system:String>
+	<system:String x:Key="Gen_ManualSetup">Manual</system:String>
 
 
 	<system:String x:Key="PPS_Enable">사용</system:String>
