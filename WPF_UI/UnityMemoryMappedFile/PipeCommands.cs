@@ -48,10 +48,14 @@ namespace UnityMemoryMappedFile
         public class LoadVRM
         {
             public string filepath { get; set; }
+            public bool skip { get; set; }
+
         }
         public class LoadBackground
         {
             public string filepath { get; set; }
+            public bool skip { get; set; }
+
         }
         public class RemoveBackground
         {
@@ -196,7 +200,9 @@ namespace UnityMemoryMappedFile
             public float CAIntensity { get; set; }
         }
 
-        public class VRMLicenceCheck{}
+        public class VRMLicenceCheck{
+            public bool skip { get; set; }
+        }
 
         public class DiscoverRequest {}
 

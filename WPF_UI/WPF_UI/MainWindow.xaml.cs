@@ -66,6 +66,9 @@ namespace WPF_UI
 
         static ResourceDictionary[] dics = null;
 
+        private Common commonSetting = null;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -85,12 +88,17 @@ namespace WPF_UI
         //-----------システム系----------------
 
         private void Reload() {
-            Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(async () =>
             {
                 //デフォルト値送信
                 EVMC4U_Checked(null, null);
-                VRMLoadButton_Click(null, null);
-                BackgroundObjectLoadButton_Click(null, null);
+                //VRMLoadButton_Click(null, null);
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true });
+
+                //BackgroundObjectLoadButton_Click(null, null);
+                await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = true });
+                BackgroundChecked(null, null);
+
                 CameraSlider_ValueChanged(null, null);
                 LightSlider_ValueChanged(null, null);
                 //BackgroundSlider_ValueChanged(null, null);
@@ -171,8 +179,19 @@ namespace WPF_UI
                         InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                         InfoEVMC4UStateTextBlock.Text = "NG";
 
-                        WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
-                        WelcomeWaidayoIsNotReceived.Visibility = Visibility.Visible;
+                        if (EVMC4UEnableCheckBox != null && !EVMC4UEnableCheckBox.IsChecked.Value)
+                        {
+                            WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
+                            WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
+                            WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
+                            WelcomeWaidayoIsDisable.Visibility = Visibility.Visible;
+                        }
+                        else {
+                            WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
+                            WelcomeWaidayoIsNotReceived.Visibility = Visibility.Visible;
+                            WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
+                            WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
+                        }
                     }
                     else
                     {
@@ -182,6 +201,8 @@ namespace WPF_UI
 
                         WelcomeWaidayoIsReceived.Visibility = Visibility.Visible;
                         WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
+                        WelcomeWaidayoIsNotRunning.Visibility = Visibility.Collapsed;
+                        WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
                     }
 
                     //前回と値が違うときは合わせる(VRM読み込み時)
@@ -196,17 +217,71 @@ namespace WPF_UI
                 {
                     //エラーダイアログ処理
                     var d = (PipeCommands.VRMLicenceCheck)e.Data;
-                    var result = MessageBox.Show("このVRMライセンスに同意しますか？\nDo you agree with this VRM license?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                    await client.SendCommandAsync(new PipeCommands.VRMLicenceAnser
+                    if (d.skip)
                     {
-                        Agree = result == MessageBoxResult.Yes,
-                    });
+                        //スキップ
+                        await client.SendCommandAsync(new PipeCommands.VRMLicenceAnser
+                        {
+                            Agree = true,
+                        });
+                    }
+                    else {
+                        var result = MessageBox.Show("このVRMライセンスに同意しますか？\nDo you agree with this VRM license?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                        await client.SendCommandAsync(new PipeCommands.VRMLicenceAnser
+                        {
+                            Agree = result == MessageBoxResult.Yes,
+                        });
+                    }
                 }
             });
         }
+        private void LoadCommonSetting()
+        {
+            //共通設定を読み込む。なければ作る
+            if (File.Exists("Common.json"))
+            {
+                //読み込み
+                commonSetting = JsonConvert.DeserializeObject<Common>(File.ReadAllText("Common.json", new UTF8Encoding(false)), new JsonSerializerSettings
+                {
+                    DefaultValueHandling = DefaultValueHandling.Populate //デフォルト値を使用する
+                });
+            }
+            else {
+                commonSetting = new Common();
+                SaveCommonSetting();
+            }
+        }
+        private void SaveCommonSetting()
+        {
+            //書き込む
+            string json = JsonConvert.SerializeObject(commonSetting);
+            File.WriteAllText("Common.json", json, new UTF8Encoding(false));
+        }
+
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadCommonSetting();
+            //初回起動時処理
+            if (!commonSetting.Initialized)
+            {
+                var result = MessageBox.Show("Oredayo4Vへようこそ！\n動画説明書を開きますか？\nWelcome to Oredayo4V!\nDo you want to view video manual?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=2iCsYViMvu8&list=PLitha7cR41RbkdbdJNemg9ZVfUJd_li4F");
+                }
+
+                var result2 = MessageBox.Show("サポートDiscordを開きますか？(原則こちらでのみ対応しております)\nDo you want to join discord?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result2 == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://discord.gg/nGapSR7");
+                }
+
+                //初回起動を済ませた
+                commonSetting.Initialized = true;
+                SaveCommonSetting();
+            }
+
             //通信をトライ開始
             client = new MemoryMappedFileClient();
             client.ReceivedEvent += Client_Received;
@@ -296,6 +371,7 @@ namespace WPF_UI
                 WelcomeWaidayoIsReceived.Visibility = Visibility.Collapsed;
                 WelcomeWaidayoIsNotReceived.Visibility = Visibility.Collapsed;
                 WelcomeWaidayoIsNotRunning.Visibility = Visibility.Visible;
+                WelcomeWaidayoIsDisable.Visibility = Visibility.Collapsed;
 
                 InfoEVMC4UStateTextBlock.Background = new SolidColorBrush(Color.FromRgb(200, 0, 0));
                 InfoEVMC4UStateTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
@@ -325,6 +401,14 @@ namespace WPF_UI
 
         //-----------ようこそ----------------
         //===========チュートリアル==========
+
+        //開き閉じを記憶する
+        private void WelcomeExpanded(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("OK");
+        }
+
+
         private void WelcomeWaidayoNextButton_Clicked(object sender, RoutedEventArgs e)
         {
             WelcomeWaidayoTabControl.SelectedIndex++;
@@ -485,7 +569,7 @@ namespace WPF_UI
         //===========VRM読み込み===========
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
+            await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
             Console.WriteLine("VRMLoadButton_Click");
         }
 
@@ -500,7 +584,7 @@ namespace WPF_UI
             if (result == true)
             {
                 VRMPathTextBox.Text = dlg.FileName;
-                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text });
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
                 Console.WriteLine("VRMLoadFileSelectButton_Click");
             }
         }
@@ -508,7 +592,7 @@ namespace WPF_UI
         //===========背景読み込み===========
         private async void BackgroundObjectLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+            await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = false });
             BackgroundChecked(null, null);
             Console.WriteLine("BackgroundObjectLoadButton_Click");
         }
@@ -524,7 +608,7 @@ namespace WPF_UI
             if (result == true)
             {
                 BackgroundObjectPathTextBox.Text = dlg.FileName;
-                await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text });
+                await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = false });
                 BackgroundChecked(null,null);
                 Console.WriteLine("BackgroundObjectLoadFileSelectButton_Click");
             }
@@ -1112,10 +1196,16 @@ namespace WPF_UI
                 if (s.VRMPathTextBox_Text != "")
                 {
                     VRMPathTextBox.Text = s.VRMPathTextBox_Text;
+
+                    //自動読み込み
+                    await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true });
                 }
                 if (s.BackgroundObjectPathTextBox_Text != "")
                 {
                     BackgroundObjectPathTextBox.Text = s.BackgroundObjectPathTextBox_Text;
+
+                    //自動読み込み
+                    await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = true });
                 }
                 //LanguageComboBox.SelectedIndex = s.LanguageComboBox_SelectedIndex; //毎回読み込み時には反映しない
                 CameraRotateXSlider.Value = s.CameraRotateXSlider_Value;
@@ -1301,6 +1391,5 @@ namespace WPF_UI
             //ゲーミングは保存しない
             return s;
         }
-
     }
 }

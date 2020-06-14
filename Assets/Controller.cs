@@ -91,6 +91,8 @@ public class Controller : MonoBehaviour
 
     public DateTime startTime = DateTime.Now;
 
+    int port = 39540;
+
     void Start()
     {
         synchronizationContext = SynchronizationContext.Current;
@@ -186,6 +188,7 @@ public class Controller : MonoBehaviour
 
                 //探索開始
                 var req = GetComponent<EasyDeviceDiscoveryProtocolClient.Requester>();
+                req.servicePort = port;
                 req.StartDiscover(() =>
                 {
                     //次のデバイスに更新されないうちに取得しておく
@@ -238,7 +241,7 @@ public class Controller : MonoBehaviour
                     });
 
                     //許諾応答要求を出す
-                    await server.SendCommandAsync(new PipeCommands.VRMLicenceCheck{});
+                    await server.SendCommandAsync(new PipeCommands.VRMLicenceCheck{skip = d.skip});
                 }
             }
 
@@ -489,6 +492,7 @@ public class Controller : MonoBehaviour
                 //uOSCのポートを書き換え
                 FieldInfo fieldInfo = typeof(uOSC.uOscServer).GetField("port", BindingFlags.NonPublic | BindingFlags.Instance);
                 fieldInfo.SetValue(uosc,d.Port);
+                port = d.Port;
                 uosc.enabled = d.Enable;
 
                 externalReceiver.Freeze = d.Freeze;
