@@ -59,6 +59,7 @@ namespace WPF_UI
     {
         private MemoryMappedFileClient client;
         private DispatcherTimer dispatcherTimer;
+        private DispatcherTimer initialTimer;
         private float gamingH = 0f;
 
         private int UI_KeepAlive = int.MaxValue;
@@ -294,6 +295,7 @@ namespace WPF_UI
             else
             {
                 commonSetting = new Common();
+                commonSetting.SEDSSClientPortTextBox_Text = "8000";
                 SaveCommonSetting();
             }
         }
@@ -310,22 +312,11 @@ namespace WPF_UI
             //初回起動時処理
             if (!commonSetting.Initialized)
             {
-                var result = MessageBox.Show("Oredayo4Vへようこそ！\n動画説明書を開きますか？\nWelcome to Oredayo4V!\nDo you want to view video manual?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=2iCsYViMvu8&list=PLitha7cR41RbkdbdJNemg9ZVfUJd_li4F");
-                }
-
-                var result2 = MessageBox.Show("サポートDiscordを開きますか？(原則こちらでのみ対応しております)\nDo you want to join discord?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result2 == MessageBoxResult.Yes)
-                {
-                    System.Diagnostics.Process.Start("https://discord.gg/nGapSR7");
-                }
-
-                //初回起動を済ませた
-                commonSetting.Initialized = true;
-
-                SaveCommonSetting();
+                //初回起動タイマー起動
+                initialTimer = new DispatcherTimer();
+                initialTimer.Interval = new TimeSpan(0, 0, 0, 5,0);
+                initialTimer.Tick += new EventHandler(InitialTimerEvent);
+                initialTimer.Start();
             }
 
             //SEDSS設定読み込み
@@ -377,6 +368,29 @@ namespace WPF_UI
         {
             dispatcherTimer.Stop();
             client.Stop();
+        }
+
+        private void InitialTimerEvent(object sender, EventArgs e)
+        {
+            Console.WriteLine("InitialTimerEvent");
+            initialTimer.Stop(); //1回っきり
+            if (!commonSetting.Initialized) {
+                //初回起動を済ませた
+                commonSetting.Initialized = true;
+                SaveCommonSetting();
+
+                var result = MessageBox.Show("Oredayo4Vへようこそ！\n説明書を開きますか？\nWelcome to Oredayo4V!\nDo you want to see manual?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://github.com/gpsnmeajp/Oredayo4V/wiki");
+                }
+
+                var result2 = MessageBox.Show("サポートDiscordを開きますか？(原則こちらでのみ対応しております)\nDo you want to join discord?", "Oredayo UI", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result2 == MessageBoxResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://discord.gg/nGapSR7");
+                }
+            }
         }
 
         private void GenericTimer(object sender, EventArgs e)
@@ -902,11 +916,13 @@ namespace WPF_UI
                 EVMC4UPortTextBox.IsEnabled = !EVMC4UEnableCheckBox.IsChecked.Value;
 
                 //有効なときだけ反映する
+                /*
                 if (EVMC4UPortTextBlock != null && WelcomePortTextBlock != null && EVMC4UEnableCheckBox.IsChecked.Value)
                 {
                     EVMC4UPortTextBlock.Text = Port.ToString();
                     WelcomePortTextBlock.Text = " " + Port.ToString();
                 }
+                */
             }
 
             if (client != null)
