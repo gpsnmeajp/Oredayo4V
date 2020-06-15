@@ -110,9 +110,9 @@
 											<TabControl DockPanel.Dock="Top" Background="LightYellow">
 												<TabItem  Header="{DynamicResource Gen_AutoSetup}">
 													<DockPanel Margin="5,5,5,5" DockPanel.Dock="Top">
-														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top">
-															<DockPanel Margin="5,5,5,5">
-																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectButton_Click" />
+														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top" Name="VRMLoadCard">
+															<DockPanel Margin="5,5,5,5" >
+																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="{DynamicResource Tab_Welcome_LoadVRM_Button}" Click="VRMLoadFileSelectOnWelcomeButton_Click" />
 															</DockPanel>
 														</materialDesign:Card>
 														<materialDesign:Card Margin="5,5,5,5" Name="SEDSS_Client_Card">

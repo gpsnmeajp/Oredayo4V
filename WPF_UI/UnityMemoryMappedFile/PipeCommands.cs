@@ -49,6 +49,7 @@ namespace UnityMemoryMappedFile
         {
             public string filepath { get; set; }
             public bool skip { get; set; }
+            public bool hide { get; set; }
 
         }
         public class LoadBackground

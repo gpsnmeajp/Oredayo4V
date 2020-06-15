@@ -128,7 +128,7 @@ namespace WPF_UI
                 //デフォルト値送信
                 EVMC4U_Checked(null, null);
                 //VRMLoadButton_Click(null, null);
-                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true });
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true, hide = false });
 
                 //BackgroundObjectLoadButton_Click(null, null);
                 await client.SendCommandAsync(new PipeCommands.LoadBackground { filepath = BackgroundObjectPathTextBox.Text, skip = true });
@@ -414,16 +414,16 @@ namespace WPF_UI
                 gamingH -= 360f;
             }
 
-            /*
+            
             //身長が一定以上で読み込み成功と判定する
             if (cameraResetHeight > 0.1f)
             {
-                Welcome3Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightGreen));
+                VRMLoadCard.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.LightGreen));
             }
             else {
-                Welcome3Expander.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
+                VRMLoadCard.Background = new SolidColorBrush(ToWPFColor(System.Drawing.Color.White));
             }
-            */
+            
 
             //3秒おきに探索
             if (FoundOnce == false && DiscoverTimer > 3 * 30)
@@ -640,7 +640,7 @@ namespace WPF_UI
         //===========VRM読み込み===========
         private async void VRMLoadButton_Click(object sender, RoutedEventArgs e)
         {
-            await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
+            await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false, hide = false });
             SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
             Console.WriteLine("VRMLoadButton_Click");
         }
@@ -656,7 +656,23 @@ namespace WPF_UI
             if (result == true)
             {
                 VRMPathTextBox.Text = dlg.FileName;
-                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false });
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false, hide = false });
+                SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
+                Console.WriteLine("VRMLoadFileSelectButton_Click");
+            }
+        }
+        private async void VRMLoadFileSelectOnWelcomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "";
+            dlg.DefaultExt = ".vrm";
+            dlg.Filter = "VRM file|*.vrm|All file|*.*";
+
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                VRMPathTextBox.Text = dlg.FileName;
+                await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = false, hide = true });
                 SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
                 Console.WriteLine("VRMLoadFileSelectButton_Click");
             }
@@ -1289,7 +1305,7 @@ namespace WPF_UI
                     SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
 
                     //自動読み込み
-                    await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true });
+                    await client.SendCommandAsync(new PipeCommands.LoadVRM { filepath = VRMPathTextBox.Text, skip = true,hide = false });
                 }
                 if (s.BackgroundObjectPathTextBox_Text != "")
                 {

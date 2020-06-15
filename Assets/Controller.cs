@@ -67,6 +67,8 @@ public class Controller : MonoBehaviour
 
     public UnityCapture unityCapture;
 
+    public GameObject hidePanel;
+
     public uWindowCapture.UwcWindowTexture uWC;
 
     PipeCommands.BackgroundObjectControl lastBackgroundPos = null;
@@ -238,6 +240,7 @@ public class Controller : MonoBehaviour
                         {
                             Debug.Log("Load start");
                             externalReceiver.LoadVRMFromData(bytes);
+                            hidePanel.SetActive(d.hide);
                         }, null);
                     });
 
@@ -608,6 +611,7 @@ public class Controller : MonoBehaviour
                             synchronizationContext.Post(async (a) =>
                             {
                                 await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = true });
+                                hidePanel.SetActive(false);
                             }, null);
                         }, (err, id) =>
                         {
@@ -629,6 +633,7 @@ public class Controller : MonoBehaviour
                                 synchronizationContext.Post(async (a) =>
                                 {
                                     await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = true });
+                                    hidePanel.SetActive(false);
                                 }, null);
                             }, (err, id) =>
                             {
