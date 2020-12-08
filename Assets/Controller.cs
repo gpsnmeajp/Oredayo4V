@@ -531,6 +531,8 @@ public class Controller : MonoBehaviour
             {
                 var d = (PipeCommands.RootPositionControl)e.Data;
                 cameraRootLocker.Lock = d.CameraLock;
+                lookAtModel.enabled = d.CameraLock;
+
                 lightRootLocker.Lock = d.LightLock;
                 backgroundRootLocker.Lock = d.BackgroundLock;
             }
@@ -615,10 +617,11 @@ public class Controller : MonoBehaviour
                             }, null);
                         }, (err, id) =>
                         {
-                            Debug.LogError("[SEDSS Client] ダウンロード失敗(通信異常,パスワード誤り)");
+                            Debug.LogError("[SEDSS Client] ダウンロード失敗(waidayoを再起動してもう一度お試しください)");
                             synchronizationContext.Post(async (a) =>
                             {
                                 await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                                hidePanel.SetActive(false);
                             }, null);
                         });
                     }
@@ -637,10 +640,11 @@ public class Controller : MonoBehaviour
                                 }, null);
                             }, (err, id) =>
                             {
-                                Debug.LogError("[SEDSS Client] アップロード失敗(通信異常,パスワード誤り)");
+                                Debug.LogError("[SEDSS Client] アップロード失敗(waidayoを再起動してもう一度お試しください)");
                                 synchronizationContext.Post(async (a) =>
                                 {
                                     await server.SendCommandAsync(new PipeCommands.SEDSSResult { ok = false });
+                                    hidePanel.SetActive(false);
                                 }, null);
                             });
                         }
@@ -770,6 +774,7 @@ public class Controller : MonoBehaviour
     float nextTime = 0;
     float lastEVMC4UTime = 0;
     int failCount = int.MaxValue;
+    float lastHeight = 0;
     void Update()
     {
         //KeepAlive 
@@ -795,8 +800,13 @@ public class Controller : MonoBehaviour
                 failCount = 0;
             }
 
+            if (lastHeight != externalReceiver.HeadPosition.y) {
+                lookAtModel.LateUpdate();
+            }
+
             lastEVMC4UTime = communicationValidator.time;
             nextTime = Time.time + 0.5f; //500ms周期
+            lastHeight = externalReceiver.HeadPosition.y;
         }
     }
 

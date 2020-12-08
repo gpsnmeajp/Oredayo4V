@@ -13,7 +13,7 @@ public class LookAtModel : MonoBehaviour
         
     }
 
-    void LateUpdate()
+    public void LateUpdate()
     {
         if (externalReceiver.Model != null) {
             Vector3 t = externalReceiver.Model.transform.position;
