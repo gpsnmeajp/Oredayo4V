@@ -594,7 +594,7 @@
 										<Grid.RowDefinitions>
 											<RowDefinition />
 										</Grid.RowDefinitions>
-										<CheckBox Foreground="#444444"  Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_CameraLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
+										<CheckBox Foreground="#444444"  Name="CameraRootPosLockCheckBox"  VerticalAlignment="Center"  Grid.Column="0" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_CameraLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="False" />
 										<CheckBox Foreground="#444444"  Name="LightRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="1" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_LightLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
 										<CheckBox Foreground="#444444"  Name="BackgroundRootPosLockCheckBox" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"  Content="{DynamicResource Tab_AdvancedSetting_RootPosition_BackgroundLock}" Checked="RootPos_Checked"  Unchecked="RootPos_Checked" IsChecked="True" />
 									</Grid>
