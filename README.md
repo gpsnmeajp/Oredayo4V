@@ -1,5 +1,5 @@
 # VMCProtocol対応バストアップ撮影ツール Oredayo4V
-Waidayo での利用を想定しています。バーチャルモーションキャプチャーなどでも利用可能です。  
+waidayo での利用を想定しています。バーチャルモーションキャプチャーなどでも利用可能です。  
 [Mac/Linuxで動くOredayo4Mはこちら](https://github.com/gpsnmeajp/Oredayo4M)
 
 # [説明書をお読みください(ダウンロードもこちら)](https://github.com/gpsnmeajp/Oredayo/wiki)
@@ -11,5 +11,5 @@ Waidayo での利用を想定しています。バーチャルモーションキ
 [VMC Protocol対応](https://sh-akira.github.io/VirtualMotionCaptureProtocol/)  
 <img src="https://github.com/gpsnmeajp/Oredayo/blob/wiki_img/wiki_img/vmpc_logo_128x128.png?raw=true"></img>
 
-# Waidayoは以下
+# waidayoは以下
 https://github.com/nmchan/waidayo
