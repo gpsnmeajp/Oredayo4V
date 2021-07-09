@@ -237,7 +237,7 @@ namespace WPF_UI
                 }
                 else if (e.CommandType == typeof(PipeCommands.VRMLicenceCheck))
                 {
-                    //エラーダイアログ処理
+                    //ライセンスチェック処理
                     var d = (PipeCommands.VRMLicenceCheck)e.Data;
                     if (d.skip)
                     {
@@ -259,14 +259,14 @@ namespace WPF_UI
                 }
                 else if (e.CommandType == typeof(PipeCommands.DiscoverResponse))
                 {
-                    //エラーダイアログ処理
+                    //探索応答処理
                     var d = (PipeCommands.DiscoverResponse)e.Data;
                     SEDSSClientAddressTextBox.Text = d.ip;
                     FoundOnce = true;
                 }
                 else if (e.CommandType == typeof(PipeCommands.SEDSSResult))
                 {
-                    //エラーダイアログ処理
+                    //アバター送信結果処理
                     var d = (PipeCommands.SEDSSResult)e.Data;
                     if (d.ok)
                     {
@@ -277,7 +277,22 @@ namespace WPF_UI
                         SEDSS_Client_Card.Background = new SolidColorBrush(Color.FromArgb(255, 255, 235, 235));
                     }
                 }
-
+                else if (e.CommandType == typeof(PipeCommands.LoginDVRConnectResult))
+                {
+                    //DVRCログイン処理
+                    var d = (PipeCommands.LoginDVRConnectResult)e.Data;
+                    DVRConnectKey.Content = d.key;
+                }
+                else if (e.CommandType == typeof(PipeCommands.GetAvatarDVRConnectResult))
+                {
+                    //DVRCアバター取得処理
+                    var d = (PipeCommands.GetAvatarDVRConnectResult)e.Data;
+                    DVRConnectAvatarComboBox.Items.Clear();
+                    for (int i = 0; i < d.avatars.Length; i++) {
+                        DVRConnectAvatarComboBox.Items.Add(d.avatars[i]);
+                    }
+                    DVRConnectAvatarComboBox.SelectedIndex = 0;
+                }
 
             });
         }
@@ -686,8 +701,16 @@ namespace WPF_UI
         }
         private async void DVRConnectLoad_Click(object sender, RoutedEventArgs e)
         {
-            await client.SendCommandAsync(new PipeCommands.LoadDVRConnect { });
+            await client.SendCommandAsync(new PipeCommands.LoadDVRConnect
+            {
+                index = DVRConnectAvatarComboBox.SelectedIndex
+            });
             Console.WriteLine("DVRConnectLoad_Click");
+        }
+        private async void DVRConnectReloadList_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.GetAvatarDVRConnect { });
+            Console.WriteLine("DVRConnectReloadList_Click");
         }
 
         //===========背景読み込み===========

@@ -210,7 +210,10 @@ namespace UnityMemoryMappedFile
         public class DiscoverRequest {}
 
         public class LoginDVRConnect { }
-        public class LoadDVRConnect { }
+        public class LoadDVRConnect {
+            public int index { get; set; }
+        }
+        public class GetAvatarDVRConnect { }
 
         //From Unity
         public class LogMessage
@@ -243,6 +246,15 @@ namespace UnityMemoryMappedFile
         public class SEDSSResult
         {
             public bool ok { get; set; }
+        }
+
+        public class LoginDVRConnectResult
+        {
+            public string key { get; set; }
+        }
+        public class GetAvatarDVRConnectResult
+        {
+            public string[] avatars { get; set; }
         }
 
     }

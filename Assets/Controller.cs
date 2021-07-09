@@ -256,9 +256,12 @@ public class Controller : MonoBehaviour
                 Debug.Log("LoginDVRConnect");
 
                 //TODO
-                synchronizationContext.Post((args) =>
+                synchronizationContext.Post(async (args) =>
                 {
                     Debug.LogError("LoginDVRConnect: TODO");
+
+                    //KEYを応答する
+                    await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "XXX-YYYY" });
                 }, null);
             }
 
@@ -266,12 +269,27 @@ public class Controller : MonoBehaviour
             else if (e.CommandType == typeof(PipeCommands.LoadDVRConnect))
             {
                 var d = (PipeCommands.LoadDVRConnect)e.Data;
-                Debug.Log("LoadDVRConnect");
+                Debug.Log("LoadDVRConnect : " + d.index.ToString());
 
                 //TODO
                 synchronizationContext.Post((args) =>
                 {
                     Debug.LogError("LoadDVRConnect: TODO");
+                }, null);
+            }
+
+            //===========DVRConnect GetAvatar===========
+            else if (e.CommandType == typeof(PipeCommands.GetAvatarDVRConnect))
+            {
+                Debug.Log("GetAvatarDVRConnect");
+
+                //TODO
+                synchronizationContext.Post(async (args) =>
+                {
+                    Debug.LogError("GetAvatarDVRConnect: TODO");
+
+                    //応答する
+                    await server.SendCommandAsync(new PipeCommands.GetAvatarDVRConnectResult { avatars = new string[3] { "1", "B", "X"} });
                 }, null);
             }
 

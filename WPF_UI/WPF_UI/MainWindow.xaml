@@ -173,12 +173,15 @@
 													<DockPanel Margin="5,5,5,5">
 														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top">
 															<DockPanel Margin="5,5,5,5">
-																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="Login" Click="DVRConnectLogin_Click" />
+																<Button DockPanel.Dock="Top"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="Login" Click="DVRConnectLogin_Click" />
+																<Label DockPanel.Dock="Bottom" Name="DVRConnectKey"></Label>
 															</DockPanel>
 														</materialDesign:Card>
 														<materialDesign:Card Margin="5,5,5,5" DockPanel.Dock="Top">
 															<DockPanel Margin="5,5,5,5">
-																<Button DockPanel.Dock="Bottom"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="Load" Click="DVRConnectLoad_Click" />
+																<ComboBox DockPanel.Dock="Top" Name="DVRConnectAvatarComboBox" Foreground="#333333"></ComboBox>
+																<Button DockPanel.Dock="Top"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="Load Avatar" Click="DVRConnectLoad_Click" />
+																<Button DockPanel.Dock="Top"  Margin="5,5,5,5" Style="{DynamicResource MaterialDesignFlatButton}" Content="Reload list" Click="DVRConnectReloadList_Click" />
 															</DockPanel>
 														</materialDesign:Card>
 													</DockPanel>
