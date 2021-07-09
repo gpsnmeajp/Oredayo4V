@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
@@ -208,6 +208,9 @@ namespace UnityMemoryMappedFile
         }
 
         public class DiscoverRequest {}
+
+        public class LoginDVRConnect { }
+        public class LoadDVRConnect { }
 
         //From Unity
         public class LogMessage

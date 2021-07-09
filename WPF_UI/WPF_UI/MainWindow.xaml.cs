@@ -1,4 +1,4 @@
-﻿/* Oredayo
+/* Oredayo
 
 MIT License
 
@@ -676,6 +676,18 @@ namespace WPF_UI
                 SEDSSClientUploadFilePathTextBox.Text = VRMPathTextBox.Text;
                 Console.WriteLine("VRMLoadFileSelectButton_Click");
             }
+        }
+
+        //===========DVRConnect===========
+        private async void DVRConnectLogin_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.LoginDVRConnect { });
+            Console.WriteLine("DVRConnectLogin_Click");
+        }
+        private async void DVRConnectLoad_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.LoadDVRConnect { });
+            Console.WriteLine("DVRConnectLoad_Click");
         }
 
         //===========背景読み込み===========

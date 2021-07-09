@@ -249,6 +249,32 @@ public class Controller : MonoBehaviour
                 }
             }
 
+            //===========DVRConnect Login===========
+            else if (e.CommandType == typeof(PipeCommands.LoginDVRConnect))
+            {
+                var d = (PipeCommands.LoginDVRConnect)e.Data;
+                Debug.Log("LoginDVRConnect");
+
+                //TODO
+                synchronizationContext.Post((args) =>
+                {
+                    Debug.LogError("LoginDVRConnect: TODO");
+                }, null);
+            }
+
+            //===========DVRConnect Load===========
+            else if (e.CommandType == typeof(PipeCommands.LoadDVRConnect))
+            {
+                var d = (PipeCommands.LoadDVRConnect)e.Data;
+                Debug.Log("LoadDVRConnect");
+
+                //TODO
+                synchronizationContext.Post((args) =>
+                {
+                    Debug.LogError("LoadDVRConnect: TODO");
+                }, null);
+            }
+
             //===========背景読み込み===========
             else if (e.CommandType == typeof(PipeCommands.LoadBackground))
             {
