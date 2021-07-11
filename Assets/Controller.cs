@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -35,6 +36,11 @@ using akr.Unity.Windows;
 using EVMC4U;
 using UnityMemoryMappedFile;
 using VRM;
+
+using DVRSDK.Auth;
+using DVRSDK.Utilities;
+using DVRSDK.Serializer;
+using DVRSDK.Avatar;
 
 /*
 ・あきらさんのグリーンバック(色可変)を載せる
@@ -120,6 +126,18 @@ public class Controller : MonoBehaviour
         {
             await server.SendCommandAsync(new PipeCommands.Hello { startTime = this.startTime });
         }, null);
+
+        //自動ログイン
+        var config = new DVRAuthConfiguration(TokenManager.DVRSDK_ClientId, new UnitySettingStore(), new UniWebRequest(), new NewtonsoftJsonSerializer());
+        Authentication.Instance.Init(config);
+        Task<bool> autologin = Authentication.Instance.TryAutoLogin(async (ok) => {
+            if (ok)
+            {
+                Debug.Log("AUTHENTICATION_OK");
+                await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "LOGIN OK" });
+                await GetAvatarsList();
+            }
+        });
     }
 
     private void OnApplicationQuit()
@@ -255,13 +273,53 @@ public class Controller : MonoBehaviour
                 var d = (PipeCommands.LoginDVRConnect)e.Data;
                 Debug.Log("LoginDVRConnect");
 
-                //TODO
                 synchronizationContext.Post(async (args) =>
                 {
-                    Debug.LogError("LoginDVRConnect: TODO");
+                    var config = new DVRAuthConfiguration(TokenManager.DVRSDK_ClientId, new UnitySettingStore(), new UniWebRequest(), new NewtonsoftJsonSerializer());
+                    Authentication.Instance.Init(config);
+                    Authentication.Instance.Authorize(
+                        openBrowser: async (OpenBrowserResponse url) =>
+                        {
+                            Application.OpenURL(url.VerificationUri);
+                            //KEYを応答する
+                            await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = url.UserCode });
+                        },
+                        onAuthSuccess: async isSuccess =>
+                        {
+                            if (isSuccess)
+                            {
+                                Debug.Log("AUTHENTICATION_OK");
+                                await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "LOGIN OK" });
+                                await GetAvatarsList();
+                            }
+                            else
+                            {
+                                Debug.Log("AUTHENTICATION_FAILED");
+                                await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "LOGIN ERROR" });
+                            }
+                        },
+                        onAuthError: async exception =>
+                        {
+                            Debug.Log("AUTHENTICATION_FAILED");
+                            Debug.LogError(exception);
+                            await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "LOGIN ERROR" });
+                        });
+                }, null);
+            }
 
-                    //KEYを応答する
-                    await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "XXX-YYYY" });
+            //===========DVRConnect Logout===========
+            else if (e.CommandType == typeof(PipeCommands.LogoutDVRConnect))
+            {
+                var d = (PipeCommands.LogoutDVRConnect)e.Data;
+                Debug.Log("LogoutDVRConnect");
+
+                synchronizationContext.Post(async (args) =>
+                {
+                    var config = new DVRAuthConfiguration(TokenManager.DVRSDK_ClientId, new UnitySettingStore(), new UniWebRequest(), new NewtonsoftJsonSerializer());
+                    Authentication.Instance.Init(config);
+                    await Authentication.Instance.DoLogout();
+
+                    await server.SendCommandAsync(new PipeCommands.LoginDVRConnectResult { key = "LOGOUT" });
                 }, null);
             }
 
@@ -271,10 +329,12 @@ public class Controller : MonoBehaviour
                 var d = (PipeCommands.LoadDVRConnect)e.Data;
                 Debug.Log("LoadDVRConnect : " + d.index.ToString());
 
-                //TODO
-                synchronizationContext.Post((args) =>
+                synchronizationContext.Post(async (args) =>
                 {
-                    Debug.LogError("LoadDVRConnect: TODO");
+                    var avatars = await Authentication.Instance.Okami.GetAvatarsAsync();
+                    var currentAvatar = avatars[d.index];
+
+                    await LoadAvatarFromDVRSDK(currentAvatar);
                 }, null);
             }
 
@@ -283,13 +343,9 @@ public class Controller : MonoBehaviour
             {
                 Debug.Log("GetAvatarDVRConnect");
 
-                //TODO
                 synchronizationContext.Post(async (args) =>
                 {
-                    Debug.LogError("GetAvatarDVRConnect: TODO");
-
-                    //応答する
-                    await server.SendCommandAsync(new PipeCommands.GetAvatarDVRConnectResult { avatars = new string[3] { "1", "B", "X"} });
+                    await GetAvatarsList();
                 }, null);
             }
 
@@ -873,5 +929,40 @@ public class Controller : MonoBehaviour
                 backgroundObject.transform.localScale = new Vector3(lastBackgroundPos.scale, lastBackgroundPos.scale * (float)bgtexture.height / (float)bgtexture.width, lastBackgroundPos.scale);
             }
         }
+    }
+
+    async Task GetAvatarsList()
+    {
+        var avatars = await Authentication.Instance.Okami.GetAvatarsAsync();
+
+        //LINQでもっと綺麗に書けると思う
+        string[] avatarArray = new string[avatars.Count];
+        for (int i = 0; i < avatars.Count; i++)
+        {
+            avatarArray[i] = avatars[i].name;
+        }
+        //応答する
+        await server.SendCommandAsync(new PipeCommands.GetAvatarDVRConnectResult { avatars = avatarArray });
+    }
+    public async Task LoadAvatarFromDVRSDK(DVRSDK.Auth.Okami.Models.AvatarModel avatar)
+    {
+        var vrmLoader = new DVRSDK.Avatar.VRMLoader();
+
+        externalReceiver.DestroyModel();
+        externalReceiver.Model = await Authentication.Instance.Okami.LoadAvatarVRMAsync(avatar, vrmLoader.LoadVRMModelFromConnect) as GameObject;
+
+        //ExternalReceiverの下にぶら下げる
+        externalReceiver.LoadedModelParent = new GameObject();
+        externalReceiver.LoadedModelParent.transform.SetParent(transform, false);
+        externalReceiver.LoadedModelParent.name = "LoadedModelParent";
+        //その下にモデルをぶら下げる
+        externalReceiver.Model.transform.SetParent(externalReceiver.LoadedModelParent.transform, false);
+
+        vrmLoader.ShowMeshes();
+        //vrmLoader.AddAutoBlinkComponent();
+
+        //カメラなどの移動補助のため、頭の位置を格納する
+        Animator animator = externalReceiver.Model.GetComponent<Animator>();
+        externalReceiver.HeadPosition = animator.GetBoneTransform(HumanBodyBones.Head).position;
     }
 }

@@ -699,6 +699,11 @@ namespace WPF_UI
             await client.SendCommandAsync(new PipeCommands.LoginDVRConnect { });
             Console.WriteLine("DVRConnectLogin_Click");
         }
+        private async void DVRConnectLogout_Click(object sender, RoutedEventArgs e)
+        {
+            await client.SendCommandAsync(new PipeCommands.LogoutDVRConnect { });
+            Console.WriteLine("DVRConnectLogout_Click");
+        }
         private async void DVRConnectLoad_Click(object sender, RoutedEventArgs e)
         {
             await client.SendCommandAsync(new PipeCommands.LoadDVRConnect

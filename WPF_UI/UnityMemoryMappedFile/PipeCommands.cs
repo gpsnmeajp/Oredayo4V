@@ -210,6 +210,8 @@ namespace UnityMemoryMappedFile
         public class DiscoverRequest {}
 
         public class LoginDVRConnect { }
+        public class LogoutDVRConnect { }
+
         public class LoadDVRConnect {
             public int index { get; set; }
         }
