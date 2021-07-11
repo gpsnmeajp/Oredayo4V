@@ -122,6 +122,16 @@ public class UwcManager : MonoBehaviour
         get { return instance.desktops_.Count; }
     }
 
+    static public bool isWindowsGraphicsCaptureSupported
+    {
+        get { return Lib.IsWindowsGraphicsCaptureSupported(); }
+    }
+
+    static public bool isWindowsGraphicsCaptureCursorCaptureEnabledApiSupported
+    {
+        get { return Lib.IsWindowsGraphicsCaptureCursorCaptureEnabledApiSupported(); }
+    }
+
     void Awake()
     {
         Lib.SetDebugMode(debugMode);
@@ -157,13 +167,12 @@ public class UwcManager : MonoBehaviour
         for (;;) {
             yield return new WaitForEndOfFrame();
             GL.IssuePluginEvent(renderEventFunc_, 0);
-            Lib.TriggerGpuUpload();
         }
     }
 
     void Update()
     {
-        Lib.Update();
+        Lib.Update(Time.deltaTime);
         UpdateWindowInfo();
         UpdateMessages();
         UpdateWindowTitles();
